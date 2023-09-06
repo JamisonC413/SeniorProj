@@ -1,0 +1,35 @@
+version: '3.7'
+services:
+  frontend:
+    build: ./frontend
+    restart: unless-stopped
+    volumes:
+      - ./frontend/src:/frontend/src
+      - ./frontend/public:/frontend/public
+    ports:
+      - "3000:3000"
+    environment:
+      - WATCHPACK_POLLING=true # Enable hot reload
+  
+  backend:
+    build: ./backend
+    command: python manage.py runserver 0.0.0.0:8000    
+    env_file:
+      - .env
+    restart: unless-stopped
+    ports:
+      - "8000:8000"
+    volumes:
+      - ./backend/api:/backend/api
+      - ./backend/backend:/backend/backend
+    depends_on:
+      - database
+
+  database:
+    # Same image as existing FRACTAL project
+    image: mariadb:10.10
+    restart: unless-stopped
+    ports:
+        - 3307:3306
+    env_file:
+      - .env

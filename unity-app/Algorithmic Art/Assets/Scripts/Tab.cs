@@ -7,25 +7,25 @@ using UnityEngine.EventSystems;
 
 public class Tab : MonoBehaviour, IPointerEnterHandler, IPointerClickHandler, IPointerExitHandler
 {
-    public Palette palette;
+    public TabGroup tabGroup;
 
     public void OnPointerClick(PointerEventData eventData) {
         Debug.Log("click");
-        palette.OnTabSelected(this);
+        tabGroup.OnTabSelected(this);
     }
 
     public void OnPointerEnter(PointerEventData eventData) {
         Debug.Log("hover");
-        palette.OnTabEnter(this);
+        tabGroup.OnTabEnter(this);
     }
 
     public void OnPointerExit(PointerEventData eventData) {
         Debug.Log("unhover");
-        palette.OnTabExit(this);
+        tabGroup.OnTabExit(this);
     }
     void Start() {
         Debug.Log("start");
-        palette.Subscribe(this);
+        tabGroup.Subscribe(this);
     }
 
 }

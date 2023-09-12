@@ -135,7 +135,7 @@ GameObject:
   - component: {fileID: 1424820}
   - component: {fileID: 1424819}
   m_Layer: 5
-  m_Name: VariablesBlocks
+  m_Name: VariablesPalette
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -545,7 +545,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4b25f8ba9481c46dc8c91090027bc18a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  palette: {fileID: 1539918492}
+  tabGroup: {fileID: 0}
 --- !u!61 &625601291
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -733,7 +733,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4b25f8ba9481c46dc8c91090027bc18a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  palette: {fileID: 1539918492}
+  tabGroup: {fileID: 0}
 --- !u!61 &629243407
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -827,7 +827,7 @@ GameObject:
   m_Component:
   - component: {fileID: 804756960}
   m_Layer: 5
-  m_Name: Blocks
+  m_Name: Palettes
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1100,7 +1100,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4b25f8ba9481c46dc8c91090027bc18a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  palette: {fileID: 1539918492}
+  tabGroup: {fileID: 0}
 --- !u!61 &1029662961
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -1196,7 +1196,7 @@ GameObject:
   - component: {fileID: 1220751164}
   - component: {fileID: 1220751163}
   m_Layer: 5
-  m_Name: FunctionsBlocks
+  m_Name: FunctionsPalette
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1270,7 +1270,7 @@ GameObject:
   - component: {fileID: 1539918493}
   - component: {fileID: 1539918492}
   m_Layer: 5
-  m_Name: Palette
+  m_Name: Tabs
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1324,7 +1324,7 @@ GameObject:
   - component: {fileID: 1626051230}
   - component: {fileID: 1626051229}
   m_Layer: 5
-  m_Name: DrawBlocks
+  m_Name: DrawPalette
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

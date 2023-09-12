@@ -4,13 +4,13 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
-public class Palette : MonoBehaviour
+public class TabGroup : MonoBehaviour
 {
     public List<Tab> tabs;
 
     public Tab selectedTab;
 
-    public List<GameObject> blocks;
+    public List<GameObject> palette;
 
     public void Subscribe(Tab tab) {
         if(tabs == null) {
@@ -31,12 +31,12 @@ public class Palette : MonoBehaviour
     public void OnTabSelected(Tab tab) {
         selectedTab = tab;
         int index = tab.transform.GetSiblingIndex();
-        for(int i = 0; i < blocks.Count; i++) {
+        for(int i = 0; i < palette.Count; i++) {
             if (i == index) {
-                blocks[i].SetActive(true);
+                palette[i].SetActive(true);
             }
             else {
-                blocks[i].SetActive(false);
+                palette[i].SetActive(false);
             }
         }
     }

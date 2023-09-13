@@ -1,0 +1,39 @@
+using System.Collections;
+using System.Collections.Generic;
+using UnityEngine;
+
+public class BlockSpawn : MonoBehaviour
+{
+    // Start is called before the first frame update
+    //public GameObject blockDrag;
+    public GameObject prefabToSpawn; // Reference to the prefab you want to spawn
+    private GameObject spawnedObject; // Reference to the spawned object
+
+    private void OnMouseDown()
+    {
+        SpawnPrefab(transform.position);
+
+    }
+
+
+    void SpawnPrefab(Vector3 spawnPosition)
+    {
+        // Get the Canvas component on the GameObject
+        Canvas canvas = GetComponentInParent<Canvas>();
+
+        // Create the prefab within the same Canvas
+        spawnedObject = Instantiate(prefabToSpawn, spawnPosition, Quaternion.identity, canvas.transform);
+
+    }
+
+    void Start()
+    {
+
+    }
+
+    // Update is called once per frame
+    void Update()
+    {
+
+    }
+}

@@ -41,6 +41,27 @@ public class DragDrop : Block
             {
                 Debug.Log("4 end drag");
 
+                gameObject.layer = LayerMask.NameToLayer("Ignore Raycast");
+
+                Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
+                RaycastHit2D hit = Physics2D.Raycast(ray.origin, ray.direction);
+
+
+
+                if (hit.collider == null)
+                {
+                    Destroy(gameObject);
+                }
+
+
+                if (hit.collider != null && !hit.collider.CompareTag("CodeArea"))
+                {
+                    Debug.Log(hit.collider.tag);
+                    Destroy(gameObject);
+                }
+
+                gameObject.layer = LayerMask.NameToLayer("Default");
+
                 // Stop dragging when the mouse button is released.
                 isDragging = false;
 

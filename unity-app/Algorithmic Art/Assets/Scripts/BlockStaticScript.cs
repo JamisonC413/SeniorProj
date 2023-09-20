@@ -23,6 +23,8 @@ public class BlockStaticScript : MonoBehaviour
 
         // Create the prefab within the same Canvas
         spawnedObject = Instantiate(prefabToSpawn, spawnPosition, Quaternion.identity, canvas.transform);
+        
+        spawnedObject.tag = "block";
 
     }
 

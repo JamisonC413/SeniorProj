@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using Unity.VisualScripting;
 using UnityEngine;
 
 public class DragDrop : Block
@@ -8,7 +9,6 @@ public class DragDrop : Block
     private bool isDragging = false; // To track if the object is currently being dragged.
     private Vector3 offset; // Offset between the mouse click position and the object's position.
     private BlockStaticScript blockStatic;
-    private bool isSnapped = false;
     private Vector3[] snapPoints; // Define snap points here.
 
     // Start is called before the first frame update
@@ -24,6 +24,9 @@ public class DragDrop : Block
     void Awake()
     {
         this.blockID = Block.nextID;
+        this.topSnapped = false;
+        this.botSnapped = false;
+        this.connectedBlocks = new Block[2];
         Debug.Log("Block ID: " + this.blockID);
 
         Block.nextID++;
@@ -39,30 +42,10 @@ public class DragDrop : Block
 
             if (Input.GetMouseButtonUp(0))
             {
-                Debug.Log("4 end drag");
-
-                gameObject.layer = LayerMask.NameToLayer("Ignore Raycast");
-
-                Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
-                RaycastHit2D hit = Physics2D.Raycast(ray.origin, ray.direction);
-
-
-
-                if (hit.collider == null)
-                {
-                    Destroy(gameObject);
-                }
-
-
-                if (hit.collider != null && !hit.collider.CompareTag("CodeArea"))
-                {
-                    Debug.Log(hit.collider.tag);
-                    Destroy(gameObject);
-                }
-
-                gameObject.layer = LayerMask.NameToLayer("Default");
+                //Debug.Log("end drag");
 
                 // Stop dragging when the mouse button is released.
+
                 isDragging = false;
 
                 SnapToNearestBlock();
@@ -79,11 +62,30 @@ public class DragDrop : Block
 
                 if (hit.collider != null && hit.collider.gameObject == gameObject)
                 {
-                    Debug.Log("4 start drag");
+                    //Debug.Log("start drag");
                     // Calculate the offset between the click position and the object's position.
                     offset = transform.position - MouseWorldPos();
+
+                    if (GetComponent<SpriteRenderer>().sortingOrder <= layer)
+                    {
+                        GetComponent<SpriteRenderer>().sortingOrder = Block.layer;
+                        Block.layer++;
+                    }
+
                     isDragging = true;
-                    isSnapped = false;
+                    this.topSnapped = false;
+                    this.botSnapped = false;
+                    if (connectedBlocks[0] != null)
+                    {
+                        connectedBlocks[0].botSnapped = false;
+                        Debug.Log(connectedBlocks[0].blockID + " bot snap cleared");
+                    }
+                    if (connectedBlocks[1] != null)
+                    {
+                        connectedBlocks[1].topSnapped = false;
+                        Debug.Log(connectedBlocks[1].blockID + " top snap cleared");
+                    }
+
                 }
 
             }
@@ -100,8 +102,8 @@ public class DragDrop : Block
 
     void SnapToNearestBlock()
     {
-        float xSnapDistance = 0.8f;
-        float ySnapDistance = 1.3f;
+        float xSnapDistance = 1f;
+        float ySnapDistance = 1.5f;
 
         Block[] blocks = FindObjectsOfType<Block>();
 
@@ -120,29 +122,35 @@ public class DragDrop : Block
                     // Snap this block to the other block
                     float newYPosition = 0;
 
-                    if (yDistance <= 0)
+                    if (yDistance <= 0 && block.botSnapped == false)
                     {
                         newYPosition = block.transform.position.y - (GetComponent<BoxCollider2D>().size.y / 4);
                         Debug.Log("snapped below");
+                        //makes sure blocks dont snap on already snapped blocks
+                        block.botSnapped = true;
+                        this.topSnapped = true;
+                        connectedBlocks[0] = block;
+                        block.connectedBlocks[1] = this;
+                        //snaps block
+                        transform.position = new Vector3(block.transform.position.x, newYPosition, block.transform.position.z);
 
                     }
-                    else
+                    if (yDistance > 0 && block.topSnapped == false)
                     {
                         newYPosition = block.transform.position.y + (GetComponent<BoxCollider2D>().size.y / 4);
                         Debug.Log("snapped on top");
+                        //makes sure blocks dont snap on already snapped blocks
+                        block.topSnapped = true;
+                        this.botSnapped = true;
+                        connectedBlocks[1] = block;
+                        block.connectedBlocks[0] = this;
+                        //snaps block
+                        transform.position = new Vector3(block.transform.position.x, newYPosition, block.transform.position.z);
                     }
-
-                    transform.position = new Vector3(block.transform.position.x, newYPosition, block.transform.position.z);
 
 
                 }
             }
-        }
-
-        // If the object didn't snap to any snap point, you can handle it differently (e.g., return it to its original position).
-        if (!isSnapped)
-        {
-            // Handle the case when the object is not snapped.
         }
     }
 }

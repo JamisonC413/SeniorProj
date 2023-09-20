@@ -11,7 +11,7 @@ public class TakeScreenshotAndSend : MonoBehaviour
     // Make sure that the function name and signature are the same in both of these locations.
     // See: https://react-unity-webgl.dev/docs/api/event-system#dispatching-events
     [DllImport("__Internal")]
-    private static extern void SendImage (string base64Image);
+    private static extern void SendImage(string base64Image);
 
     // Function to be called whenever the "take picture" button is pressed.
     public void TakePicture()
@@ -32,25 +32,29 @@ public class TakeScreenshotAndSend : MonoBehaviour
 
         // Show the UI again.
         GameObject.Find("UI Canvas").GetComponent<Canvas>().enabled = true;
-        
+
+        Texture2D croppedTexture = new Texture2D((int)(Screen.width - Camera.main.WorldToScreenPoint(GameObject.Find("Display").GetComponent<SpriteRenderer>().bounds.min).x), Screen.height);
+        croppedTexture.SetPixels(texture.GetPixels((int)Camera.main.WorldToScreenPoint(GameObject.Find("Display").GetComponent<SpriteRenderer>().bounds.min).x, 0, (int)(Screen.width - Camera.main.WorldToScreenPoint(GameObject.Find("Display").GetComponent<SpriteRenderer>().bounds.min).x), Screen.height));
+        croppedTexture.Apply();
+
         // Convert this texture to a PNG in a byte representation.
-        byte[] bytes = ImageConversion.EncodeToPNG(texture);
+        byte[] bytes = ImageConversion.EncodeToPNG(croppedTexture);
 
         // Destroy texture now that we're finished with it.
-        UnityEngine.Object.Destroy(texture);
+        UnityEngine.Object.Destroy(croppedTexture);
 
         // Convert the PNG in byte-form to a base64 string.
         string base64Image = Convert.ToBase64String(bytes);
 
         // Call the imported SendImage() function and pass it the base64 string we have created.
-        // 
+        //
         // Some notes:
         // - This code is only compiled if the game is running in a WebGL environment;
         //   denoted by the #if preprocessor directive.
         // - This must be done to prevent compiler errors since WebGL functions are
         //   unavailable when running the game in the Unity Editor.
-        #if UNITY_WEBGL == true && UNITY_EDITOR == false
+#if UNITY_WEBGL == true && UNITY_EDITOR == false
             SendImage(base64Image);
-        #endif
+#endif
     }
 }

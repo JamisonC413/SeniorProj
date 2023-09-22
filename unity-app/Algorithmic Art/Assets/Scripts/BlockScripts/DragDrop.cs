@@ -8,7 +8,6 @@ public class DragDrop : Block
 
     private bool isDragging = false; // To track if the object is currently being dragged.
     private Vector3 offset; // Offset between the mouse click position and the object's position.
-    private BlockStaticScript blockStatic;
     private Vector3[] snapPoints; // Define snap points here.
 
     // Start is called before the first frame update
@@ -20,7 +19,7 @@ public class DragDrop : Block
             new Vector3(0.0f, -GetComponent<Collider2D>().bounds.extents.y, 0.0f)
         };
     }
-
+    
     void Awake()
     {
         this.blockID = Block.nextID;

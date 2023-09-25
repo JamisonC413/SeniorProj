@@ -17,8 +17,11 @@ public class BlockStaticScript2 : MonoBehaviour
 
     void SpawnPrefab(Vector3 spawnPosition)
     {
+
+        GameObject rootObject = transform.root.gameObject;
+
         // Get the Canvas component on the GameObject
-        Canvas canvas = GetComponentInParent<Canvas>();
+        Canvas canvas = rootObject.GetComponent<Canvas>();
 
         // Create the prefab within the same Canvas
         spawnedObject = Instantiate(prefabToSpawn, spawnPosition, Quaternion.identity, canvas.transform);

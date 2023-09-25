@@ -21,7 +21,7 @@ public class startBlock : Block
         this.blockID = Block.nextID;
         this.topSnapped = false;
         this.botSnapped = false;
-        this.prev = null;
+        this.prevBlock = null;
         this.next = null;
 
         Block.nextID++;

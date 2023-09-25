@@ -148,8 +148,8 @@ MonoBehaviour:
   blockColor: {r: 0, g: 0, b: 0, a: 0}
   topSnapped: 0
   botSnapped: 0
-  prev: {fileID: 0}
-  next: {fileID: 0}
+  prevBlock: {fileID: 0}
+  nextBlock: {fileID: 0}
   snapPositions: []
 --- !u!50 &4200685410695403554
 Rigidbody2D:

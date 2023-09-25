@@ -17,10 +17,10 @@ public class DragDrop : Block
 
     void Start()
     {
-        snapPoints = new Vector3[]
-        {
-            new Vector3(0.0f, -GetComponent<Collider2D>().bounds.extents.y, 0.0f)
-        };
+        //snapPoints = new Vector3[]
+        //{
+        //    new Vector3(0.0f, -GetComponent<Collider2D>().bounds.extents.y, 0.0f)
+        //};
     }
 
     void Awake()
@@ -28,8 +28,8 @@ public class DragDrop : Block
         this.blockID = Block.nextID;
         this.topSnapped = false;
         this.botSnapped = false;
-        this.prev = null;
-        this.next = null;
+        this.prevBlock = null;
+        this.nextBlock = null;
         Debug.Log("Block ID: " + this.blockID);
 
         Block.nextID++;
@@ -65,6 +65,9 @@ public class DragDrop : Block
 
                 //gameObject.layer = LayerMask.NameToLayer("BlockLayer");
 
+
+                isDragging = false;
+
                 if (!isInsideDropZone)
                 {
                     Destroy(gameObject);
@@ -73,9 +76,7 @@ public class DragDrop : Block
                 Debug.Log("end drag");
 
                 // Stop dragging when the mouse button is released.
-
-
-                isDragging = false;
+                GetComponent<SpriteRenderer>().sortingOrder = 1;
 
                 SnapToNearestBlock();
             }
@@ -95,25 +96,24 @@ public class DragDrop : Block
                     // Calculate the offset between the click position and the object's position.
                     offset = transform.position - MouseWorldPos();
 
-                    if (GetComponent<SpriteRenderer>().sortingOrder <= layer)
-                    {
-                        GetComponent<SpriteRenderer>().sortingOrder = Block.layer;
-                        Block.layer++;
-                    }
+                    GetComponent<SpriteRenderer>().sortingOrder = 2;
 
                     isDragging = true;
                     isSnapped = false;
                     this.topSnapped = false;
                     this.botSnapped = false;
-                    if (prev != null)
+
+                    if (prevBlock != null)
                     {
-                        prev.botSnapped = false;
-                        Debug.Log(prev.blockID + " bot snap cleared");
+                        prevBlock.botSnapped = false;
+                        prevBlock.nextBlock = null;
+                        Debug.Log(prevBlock.blockID + " bot snap cleared");
                     }
-                    if (next != null)
+                    if (nextBlock != null)
                     {
-                        next.topSnapped = false;
-                        Debug.Log(next.blockID + " top snap cleared");
+                        nextBlock.topSnapped = false;
+                        nextBlock.prevBlock = null;
+                        Debug.Log(nextBlock.blockID + " top snap cleared");
                     }
 
                 }
@@ -125,7 +125,7 @@ public class DragDrop : Block
 
     private void OnTriggerEnter2D(Collider2D other)
     {
-        Debug.Log("enter trigger");
+        //Debug.Log("enter trigger");
 
         if (other.CompareTag("CodeArea"))
         {
@@ -135,7 +135,7 @@ public class DragDrop : Block
 
     private void OnTriggerExit2D(Collider2D other)
     {
-        Debug.Log("exit trigger");
+        //Debug.Log("exit trigger");
 
         if (other.CompareTag("CodeArea"))
         {
@@ -174,26 +174,26 @@ public class DragDrop : Block
 
                     if (yDistance <= 0 && block.botSnapped == false)
                     {
-                        newYPosition = block.transform.position.y - (GetComponent<BoxCollider2D>().size.y / 2);
+                        newYPosition = block.transform.position.y - (GetComponent<BoxCollider2D>().size.y / 1.75f);
                         Debug.Log("snapped below");
                         //makes sure blocks dont snap on already snapped blocks
                         block.botSnapped = true;
                         this.topSnapped = true;
-                        prev = block;
-                        block.next = this;
+                        prevBlock = block;
+                        block.nextBlock = this;
                         //snaps block
                         transform.position = new Vector3(block.transform.position.x, newYPosition, block.transform.position.z);
 
                     }
                     if (yDistance > 0 && block.topSnapped == false)
                     {
-                        newYPosition = block.transform.position.y + (GetComponent<BoxCollider2D>().size.y / 2);
+                        newYPosition = block.transform.position.y + (GetComponent<BoxCollider2D>().size.y / 1.75f);
                         Debug.Log("snapped on top");
                         //makes sure blocks dont snap on already snapped blocks
                         block.topSnapped = true;
                         this.botSnapped = true;
-                        next = block;
-                        block.prev = this;
+                        nextBlock = block;
+                        block.prevBlock = this;
                         //snaps block
                         transform.position = new Vector3(block.transform.position.x, newYPosition, block.transform.position.z);
                     }

@@ -10,8 +10,8 @@ public class drawBlock : Block
         this.blockID = Block.nextID;
         this.topSnapped = false;
         this.botSnapped = false;
-        this.prev = null;
-        this.next = null;
+        this.prevBlock = null;
+        this.nextBlock = null;
 
         Block.nextID++;
 

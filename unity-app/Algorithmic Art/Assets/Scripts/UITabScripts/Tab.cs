@@ -10,21 +10,21 @@ public class Tab : MonoBehaviour, IPointerEnterHandler, IPointerClickHandler, IP
     public TabGroup tabGroup;
 
     public void OnPointerClick(PointerEventData eventData) {
-        Debug.Log("click");
+        //Debug.Log("click");
         tabGroup.OnTabSelected(this);
     }
 
     public void OnPointerEnter(PointerEventData eventData) {
-        Debug.Log("hover");
+        //Debug.Log("hover");
         tabGroup.OnTabEnter(this);
     }
 
     public void OnPointerExit(PointerEventData eventData) {
-        Debug.Log("unhover");
+        //Debug.Log("unhover");
         tabGroup.OnTabExit(this);
     }
     void Start() {
-        Debug.Log("start");
+        //Debug.Log("start");
         tabGroup.Subscribe(this);
     }
 

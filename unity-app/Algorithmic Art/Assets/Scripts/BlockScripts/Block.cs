@@ -13,4 +13,17 @@ public class Block : MonoBehaviour
     public bool topSnapped;
     public bool botSnapped;
     public Block[] connectedBlocks;
+    public Vector2[] snapPositions;
+
+    public void moveChildren(Vector2 translation)
+    {
+        Vector3 newPosition = new Vector3(translation.x, translation.y, transform.position.z);
+        transform.position = newPosition;
+
+        if(connectedBlocks[1] != null)
+        {
+            connectedBlocks[1].moveChildren(translation);
+        }
+    }
+
 }

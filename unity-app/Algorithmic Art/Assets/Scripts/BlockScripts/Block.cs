@@ -12,7 +12,8 @@ public class Block : MonoBehaviour
     public Color blockColor;
     public bool topSnapped;
     public bool botSnapped;
-    public Block[] connectedBlocks;
+    public Block prev;
+    public Block next;
     public Vector2[] snapPositions;
 
     public void moveChildren(Vector2 translation)
@@ -20,9 +21,9 @@ public class Block : MonoBehaviour
         Vector3 newPosition = new Vector3(translation.x, translation.y, transform.position.z);
         transform.position = newPosition;
 
-        if(connectedBlocks[1] != null)
+        if(next != null)
         {
-            connectedBlocks[1].moveChildren(translation);
+            next.moveChildren(translation);
         }
     }
 

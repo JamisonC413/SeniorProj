@@ -12,10 +12,10 @@ GameObject:
   - component: {fileID: 3918490678774855490}
   - component: {fileID: 3298220470990979444}
   - component: {fileID: 3833578705743607090}
-  - component: {fileID: -4583666910160371836}
+  - component: {fileID: 4200685410695403554}
   m_Layer: 3
-  m_Name: Block
-  m_TagString: Untagged
+  m_Name: Block2
+  m_TagString: block
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -29,8 +29,8 @@ Transform:
   m_GameObject: {fileID: 801895102098321813}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -330.04846, y: 177.8305, z: -1876.9749}
-  m_LocalScale: {x: 5.6950884, y: 5.474185, z: 20.823244}
+  m_LocalPosition: {x: -349.8, y: 205.3, z: 0}
+  m_LocalScale: {x: 50, y: 40, z: 0}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
@@ -76,7 +76,7 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 1
-  m_Sprite: {fileID: 21300000, guid: 8e9ee3c778a9bb843aff347efd78d1bb, type: 3}
+  m_Sprite: {fileID: 21300000, guid: 11240ce8e6c7e4746a41a929c5b5ebe8, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
@@ -116,21 +116,21 @@ BoxCollider2D:
   m_CallbackLayers:
     serializedVersion: 2
     m_Bits: 4294967295
-  m_IsTrigger: 0
+  m_IsTrigger: 1
   m_UsedByEffector: 0
   m_UsedByComposite: 0
-  m_Offset: {x: 0, y: 0}
+  m_Offset: {x: -0.0049067736, y: -0.046275795}
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
     pivot: {x: 0.5, y: 0.5}
-    oldSize: {x: 18.4, y: 4.38}
+    oldSize: {x: 3.8, y: 2.4}
     newSize: {x: 18.4, y: 4.38}
     adaptiveTilingThreshold: 0.5
     drawMode: 0
     adaptiveTiling: 0
   m_AutoTiling: 0
   serializedVersion: 2
-  m_Size: {x: 18.4, y: 4.38}
+  m_Size: {x: 3.8437831, y: 2.3753743}
   m_EdgeRadius: 0
 --- !u!114 &3833578705743607090
 MonoBehaviour:
@@ -139,7 +139,7 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 801895102098321813}
-  m_Enabled: 0
+  m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 304738b1fe0ebc94e99dadb4311b7275, type: 3}
   m_Name: 
@@ -151,22 +151,30 @@ MonoBehaviour:
   prev: {fileID: 0}
   next: {fileID: 0}
   snapPositions: []
---- !u!114 &-4583666910160371836
-MonoBehaviour:
+--- !u!50 &4200685410695403554
+Rigidbody2D:
+  serializedVersion: 4
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 801895102098321813}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 6b9822ff91463ec4eb1928e86e28ec79, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  blockID: 0
-  blockColor: {r: 0, g: 0, b: 0, a: 0}
-  topSnapped: 0
-  botSnapped: 0
-  prev: {fileID: 0}
-  next: {fileID: 0}
-  snapPositions: []
+  m_BodyType: 0
+  m_Simulated: 1
+  m_UseFullKinematicContacts: 0
+  m_UseAutoMass: 0
+  m_Mass: 1
+  m_LinearDrag: 0
+  m_AngularDrag: 0.05
+  m_GravityScale: 0
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_Interpolate: 0
+  m_SleepingMode: 1
+  m_CollisionDetection: 0
+  m_Constraints: 0

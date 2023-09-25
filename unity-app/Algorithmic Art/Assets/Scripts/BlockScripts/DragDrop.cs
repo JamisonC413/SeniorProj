@@ -8,7 +8,10 @@ public class DragDrop : Block
 
     private bool isDragging = false; // To track if the object is currently being dragged.
     private Vector3 offset; // Offset between the mouse click position and the object's position.
+    private BlockStaticScript blockStatic;
+    private bool isSnapped = false;
     private Vector3[] snapPoints; // Define snap points here.
+    private bool isInsideDropZone = false;
 
     // Start is called before the first frame update
 
@@ -19,13 +22,14 @@ public class DragDrop : Block
             new Vector3(0.0f, -GetComponent<Collider2D>().bounds.extents.y, 0.0f)
         };
     }
-    
+
     void Awake()
     {
         this.blockID = Block.nextID;
         this.topSnapped = false;
         this.botSnapped = false;
-        this.connectedBlocks = new Block[2];
+        this.prev = null;
+        this.next = null;
         Debug.Log("Block ID: " + this.blockID);
 
         Block.nextID++;
@@ -41,32 +45,35 @@ public class DragDrop : Block
 
             if (Input.GetMouseButtonUp(0))
             {
-                Debug.Log("4 end drag");
+                //gameObject.layer = LayerMask.NameToLayer("Ignore Raycast");
 
-                gameObject.layer = LayerMask.NameToLayer("Ignore Raycast");
+                //Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
+                //RaycastHit2D hit = Physics2D.Raycast(ray.origin, ray.direction);
 
-                Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
-                RaycastHit2D hit = Physics2D.Raycast(ray.origin, ray.direction);
+                //if (hit.collider == null)
+                //{
+                //    Debug.Log("hit : null");
+                //    Destroy(gameObject);
+                //}
 
 
+                //if (hit.collider != null && !hit.collider.CompareTag("CodeArea"))
+                //{
+                //    Debug.Log("hit : " + hit.collider.tag);
+                //    //Destroy(gameObject);
+                //}
 
-                if (hit.collider == null)
+                //gameObject.layer = LayerMask.NameToLayer("BlockLayer");
+
+                if (!isInsideDropZone)
                 {
                     Destroy(gameObject);
                 }
 
-
-                if (hit.collider != null && !hit.collider.CompareTag("CodeArea"))
-                {
-                    Debug.Log(hit.collider.tag);
-                    Destroy(gameObject);
-                }
-
-                gameObject.layer = LayerMask.NameToLayer("Default");
-
-                //Debug.Log("end drag");
+                Debug.Log("end drag");
 
                 // Stop dragging when the mouse button is released.
+
 
                 isDragging = false;
 
@@ -95,23 +102,44 @@ public class DragDrop : Block
                     }
 
                     isDragging = true;
+                    isSnapped = false;
                     this.topSnapped = false;
                     this.botSnapped = false;
-                    if (connectedBlocks[0] != null)
+                    if (prev != null)
                     {
-                        connectedBlocks[0].botSnapped = false;
-                        Debug.Log(connectedBlocks[0].blockID + " bot snap cleared");
+                        prev.botSnapped = false;
+                        Debug.Log(prev.blockID + " bot snap cleared");
                     }
-                    if (connectedBlocks[1] != null)
+                    if (next != null)
                     {
-                        connectedBlocks[1].topSnapped = false;
-                        Debug.Log(connectedBlocks[1].blockID + " top snap cleared");
+                        next.topSnapped = false;
+                        Debug.Log(next.blockID + " top snap cleared");
                     }
 
                 }
 
             }
 
+        }
+    }
+
+    private void OnTriggerEnter2D(Collider2D other)
+    {
+        Debug.Log("enter trigger");
+
+        if (other.CompareTag("CodeArea"))
+        {
+            isInsideDropZone = true;
+        }
+    }
+
+    private void OnTriggerExit2D(Collider2D other)
+    {
+        Debug.Log("exit trigger");
+
+        if (other.CompareTag("CodeArea"))
+        {
+            isInsideDropZone = false;
         }
     }
 
@@ -146,26 +174,26 @@ public class DragDrop : Block
 
                     if (yDistance <= 0 && block.botSnapped == false)
                     {
-                        newYPosition = block.transform.position.y - (GetComponent<BoxCollider2D>().size.y / 4);
+                        newYPosition = block.transform.position.y - (GetComponent<BoxCollider2D>().size.y / 2);
                         Debug.Log("snapped below");
                         //makes sure blocks dont snap on already snapped blocks
                         block.botSnapped = true;
                         this.topSnapped = true;
-                        connectedBlocks[0] = block;
-                        block.connectedBlocks[1] = this;
+                        prev = block;
+                        block.next = this;
                         //snaps block
                         transform.position = new Vector3(block.transform.position.x, newYPosition, block.transform.position.z);
 
                     }
                     if (yDistance > 0 && block.topSnapped == false)
                     {
-                        newYPosition = block.transform.position.y + (GetComponent<BoxCollider2D>().size.y / 4);
+                        newYPosition = block.transform.position.y + (GetComponent<BoxCollider2D>().size.y / 2);
                         Debug.Log("snapped on top");
                         //makes sure blocks dont snap on already snapped blocks
                         block.topSnapped = true;
                         this.botSnapped = true;
-                        connectedBlocks[1] = block;
-                        block.connectedBlocks[0] = this;
+                        next = block;
+                        block.prev = this;
                         //snaps block
                         transform.position = new Vector3(block.transform.position.x, newYPosition, block.transform.position.z);
                     }

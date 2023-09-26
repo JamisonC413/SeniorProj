@@ -6,6 +6,7 @@ public class Play : MonoBehaviour
 {
     public LineRenderer lineRenderer;
     private List<Vector3> positions = new List<Vector3>();
+    public startBlock startScript;
 
     // Start is called before the first frame update
     void Start()
@@ -22,10 +23,23 @@ public class Play : MonoBehaviour
         
         positions.Add(new Vector3(0f,0f,0f));
 
-        for (int i = 0; i < blocks.Length; i++)
+        // Deals with snapping
+        foreach (GameObject obj in blocks)
         {
-            // Add the position of each block to the positions list.
-            positions.Add(new Vector3(i * 1f, 0f, 0f));
+            //Debug.Log(obj.GetComponent("drawBlock"));
+            Vector2 move = Vector2.zero;
+
+            if (obj.GetComponent("drawBlock") != null)
+            {
+                drawBlock script = (drawBlock)obj.GetComponent("drawBlock");
+                positions.Add(new Vector3(script.X, script.Y, 0f));
+
+            }
+            else if (obj.GetComponent("startBlock") != null)
+            {
+
+            }
+            //Vector2.Distance();
         }
 
         // Assign the positions to the LineRenderer.

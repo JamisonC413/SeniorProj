@@ -30,7 +30,7 @@ public class BlockStaticScript : MonoBehaviour
             renderer.sortingLayerName = "Block";
         }
         spawnedObject.tag = "block";
-        //spawnedObject.transform.position = new Vector3(spawnedObject.transform.position.x, spawnedObject.transform.position.y, 100f);
+        //spawnedObject.transform.position = new Vector3(spawnedObject.transform.position.x, spawnedObject.transform.position.y, -1135f);
         blockMover.block = spawnedObject;
 
         //Vector3 parentScale = transform.localScale;

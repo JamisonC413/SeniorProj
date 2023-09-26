@@ -12,9 +12,9 @@ public class blockMover : MonoBehaviour
     public float searchRadius = .1f;
     public GameObject block;
 
-
     void Update()
     {
+        // When button is pressed checks if there is a block underneath and then grabs it
         if (Input.GetMouseButtonDown(0))
         {
             // Cast a ray from the mouse position
@@ -39,10 +39,22 @@ public class blockMover : MonoBehaviour
                 {
                     rendererComponent.sortingLayerName = "Block";
                 }
+
+                Block tempScript = ((Block)block.GetComponent("drawBlock"));
+                if (tempScript.prevBlock != null)
+                {
+                    tempScript.prevBlock.nextBlock = null;
+                    tempScript.prevBlock = null;
+                }
+                if(tempScript.nextBlock != null)
+                {
+                    tempScript.nextBlock.prevBlock = null;
+                    tempScript.nextBlock = null;
+                }
             }
         }
 
-
+        // For dragging and releasing and snapping
         if (isDragging && block != null)
         {
             Renderer rendererComponent = block.GetComponent<Renderer>();
@@ -58,25 +70,23 @@ public class blockMover : MonoBehaviour
                 {
                     blockList.Add(collider.gameObject);
                 }
+                else if(collider.gameObject.GetComponent("startBlock") != null)
+                {
+                    blockList.Add(collider.gameObject);
+                }
             }
 
             // Sort the list of game objects by distance from 'block'
             blockList = blockList.OrderBy(obj => Vector2.Distance(block.transform.position, obj.transform.position)).ToList();
 
 
-            //Debug.Log(blockList.ToArray().Length);
-
-
-
-
             // Update the object's position based on the mouse position
             Vector3 newPosition = Camera.main.ScreenToWorldPoint(Input.mousePosition) + offset;
             block.transform.position = new Vector3(newPosition.x, newPosition.y, block.transform.position.z);
 
-            // Check for mouse button release
+            // Check for mouse button release, handles snapping
             if (Input.GetMouseButtonUp(0))
             {
-
                 rendererComponent.sortingLayerName = "Block Background";
                 rendererComponent.sortingOrder = 1;
 
@@ -94,44 +104,71 @@ public class blockMover : MonoBehaviour
                     Destroy(block);
                 }
 
+                bool jumped = false;
 
                 // Deals with snapping
                 foreach (GameObject obj in blockList)
                 {
-                    Debug.Log(obj.GetComponent("drawBlock"));
+
+                    //Debug.Log(obj.GetComponent("drawBlock"));
                     Vector2 move = Vector2.zero;
 
+                    //Hopefully there is a way to remove this checking for types of block
                     if (obj.GetComponent("drawBlock") != null)
                     {
                         drawBlock script = (drawBlock) obj.GetComponent("drawBlock");
+                        //Debug.Log(script.blockID);
+
                         if (Vector2.Distance(script.snapPositions[0], block.transform.position) > Vector2.Distance(script.snapPositions[1], block.transform.position))
                         {
-                            Vector2 jump = script.snapPositions[1] - ((drawBlock)block.GetComponent("drawBlock")).snapPositions[0];
-                            block.transform.position = new Vector3(block.transform.position.x + jump.x, block.transform.position.y + jump.y, block.transform.position.z);
+                            if(script.prevBlock == null)
+                            {
+                                Vector2 jump = script.snapPositions[1] - ((drawBlock)block.GetComponent("drawBlock")).snapPositions[0];
+                                block.transform.position = new Vector3(block.transform.position.x + jump.x, block.transform.position.y + jump.y, block.transform.position.z);
+                                jumped = true;
+                            }
                         }
                         else
                         {
-                            Vector2 jump = script.snapPositions[0] - ((drawBlock)block.GetComponent("drawBlock")).snapPositions[1];
-                            block.transform.position = new Vector3(block.transform.position.x + jump.x, block.transform.position.y + jump.y, block.transform.position.z);
+                            if (script.nextBlock == null)
+                            {
+                                Vector2 jump = script.snapPositions[0] - ((drawBlock)block.GetComponent("drawBlock")).snapPositions[1];
+                                block.transform.position = new Vector3(block.transform.position.x + jump.x, block.transform.position.y + jump.y, block.transform.position.z);
+                                jumped = true;
+                            }
                         }
+
+                        script.nextBlock = (Block)block.GetComponent("drawBlock");
+                        ((Block)block.GetComponent("drawBlock")).prevBlock = script;
+
                     }
                     else if(obj.GetComponent("startBlock") != null)
                     {
+                        startBlock script = (startBlock)obj.GetComponent("startBlock");
 
+                        if (script.nextBlock == null)
+                        {
+                            //Debug.Log(script.snapPositions[0]);
+                            Vector2 jump = script.snapPositions[0] + ((drawBlock)block.GetComponent("drawBlock")).snapPositions[0];
+                            block.transform.position = script.snapPositions[0] - new Vector2(0f, 1.04f);   //new Vector3(script.snapPositions[0].x + jump.x, script.snapPositions[0].y + jump.y, block.transform.position.z);
+                                                                                                           //Debug.Log(block.transform.position);
+                                                                                                           //Debug.Log(((drawBlock)block.GetComponent("drawBlock")).snapPositions[0]);
+
+                            script.nextBlock = (Block)block.GetComponent("drawBlock");
+                            ((Block)block.GetComponent("drawBlock")).prevBlock = script;
+                            jumped = true;
+                        }
                     }
-                    //Vector2.Distance();
                 }
-
-
-
-
-
+                if (!jumped && blockList.Count > 0)
+                {
+                    Destroy(block);
+                }
 
 
                 block.layer = 0;
                 block = null;
 
-                // Reset the flag and perform any cleanup
                 isDragging = false;
             }
         }

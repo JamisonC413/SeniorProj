@@ -26,5 +26,9 @@ public class Block : MonoBehaviour
             nextBlock.moveChildren(translation);
         }
     }
-
+   
+    public virtual void execute()
+    {
+        // Do nothing
+    }
 }

@@ -16,33 +16,17 @@ public class Play : MonoBehaviour
 
     public void Render()
     {
-        GameObject[] blocks = GameObject.FindGameObjectsWithTag("block");
-        Debug.Log(blocks.Length);
-        
         positions.Clear();
-        
-        positions.Add(new Vector3(0f,0f,0f));
 
-        // Deals with snapping
-        foreach (GameObject obj in blocks)
+        positions.Add(new Vector3(0f, 0f, 0f));
+
+        Block block = startScript.nextBlock;
+        while (block != null)
         {
-            //Debug.Log(obj.GetComponent("drawBlock"));
-            Vector2 move = Vector2.zero;
-
-            if (obj.GetComponent("drawBlock") != null)
-            {
-                drawBlock script = (drawBlock)obj.GetComponent("drawBlock");
-                positions.Add(new Vector3(script.X, script.Y, 0f));
-
-            }
-            else if (obj.GetComponent("startBlock") != null)
-            {
-
-            }
-            //Vector2.Distance();
+            positions.Add(new Vector3(((drawBlock)block).X, ((drawBlock)block).Y, 0f));
+            block = block.nextBlock;
         }
 
-        // Assign the positions to the LineRenderer.
         lineRenderer.positionCount = positions.Count;
         lineRenderer.SetPositions(positions.ToArray());
     }

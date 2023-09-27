@@ -1,10 +1,6 @@
 using UnityEngine;
-using System.Collections;
 using System.Collections.Generic;
-using Unity.VisualScripting;
 using System.Linq;
-using static UnityEditor.Experimental.GraphView.GraphView;
-
 public class blockMover : MonoBehaviour
 {
     private Vector3 offset; 
@@ -21,10 +17,10 @@ public class blockMover : MonoBehaviour
             Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
             RaycastHit2D hit = Physics2D.Raycast(ray.origin, ray.direction);
 
-            if (hit.collider != null)
-            {
-                Debug.Log(hit.collider.gameObject);
-            }
+            //if (hit.collider != null)
+            //{
+            //    Debug.Log(hit.collider.gameObject);
+            //}
 
             if (hit.collider != null && hit.collider.CompareTag("block"))
             {
@@ -150,9 +146,11 @@ public class blockMover : MonoBehaviour
                         {
                             //Debug.Log(script.snapPositions[0]);
                             Vector2 jump = script.snapPositions[0] + ((drawBlock)block.GetComponent("drawBlock")).snapPositions[0];
-                            block.transform.position = script.snapPositions[0] - new Vector2(0f, 1.04f);   //new Vector3(script.snapPositions[0].x + jump.x, script.snapPositions[0].y + jump.y, block.transform.position.z);
-                                                                                                           //Debug.Log(block.transform.position);
-                                                                                                           //Debug.Log(((drawBlock)block.GetComponent("drawBlock")).snapPositions[0]);
+                            block.transform.position = obj.transform.position - new Vector3(0f, 2f, 0f);   
+
+                            //new Vector3(script.snapPositions[0].x + jump.x, script.snapPositions[0].y + jump.y, block.transform.position.z);
+                            //Debug.Log(block.transform.position);
+                            //Debug.Log(((drawBlock)block.GetComponent("drawBlock")).snapPositions[0]);
 
                             script.nextBlock = (Block)block.GetComponent("drawBlock");
                             ((Block)block.GetComponent("drawBlock")).prevBlock = script;

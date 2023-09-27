@@ -173,7 +173,7 @@ MonoBehaviour:
   snapPositions: []
   XInput: {fileID: 6772344076810252525}
   YInput: {fileID: 48824597542847681}
-  snapOffset: 0.9
+  snapOffset: 0.98
   X: 0
   Y: 0
 --- !u!1 &1230488865231503196

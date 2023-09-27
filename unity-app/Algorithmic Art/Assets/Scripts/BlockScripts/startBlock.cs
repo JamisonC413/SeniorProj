@@ -30,4 +30,9 @@ public class startBlock : Block
         snapPositions[0] = new Vector2(transform.position.x, transform.position.y) + new Vector2(0.0f, -.8f);
         Debug.Log(snapPositions[0]);
     }
+
+    private void Update()
+    {
+        snapPositions[0] = new Vector2(transform.position.x, transform.position.y) + new Vector2(0.0f, -.8f);
+    }
 }

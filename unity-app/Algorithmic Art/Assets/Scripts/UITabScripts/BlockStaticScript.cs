@@ -8,7 +8,7 @@ public class BlockStaticScript : MonoBehaviour
     //public GameObject blockDrag;
     public GameObject prefabToSpawn; // Reference to the prefab you want to spawn
     private GameObject spawnedObject; // Reference to the spawned object
-    public blockMover blockMover;
+
     private void OnMouseDown()
     {
         SpawnPrefab(transform.position);
@@ -30,8 +30,7 @@ public class BlockStaticScript : MonoBehaviour
             renderer.sortingLayerName = "Block";
         }
         spawnedObject.tag = "block";
-        //spawnedObject.transform.position = new Vector3(spawnedObject.transform.position.x, spawnedObject.transform.position.y, -1135f);
-        blockMover.block = spawnedObject;
+        spawnedObject.transform.position = new Vector3(spawnedObject.transform.position.x, spawnedObject.transform.position.y, spawnedObject.transform.position.z - 1);
 
         //Vector3 parentScale = transform.localScale;
         //spawnedObject.transform.localScale = parentScale;

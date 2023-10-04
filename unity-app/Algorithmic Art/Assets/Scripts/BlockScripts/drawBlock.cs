@@ -47,7 +47,15 @@ public class drawBlock : Block
         string inputData = XInput.text;
         if (!string.IsNullOrEmpty(inputData))
         {
-            X = int.Parse(inputData);
+            if (int.TryParse(inputData, out int parsedX))
+            {
+                X = parsedX;
+            }
+            else
+            {
+                // Handle the case where parsing fails, e.g., set a default value
+                X = 1;
+            }
         }
         else
         {
@@ -57,7 +65,15 @@ public class drawBlock : Block
         inputData = YInput.text;
         if (!string.IsNullOrEmpty(inputData))
         {
-            Y = int.Parse(inputData);
+            if (int.TryParse(inputData, out int parsedY))
+            {
+                Y = parsedY;
+            }
+            else
+            {
+                // Handle the case where parsing fails, e.g., set a default value
+                Y = 1;
+            }
         }
         else
         {

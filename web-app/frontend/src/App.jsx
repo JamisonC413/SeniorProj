@@ -11,7 +11,6 @@ function App() {
         flexDirection: "column",
         padding: "15px"
       }}>
-      <h1 style={{ flexGrow: "0" }}>Sample Application</h1>
       <Game />
       <SavedImages style={{ flexGrow: "0" }}/>
     </div>

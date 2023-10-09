@@ -278,12 +278,12 @@ Transform:
   m_GameObject: {fileID: 401359211}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -99.572, y: 124.381, z: -523.8801}
-  m_LocalScale: {x: 20.385185, y: 20.385185, z: 20.385185}
+  m_LocalPosition: {x: -4.9848237, y: 6.2268243, z: 63.773247}
+  m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 545565507}
-  m_Father: {fileID: 1665222511}
+  m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &401359216
 MonoBehaviour:
@@ -304,7 +304,6 @@ MonoBehaviour:
   prevBlock: {fileID: 0}
   nextBlock: {fileID: 0}
   snapPositions: []
-  next: {fileID: 0}
 --- !u!61 &401359217
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -361,7 +360,7 @@ GameObject:
   - component: {fileID: 514575084}
   - component: {fileID: 514575085}
   m_Layer: 5
-  m_Name: Circle
+  m_Name: Brush
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -376,11 +375,11 @@ Transform:
   m_GameObject: {fileID: 514575083}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 90.38121, y: -166.7528, z: -230.98352}
-  m_LocalScale: {x: 6.494383, y: 6.494384, z: 9.715855}
+  m_LocalPosition: {x: 4.5247097, y: -8.348063, z: 78.436386}
+  m_LocalScale: {x: 0.32512507, y: 0.32512513, z: 0.4864}
   m_ConstrainProportionsScale: 0
   m_Children: []
-  m_Father: {fileID: 1665222511}
+  m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!212 &514575085
 SpriteRenderer:
@@ -420,8 +419,8 @@ SpriteRenderer:
   m_AutoUVMaxDistance: 0.5
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
-  m_SortingLayerID: 0
-  m_SortingLayer: 0
+  m_SortingLayerID: 1001162781
+  m_SortingLayer: 2
   m_SortingOrder: 1
   m_Sprite: {fileID: -2413806693520163455, guid: a86470a33a6bf42c4b3595704624658b, type: 3}
   m_Color: {r: 0, g: 0, b: 0, a: 1}
@@ -679,7 +678,7 @@ MonoBehaviour:
   m_FallbackScreenDPI: 96
   m_DefaultSpriteDPI: 96
   m_DynamicPixelsPerUnit: 1
-  m_PresetInfoIsWorld: 0
+  m_PresetInfoIsWorld: 1
 --- !u!223 &545565510
 Canvas:
   m_ObjectHideFlags: 0
@@ -1879,6 +1878,7 @@ MonoBehaviour:
   startScript: {fileID: 401359216}
   brush: {fileID: 514575083}
   delay: 0
+  drawArea: {x: 5, y: 5}
 --- !u!114 &1392217082
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2003,6 +2003,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   searchRadius: 1.5
+  startBlock: {fileID: 401359211}
   block: {fileID: 0}
 --- !u!4 &1428310041
 Transform:
@@ -2453,9 +2454,7 @@ RectTransform:
   - {fileID: 1539918493}
   - {fileID: 915657840}
   - {fileID: 1840260993}
-  - {fileID: 514575084}
   - {fileID: 1428310041}
-  - {fileID: 401359215}
   - {fileID: 671961126}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -2519,6 +2518,7 @@ MonoBehaviour:
   startScript: {fileID: 401359216}
   brush: {fileID: 514575083}
   delay: 1
+  drawArea: {x: 5, y: 5}
 --- !u!114 &1737862637
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2757,6 +2757,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   prefabToSpawn: {fileID: 801895102098321813, guid: 2ef93867b397f5b4ea67684a78828787, type: 3}
+  ScaleObject: {x: 1, y: 1, z: 1}
 --- !u!1 &1840260991
 GameObject:
   m_ObjectHideFlags: 0
@@ -2894,3 +2895,5 @@ SceneRoots:
   - {fileID: 519420032}
   - {fileID: 1665222511}
   - {fileID: 1654606989}
+  - {fileID: 514575084}
+  - {fileID: 401359215}

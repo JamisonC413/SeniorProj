@@ -4,9 +4,6 @@ using UnityEngine;
 
 public class startBlock : Block
 {
-    // Stores refrence to next block
-    // Note: Leftover? Check that it won't break to remove
-    public GameObject next;
 
     // Called once when the code starts 
     void Awake()
@@ -16,7 +13,7 @@ public class startBlock : Block
         this.topSnapped = false;
         this.botSnapped = false;
         this.prevBlock = null;
-        this.next = null;
+        this.nextBlock = null;
 
         // Increments nextID for next block
         Block.nextID++;

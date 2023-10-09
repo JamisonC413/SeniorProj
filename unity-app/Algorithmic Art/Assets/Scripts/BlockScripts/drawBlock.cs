@@ -12,7 +12,7 @@ public class drawBlock : Block
     private TMP_InputField XInput;
     // For future code 
     [SerializeField]
-    public TMP_InputField YInput;
+    private TMP_InputField YInput;
     // Offset for snaps above and below
     [SerializeField]
     private float snapOffset = 1f;
@@ -21,6 +21,15 @@ public class drawBlock : Block
     public int X;
     // The Y coordinite input 
     public int Y;
+
+    // The brushes gameobject 
+    public Brush brush;
+
+    // Positions of points to draw in lineRenderer
+    private List<Vector3> positions = new List<Vector3>();
+
+    // Play script to get some general information
+    //public Play playScript;
 
     // Sets the starting information for the block, ID, refrences and snap positions
     void Awake()
@@ -37,6 +46,7 @@ public class drawBlock : Block
         snapPositions[0] = new Vector2(transform.position.x, transform.position.y - snapOffset);
         snapPositions[1] = new Vector2(transform.position.x, transform.position.y + snapOffset);
 
+        brush = GameObject.Find("Brush").GetComponent<Brush>();
         //Debug.Log(snapPositions[0]);
     }
 
@@ -87,8 +97,22 @@ public class drawBlock : Block
     }
 
     // Will be used to draw line using a child linerenderer component. Not yet implemented
-    public override void execute()
+    public override IEnumerator execute(float delay)
     {
-        //TODO: Implement modularized block running
+        // Clear the list of positions
+        positions.Clear();
+
+        // Add a origin point
+        positions.Add(brush.transform.position);
+
+        float xTransform = X + brush.transform.position.x;
+        float yTransform = Y + brush.transform.position.y;
+
+        if(xTransform < 0)
+        {
+            // DO nothing
+        }
+
+        yield return new WaitForSeconds(delay);
     }
 }

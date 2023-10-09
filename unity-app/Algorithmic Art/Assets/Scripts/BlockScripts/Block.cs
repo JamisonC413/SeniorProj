@@ -49,8 +49,8 @@ public class Block : MonoBehaviour
     }
    
     // Execute function used by every block. In the block's specific script this will be overriden by each block
-    public virtual void execute()
+    public virtual IEnumerator execute(float delay)
     {
-        // Do nothing
+        yield return null;
     }
 }

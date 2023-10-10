@@ -3,77 +3,79 @@ using System.Collections.Generic;
 using UnityEngine;
 using static Unity.Collections.AllocatorManager;
 
+// Handles drawing the lines using the play button
 public class Play : MonoBehaviour
 {
+    // LineRenderer component to use
+    // Note: new system will have draw blocks deal with these 
     public LineRenderer lineRenderer;
-    private List<Vector3> positions = new List<Vector3>();
+
+    // The script for the startBlock
     public startBlock startScript;
-    public GameObject brush;
+
+    // The brushes gameobject
+    public Brush brush;
+
+    // Delay between blocks playing (seconds)
     public float delay = 1f;
-
-    private Vector3 startBrush;
   
-    // Start is called before the first frame update
-    void Start()
-    {
-        startBrush = brush.transform.position;
-        // lineRenderer = GetComponent<LineRenderer>();
-    }
 
+
+    // Handles rendering. Is an IEnumerator so that it can be paused
     public IEnumerator Render()
     {
-        positions.Clear();
 
-        positions.Add(new Vector3(0f, 0f, 0f));
+        // Resets brush to it's origin
+        brush.resetPosition();
 
-        brush.transform.position = startBrush;
-
+        // Tracks the block that we are currently on, allowing us to iterate through the block list
         Block block = startScript.nextBlock;
-        float lastx = 0;
-        float lasty = 0;
-        while (block != null)
-        {
-            float blockX = ((drawBlock)block).X;
-            float blockY = ((drawBlock)block).Y;
-            float xTransform = lastx + blockX;
-            float yTransform = lasty + blockY;
 
-            if (xTransform < 0)
-            {
-                xTransform = 0;
-            }
-            if (yTransform < 0)
-            {
-                yTransform = 0;
-            }
-            Debug.Log(brush.transform.position);
-            Debug.Log(new Vector3(xTransform, yTransform, 0f));
+        block.execute(delay);
+        yield return null;
+        //// Gets the x and y inputs to the block
+        //float blockX = ((drawBlock)block).X;
+        //float blockY = ((drawBlock)block).Y;
+        //// transform is equal to the last x or y + the blockX
+        //float xTransform = lastx + blockX;
+        //float yTransform = lasty + blockY;
 
-            positions.Add(new Vector3(xTransform, yTransform, 0f));
-            block = block.nextBlock;
+        //// Create bounds for the lines, currently only the bottom and left are bounded
+        //if (xTransform < 0)
+        //{
+        //    xTransform = 0;
+        //}
+        //if (yTransform < 0)
+        //{
+        //    yTransform = 0;
+        //}
+        //// Misc Debug
+        //Debug.Log(brush.transform.position);
+        //Debug.Log(new Vector3(xTransform, yTransform, 0f));
 
-            lineRenderer.positionCount = positions.Count;
-            lineRenderer.SetPositions(positions.ToArray());
+        //// Add the point from the block to the line renderer
+        //positions.Add(new Vector3(xTransform, yTransform, 0f));
+        //// Move to next block
+        //block = block.nextBlock;
 
-            brush.transform.position = startBrush + new Vector3(xTransform, yTransform, 0f);
+        //// Render lines
+        //lineRenderer.positionCount = positions.Count;
+        //lineRenderer.SetPositions(positions.ToArray());
 
-            lasty = yTransform;
-            lastx = xTransform;
+        //// Move brush
+        //brush.transform.position = startBrush + new Vector3(xTransform, yTransform, 0f);
 
-            yield return new WaitForSeconds(delay);
-        }
+        //// Update last x and y
+        //lasty = yTransform;
+        //lastx = xTransform;
 
-        lineRenderer.positionCount = positions.Count;
-        lineRenderer.SetPositions(positions.ToArray());
+        //yield return new WaitForSeconds(delay);
+
     }
 
+    //Starts the rendering coroutine
     public void StartRendering()
     {
         StartCoroutine(Render());
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
     }
 }

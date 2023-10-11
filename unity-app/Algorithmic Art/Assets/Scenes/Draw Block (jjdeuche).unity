@@ -1890,7 +1890,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   lineRenderer: {fileID: 1600908928}
   startScript: {fileID: 401359216}
-  brush: {fileID: 514575083}
+  brush: {fileID: 514575086}
   delay: 0
 --- !u!114 &1392217082
 MonoBehaviour:
@@ -2529,7 +2529,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   lineRenderer: {fileID: 1600908928}
   startScript: {fileID: 401359216}
-  brush: {fileID: 514575083}
+  brush: {fileID: 514575086}
   delay: 1
 --- !u!114 &1737862637
 MonoBehaviour:

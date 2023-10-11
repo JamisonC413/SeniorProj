@@ -25,6 +25,9 @@ public class drawBlock : Block
     // The brushes gameobject 
     public Brush brush;
 
+    //The LineRenderer
+    public LineRenderer lineRenderer;
+
     // Positions of points to draw in lineRenderer
     private List<Vector3> positions = new List<Vector3>();
 
@@ -108,10 +111,26 @@ public class drawBlock : Block
         float xTransform = X + brush.transform.position.x;
         float yTransform = Y + brush.transform.position.y;
 
-        if(xTransform < 0)
+   /*     // Create bounds for the lines, currently only the bottom and left are bounded
+        if (xTransform < 0)
         {
-            // DO nothing
+            xTransform = 0;
         }
+        if (yTransform < 0)
+        {
+            yTransform = 0;
+        }*/
+        // Misc Debug
+        Debug.Log("brush: " + brush.transform.position);
+        Debug.Log(new Vector3(xTransform, yTransform, 0f));
+
+        // Add the point from the block to the line renderer
+        positions.Add(new Vector3(xTransform, yTransform, 0f));
+        // Move to next block
+
+        // Render lines
+        lineRenderer.positionCount = positions.Count;
+        lineRenderer.SetPositions(positions.ToArray());
 
         yield return new WaitForSeconds(delay);
     }

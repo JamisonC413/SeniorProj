@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -30,8 +31,13 @@ public class Play : MonoBehaviour
 
         // Tracks the block that we are currently on, allowing us to iterate through the block list
         Block block = startScript.nextBlock;
-
-        block.execute(delay);
+        while (block != null)
+        {
+            Debug.Log(block + "was run");
+            _ = StartCoroutine(block.execute(delay));
+            block = block.nextBlock;
+        }
+       
         yield return null;
         //// Gets the x and y inputs to the block
         //float blockX = ((drawBlock)block).X;

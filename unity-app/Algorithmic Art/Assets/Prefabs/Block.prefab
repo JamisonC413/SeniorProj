@@ -10,7 +10,7 @@ GameObject:
   m_Component:
   - component: {fileID: 3410980558298711297}
   - component: {fileID: 323659771744740965}
-  m_Layer: 3
+  m_Layer: 5
   m_Name: LineRenderer
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -71,8 +71,8 @@ LineRenderer:
   m_AutoUVMaxDistance: 0.5
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
-  m_SortingLayerID: 0
-  m_SortingLayer: 0
+  m_SortingLayerID: -1884587689
+  m_SortingLayer: 3
   m_SortingOrder: 0
   m_Positions:
   - {x: 0, y: 0, z: 0}
@@ -97,8 +97,8 @@ LineRenderer:
       m_RotationOrder: 4
     colorGradient:
       serializedVersion: 2
-      key0: {r: 1, g: 1, b: 1, a: 1}
-      key1: {r: 1, g: 1, b: 1, a: 1}
+      key0: {r: 0, g: 0, b: 0, a: 1}
+      key1: {r: 0, g: 0, b: 0, a: 1}
       key2: {r: 0, g: 0, b: 0, a: 0}
       key3: {r: 0, g: 0, b: 0, a: 0}
       key4: {r: 0, g: 0, b: 0, a: 0}
@@ -122,7 +122,7 @@ LineRenderer:
       atime6: 0
       atime7: 0
       m_Mode: 0
-      m_ColorSpace: -1
+      m_ColorSpace: 0
       m_NumColorKeys: 2
       m_NumAlphaKeys: 2
     numCornerVertices: 0
@@ -313,7 +313,8 @@ MonoBehaviour:
   snapOffset: 0.98
   X: 0
   Y: 0
-  brush: {fileID: 5812526572047998951}
+  brush: {fileID: 0}
+  lineRenderer: {fileID: 323659771744740965}
 --- !u!1 &1230488865231503196
 GameObject:
   m_ObjectHideFlags: 0

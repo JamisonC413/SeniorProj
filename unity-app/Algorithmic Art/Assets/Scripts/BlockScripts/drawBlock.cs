@@ -97,6 +97,7 @@ public class drawBlock : Block
         {
             Y = 1;
         }
+
     }
 
     // Will be used to draw line using a child linerenderer component. Not yet implemented
@@ -104,6 +105,10 @@ public class drawBlock : Block
     {
         // Clear the list of positions
         positions.Clear();
+
+        lineRenderer = brush.createLineRenderer();
+        Debug.Log(lineRenderer);
+
 
         // Add a origin point
         positions.Add(brush.transform.position);

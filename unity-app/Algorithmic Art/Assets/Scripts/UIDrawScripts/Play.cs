@@ -28,6 +28,7 @@ public class Play : MonoBehaviour
 
         // Resets brush to it's origin
         brush.resetPosition();
+        brush.clearLineRenderers();
 
         // Tracks the block that we are currently on, allowing us to iterate through the block list
         Block block = startScript.nextBlock;

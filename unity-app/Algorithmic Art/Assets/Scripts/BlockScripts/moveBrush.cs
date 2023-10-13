@@ -15,7 +15,7 @@ public class moveBrush : Block
     private TMP_InputField YInput;
     // Offset for snaps above and below
     [SerializeField]
-    private float snapOffset = 1f;
+    private Vector2 snapOffset = new Vector2(0f, 1f);
 
     // Default for x and y coordinates
     [SerializeField]
@@ -30,12 +30,6 @@ public class moveBrush : Block
     // The brushes gameobject 
     public Brush brush;
 
-    //The LineRenderer
-    public LineRenderer lineRenderer;
-
-    // Positions of points to draw in lineRenderer
-    private List<Vector3> positions = new List<Vector3>();
-
 
     // Sets the starting information for the block, ID, refrences and snap positions
     void Awake()
@@ -49,19 +43,18 @@ public class moveBrush : Block
         Block.nextID++;
 
         snapPositions = new Vector2[2];
-        snapPositions[0] = new Vector2(transform.position.x, transform.position.y - snapOffset);
-        snapPositions[1] = new Vector2(transform.position.x, transform.position.y + snapOffset);
+        snapPositions[0] = new Vector2(transform.position.x, transform.position.y) + snapOffset;
+        snapPositions[1] = new Vector2(transform.position.x + snapOffset.x, transform.position.y - snapOffset.y);
 
         brush = GameObject.Find("Brush").GetComponent<Brush>();
-        //Debug.Log(snapPositions[0]);
     }
 
     // Used to update information on the draw block
     void Update()
     {
         // Updates the snap positions with any new position of block
-        snapPositions[0] = new Vector2(transform.position.x, transform.position.y - snapOffset);
-        snapPositions[1] = new Vector2(transform.position.x, transform.position.y + snapOffset);
+        snapPositions[0] = new Vector2(transform.position.x, transform.position.y) + snapOffset;
+        snapPositions[1] = new Vector2(transform.position.x + snapOffset.x, transform.position.y - snapOffset.y);
 
         // Checks the x and Y input for valid integers, if non found than sets to default value 1
         // Note: Paramarterize the default value?
@@ -106,13 +99,6 @@ public class moveBrush : Block
     // Will be used to draw line using a child linerenderer component. Not yet implemented
     public override void execute()
     {
-        // Clear the list of positions
-        positions.Clear();
-
-        lineRenderer = brush.createLineRenderer();
-
-        // Add a origin point
-        positions.Add(brush.transform.position);
 
         float xTransform = X + brush.transform.position.x;
         float yTransform = Y + brush.transform.position.y;
@@ -135,17 +121,7 @@ public class moveBrush : Block
             yTransform = brush.startPosition.y + brush.drawArea.y;
         }
 
-        // Misc Debug
-        Debug.Log(new Vector3(xTransform, yTransform, 0f));
-
-        // Add the point from the block to the line renderer
-        positions.Add(new Vector3(xTransform, yTransform, 0f));
-
+        // Transform the brush
         brush.transform.position = new Vector3(xTransform, yTransform, 0f);
-
-        // Render lines
-        lineRenderer.positionCount = positions.Count;
-        lineRenderer.SetPositions(positions.ToArray());
-
     }
 }

@@ -18,6 +18,9 @@ public class blockMover : MonoBehaviour
     [SerializeField]
     private GameObject startBlock;
 
+    [SerializeField]
+    private string[] availableBlocks = new string[] { "drawBlock", "moveBrush" };
+
     // The block currently getting dragged
     // NOTE: expirimented with removing isDragging and replacing it with a null check on this was done... but it didn't work
     //       maybe someone else will have a better idea?
@@ -124,7 +127,7 @@ public class blockMover : MonoBehaviour
     private void setRefrences()
     {
         // Sets the refrences of the block and any blocks attached to it to be null.
-        Block tempScript = ((Block)block.GetComponent("drawBlock"));
+        Block tempScript = ((Block)block.GetComponent("Block"));
         if (tempScript.prevBlock != null)
         {
             tempScript.prevBlock.nextBlock = null;
@@ -220,48 +223,18 @@ public class blockMover : MonoBehaviour
 
     private void snapToBlocks(List<GameObject> blockList)
     {
-        // Checks if the block had to jump to a snap point
-        bool jumped = false;
 
         // Deals with snapping
         foreach (GameObject obj in blockList)
         {
 
             //Debug.Log(obj.GetComponent("drawBlock"));
-            Vector2 move = Vector2.zero;
 
-            //Hopefully there is a way to remove this checking for types of block
+            // Script of block being dragged
+            Block blockScript = ((Block)block.GetComponent("Block"));
+
             // Get the nearest block and snap to its closest position
-            if (obj.GetComponent("drawBlock") != null)
-            {
-                // If the object is a draw block than get the draw block script
-                drawBlock script = (drawBlock)obj.GetComponent("drawBlock");
-
-                // Jump to nearest snap position
-                if (Vector2.Distance(script.snapPositions[0], block.transform.position) > Vector2.Distance(script.snapPositions[1], block.transform.position))
-                {
-                    if (script.prevBlock == null)
-                    {
-                        Vector2 jump = script.snapPositions[1] - ((drawBlock)block.GetComponent("drawBlock")).snapPositions[0];
-                        block.transform.position = new Vector3(block.transform.position.x + jump.x, block.transform.position.y + jump.y, block.transform.position.z);
-                        jumped = true;
-                    }
-                }
-                else
-                {
-                    if (script.nextBlock == null)
-                    {
-                        Vector2 jump = script.snapPositions[0] - ((drawBlock)block.GetComponent("drawBlock")).snapPositions[1];
-                        block.transform.position = new Vector3(block.transform.position.x + jump.x, block.transform.position.y + jump.y, block.transform.position.z);
-                        jumped = true;
-                    }
-                }
-
-                script.nextBlock = (Block)block.GetComponent("drawBlock");
-                ((Block)block.GetComponent("drawBlock")).prevBlock = script;
-
-            }
-            else if (obj.GetComponent("startBlock") != null)
+            if (obj.GetComponent("startBlock") != null)
             {
                 // If the object is a start block than get the start block script
                 startBlock script = (startBlock)obj.GetComponent("startBlock");
@@ -269,21 +242,59 @@ public class blockMover : MonoBehaviour
                 // Jump to nearest snap position
                 if (script.nextBlock == null)
                 {
-                    Vector2 jump = script.snapPositions[0] + ((drawBlock)block.GetComponent("drawBlock")).snapPositions[0];
-                    block.transform.position = obj.transform.position - new Vector3(0f, 2f, 0f);
+                    Vector2 jump = script.snapPositions[0] - blockScript.snapPositions[0];
+                    block.transform.position = new Vector3(block.transform.position.x + jump.x, block.transform.position.y + jump.y, block.transform.position.z);
 
 
-                    script.nextBlock = (Block)block.GetComponent("drawBlock");
-                    ((Block)block.GetComponent("drawBlock")).prevBlock = script;
-                    jumped = true;
+                    script.nextBlock = blockScript;
+                    blockScript.prevBlock = script;
                 }
             }
+            else if (obj.GetComponent("Block") != null)
+            {
+                Debug.Log("HERE");
+                // If the object is a draw block than get the draw block script
+                Block script = (Block)obj.GetComponent("Block");
+
+                // The snap position to be used from the released block
+                Vector2 thisSnap = new Vector2(0f,0f);
+                // Snap position to use from the nearby block
+                Vector2 otherSnap = new Vector2(0f, 0f); 
+
+                if(script.prevBlock == null)
+                {
+                    otherSnap = script.snapPositions[0];
+                    thisSnap = blockScript.snapPositions[1];
+                }
+                if(script.nextBlock == null && Vector2.Distance(script.snapPositions[1], block.transform.position) < Vector2.Distance(script.snapPositions[0], block.transform.position))
+                {
+                    otherSnap = script.snapPositions[1];
+                    thisSnap = blockScript.snapPositions[0];
+                }
+
+
+                Vector2 jump = otherSnap - thisSnap;
+                block.transform.position = new Vector3(block.transform.position.x + jump.x, block.transform.position.y + jump.y, block.transform.position.z);
+
+                // Jump to nearest snap position
+                //if (Vector2.Distance(script.snapPositions[0], block.transform.position) > Vector2.Distance(script.snapPositions[1], block.transform.position) && script.prevBlock == null)
+                //{
+                //    Vector2 jump = script.snapPositions[1] - blockScript.snapPositions[0];
+                //    block.transform.position = new Vector3(block.transform.position.x + jump.x, block.transform.position.y + jump.y, block.transform.position.z);
+                //    jumped = true;
+                //}
+                //else if(script.nextBlock == null) 
+                //{
+                //    Vector2 jump = script.snapPositions[0] - blockScript.snapPositions[1];
+                //    block.transform.position = new Vector3(block.transform.position.x + jump.x, block.transform.position.y + jump.y, block.transform.position.z);
+                //    jumped = true;
+                //}
+
+                script.nextBlock = blockScript;
+                blockScript.prevBlock = script;
+            }
+
         }
 
-        // Deals with blocks that were placed near blocks and didn't jump. THIS IS A TEMP FEATURE
-        if (!jumped && blockList.Count > 0)
-        {
-            Destroy(block);
-        }
     }
 }

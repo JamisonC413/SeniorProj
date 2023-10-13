@@ -15,7 +15,7 @@ public class drawBlock : Block
     private TMP_InputField YInput;
     // Offset for snaps above and below
     [SerializeField]
-    private float snapOffset = 1f;
+    private Vector2 snapOffset = new Vector2(0f, 1f);
 
     // Default for x and y coordinates
     [SerializeField]
@@ -49,8 +49,8 @@ public class drawBlock : Block
         Block.nextID++;
 
         snapPositions = new Vector2[2];
-        snapPositions[0] = new Vector2(transform.position.x, transform.position.y - snapOffset);
-        snapPositions[1] = new Vector2(transform.position.x, transform.position.y + snapOffset);
+        snapPositions[0] = new Vector2(transform.position.x, transform.position.y) + snapOffset;
+        snapPositions[1] = new Vector2(transform.position.x + snapOffset.x, transform.position.y - snapOffset.y);
 
         brush = GameObject.Find("Brush").GetComponent<Brush>();
         //Debug.Log(snapPositions[0]);
@@ -60,8 +60,8 @@ public class drawBlock : Block
     void Update()
     {
         // Updates the snap positions with any new position of block
-        snapPositions[0] = new Vector2(transform.position.x, transform.position.y - snapOffset);
-        snapPositions[1] = new Vector2(transform.position.x, transform.position.y + snapOffset);
+        snapPositions[0] = new Vector2(transform.position.x, transform.position.y) + snapOffset;
+        snapPositions[1] = new Vector2(transform.position.x + snapOffset.x, transform.position.y - snapOffset.y);
 
         // Checks the x and Y input for valid integers, if non found than sets to default value 1
         // Note: Paramarterize the default value?

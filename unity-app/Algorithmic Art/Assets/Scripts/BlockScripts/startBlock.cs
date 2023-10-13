@@ -4,6 +4,9 @@ using UnityEngine;
 
 public class startBlock : Block
 {
+    // Offset from center for the snap point
+    [SerializeField]
+    private Vector2 snapOffset = new Vector2(0f, 1f);
 
     // Called once when the code starts 
     void Awake()
@@ -21,13 +24,13 @@ public class startBlock : Block
         // Creates snapPositions
         // Note: Should probably paramaterize the offset but it shouldn't change so I see it as a prefrence thing
         snapPositions = new Vector2[1];
-        snapPositions[0] = new Vector2(transform.position.x, transform.position.y) + new Vector2(0.0f, -.8f);
+        snapPositions[0] = new Vector2(transform.position.x, transform.position.y) + snapOffset;
         Debug.Log(snapPositions[0]);
     }
 
     // Update just set up to update the snapPositions of startBlock
     private void Update()
     {
-        snapPositions[0] = new Vector2(transform.position.x, transform.position.y) + new Vector2(0.0f, -.8f);
+        snapPositions[0] = new Vector2(transform.position.x, transform.position.y) + snapOffset;
     }
 }

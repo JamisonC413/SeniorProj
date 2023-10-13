@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 
 // Handles spawning blocks
-public class DrawBlockSpawner : MonoBehaviour
+public class BlockSpawner : MonoBehaviour
 {
     public GameObject prefabToSpawn; // Reference to the prefab you want to spawn
     private GameObject spawnedObject; // Reference to the spawned object

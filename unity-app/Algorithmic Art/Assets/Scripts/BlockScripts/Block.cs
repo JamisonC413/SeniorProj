@@ -11,7 +11,7 @@ public class Block : MonoBehaviour
     // Keeps track of the render layer
     public static int layer = 0;
 
-    // Unique block ID 
+    // Unique block ID    NOTE: BlockID is not currently used to check snap points (remove?)
     public int blockID;
 
     // Prototype for color tracking NOT IMPLEMENTED

@@ -30,54 +30,20 @@ public class Play : MonoBehaviour
         brush.resetPosition();
         brush.clearLineRenderers();
 
+        yield return new WaitForSeconds(delay);
+
+
         // Tracks the block that we are currently on, allowing us to iterate through the block list
         Block block = startScript.nextBlock;
         while (block != null)
         {
             Debug.Log(block + "was run");
-            _ = StartCoroutine(block.execute(delay));
+            block.execute();
             block = block.nextBlock;
+            yield return new WaitForSeconds(delay);
         }
        
         yield return null;
-        //// Gets the x and y inputs to the block
-        //float blockX = ((drawBlock)block).X;
-        //float blockY = ((drawBlock)block).Y;
-        //// transform is equal to the last x or y + the blockX
-        //float xTransform = lastx + blockX;
-        //float yTransform = lasty + blockY;
-
-        //// Create bounds for the lines, currently only the bottom and left are bounded
-        //if (xTransform < 0)
-        //{
-        //    xTransform = 0;
-        //}
-        //if (yTransform < 0)
-        //{
-        //    yTransform = 0;
-        //}
-        //// Misc Debug
-        //Debug.Log(brush.transform.position);
-        //Debug.Log(new Vector3(xTransform, yTransform, 0f));
-
-        //// Add the point from the block to the line renderer
-        //positions.Add(new Vector3(xTransform, yTransform, 0f));
-        //// Move to next block
-        //block = block.nextBlock;
-
-        //// Render lines
-        //lineRenderer.positionCount = positions.Count;
-        //lineRenderer.SetPositions(positions.ToArray());
-
-        //// Move brush
-        //brush.transform.position = startBrush + new Vector3(xTransform, yTransform, 0f);
-
-        //// Update last x and y
-        //lasty = yTransform;
-        //lastx = xTransform;
-
-        //yield return new WaitForSeconds(delay);
-
     }
 
     //Starts the rendering coroutine

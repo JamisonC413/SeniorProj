@@ -47,10 +47,10 @@ public class Block : MonoBehaviour
             nextBlock.moveChildren(translation);
         }
     }
-   
+
     // Execute function used by every block. In the block's specific script this will be overriden by each block
-    public virtual IEnumerator execute(float delay)
+    virtual public void execute()
     {
-        yield return null;
+        //yield return null;
     }
 }

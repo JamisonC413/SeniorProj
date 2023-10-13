@@ -17,6 +17,11 @@ public class drawBlock : Block
     [SerializeField]
     private float snapOffset = 1f;
 
+    // Default for x and y coordinates
+    [SerializeField]
+    private int defaultCoords = 0;
+
+
     // The x coordinite input 
     public int X;
     // The Y coordinite input 
@@ -31,8 +36,6 @@ public class drawBlock : Block
     // Positions of points to draw in lineRenderer
     private List<Vector3> positions = new List<Vector3>();
 
-    // Play script to get some general information
-    //public Play playScript;
 
     // Sets the starting information for the block, ID, refrences and snap positions
     void Awake()
@@ -72,12 +75,12 @@ public class drawBlock : Block
             else
             {
                 // Handle the case where parsing fails, e.g., set a default value
-                X = 1;
+                X = defaultCoords;
             }
         }
         else
         {
-            X = 1;
+            X = defaultCoords;
         }
 
         inputData = YInput.text;
@@ -90,25 +93,23 @@ public class drawBlock : Block
             else
             {
                 // Handle the case where parsing fails, e.g., set a default value
-                Y = 1;
+                Y = defaultCoords;
             }
         }
         else
         {
-            Y = 1;
+            Y = defaultCoords;
         }
 
     }
 
     // Will be used to draw line using a child linerenderer component. Not yet implemented
-    public override IEnumerator execute(float delay)
+    public override void execute()
     {
         // Clear the list of positions
         positions.Clear();
 
         lineRenderer = brush.createLineRenderer();
-        Debug.Log(lineRenderer);
-
 
         // Add a origin point
         positions.Add(brush.transform.position);
@@ -116,27 +117,35 @@ public class drawBlock : Block
         float xTransform = X + brush.transform.position.x;
         float yTransform = Y + brush.transform.position.y;
 
-   /*     // Create bounds for the lines, currently only the bottom and left are bounded
-        if (xTransform < 0)
+        // Create bounds for the lines
+        if (xTransform < brush.startPosition.x)
         {
-            xTransform = 0;
+            xTransform = brush.startPosition.x;
         }
-        if (yTransform < 0)
+        if (yTransform < brush.startPosition.y)
         {
-            yTransform = 0;
-        }*/
+            yTransform = brush.startPosition.y;
+        }
+        if(xTransform > brush.startPosition.x + brush.drawArea.x)
+        {
+            xTransform = brush.startPosition.x + brush.drawArea.x;
+        }
+        if (yTransform > brush.startPosition.y + brush.drawArea.y)
+        {
+            yTransform = brush.startPosition.y + brush.drawArea.y;
+        }
+
         // Misc Debug
-        Debug.Log("brush: " + brush.transform.position);
         Debug.Log(new Vector3(xTransform, yTransform, 0f));
 
         // Add the point from the block to the line renderer
         positions.Add(new Vector3(xTransform, yTransform, 0f));
-        // Move to next block
+
+        brush.transform.position = new Vector3(xTransform, yTransform, 0f);
 
         // Render lines
         lineRenderer.positionCount = positions.Count;
         lineRenderer.SetPositions(positions.ToArray());
 
-        yield return new WaitForSeconds(delay);
     }
 }

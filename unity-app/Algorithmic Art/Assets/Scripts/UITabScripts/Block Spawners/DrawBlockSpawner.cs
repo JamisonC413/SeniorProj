@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 
 // Handles spawning blocks
-public class BlockStaticScript : MonoBehaviour
+public class DrawBlockSpawner : MonoBehaviour
 {
     public GameObject prefabToSpawn; // Reference to the prefab you want to spawn
     private GameObject spawnedObject; // Reference to the spawned object
@@ -18,11 +18,6 @@ public class BlockStaticScript : MonoBehaviour
 
     void SpawnPrefab(Vector3 spawnPosition)
     {
-        GameObject rootObject = transform.root.gameObject;
-
-        // Get the Canvas component on the GameObject
-        Canvas canvas = rootObject.GetComponent<Canvas>();
-
         // Create the prefab within the same Canvas
         spawnedObject = Instantiate(prefabToSpawn, spawnPosition, Quaternion.identity);
         spawnedObject.transform.localScale = ScaleObject;

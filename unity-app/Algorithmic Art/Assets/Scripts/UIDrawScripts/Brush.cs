@@ -37,17 +37,9 @@ public class Brush : MonoBehaviour
         // Create an empty GameObject as a child of the brush
         LineRendererID++;
         Debug.Log("start pos : " + startPosition);
-        GameObject newLineObject = Instantiate(LineRendererPrefab, startPosition, Quaternion.identity);
-        
-        //GameObject newLineObject = new GameObject("LineRenderer-" + LineRendererID);
-        //newLineObject.transform.parent = transform;
-
-        // Set the local position of the new GameObject to (0, 0, 0) relative to the parent (brush)
-        //newLineObject.transform.localPosition = Vector3.zero;
-        //newLineObject.transform.position = gameObject.transform.position;
+        GameObject newLineObject = Instantiate(LineRendererPrefab, startPosition, Quaternion.identity, gameObject.transform);
 
         // Add LineRenderer to the new GameObject
-        //LineRenderer lineRenderer = newLineObject.AddComponent<LineRenderer>();
         lineRenderers.Add(newLineObject);
 
         return newLineObject.GetComponent<LineRenderer>();

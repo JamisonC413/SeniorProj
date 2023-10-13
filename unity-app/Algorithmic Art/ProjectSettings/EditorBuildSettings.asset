@@ -12,6 +12,6 @@ EditorBuildSettings:
     path: Assets/Scenes/1080p Scene.unity
     guid: 8a48a3fb7ea156248b387f935a58f34a
   - enabled: 1
-    path: Assets/Scenes/Draw Block (jjdeuche).unity
+    path: Assets/Scenes/Main Scene.unity
     guid: 05f361d7c0747284daaaa9d7f784e686
   m_configObjects: {}

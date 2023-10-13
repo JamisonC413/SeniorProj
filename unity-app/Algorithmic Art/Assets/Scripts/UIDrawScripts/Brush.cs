@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using Unity.Burst.CompilerServices;
 using UnityEngine;
 
 public class Brush : MonoBehaviour
@@ -35,8 +36,9 @@ public class Brush : MonoBehaviour
     {
         // Create an empty GameObject as a child of the brush
         LineRendererID++;
-        GameObject newLineObject = Instantiate(LineRendererPrefab, transform.position, Quaternion.identity, gameObject.transform);
-
+        Debug.Log("start pos : " + startPosition);
+        GameObject newLineObject = Instantiate(LineRendererPrefab, startPosition, Quaternion.identity);
+        
         //GameObject newLineObject = new GameObject("LineRenderer-" + LineRendererID);
         //newLineObject.transform.parent = transform;
 

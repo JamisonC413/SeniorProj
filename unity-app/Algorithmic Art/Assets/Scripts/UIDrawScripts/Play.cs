@@ -19,8 +19,15 @@ public class Play : MonoBehaviour
 
     // Delay between blocks playing (seconds)
     public float delay = 1f;
-  
 
+    public enum Color
+    {
+        Red = 0,
+        Green = 1,
+        Blue = 2
+    }
+
+    public Color currentColor = 0;
 
     // Handles rendering. Is an IEnumerator so that it can be paused
     public IEnumerator Render()
@@ -29,6 +36,7 @@ public class Play : MonoBehaviour
         // Resets brush to it's origin
         brush.resetPosition();
         brush.clearLineRenderers();
+        currentColor = 0;
 
         yield return new WaitForSeconds(delay);
 

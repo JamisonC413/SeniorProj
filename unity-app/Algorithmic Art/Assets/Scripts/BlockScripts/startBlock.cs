@@ -25,7 +25,6 @@ public class startBlock : Block
         // Note: Should probably paramaterize the offset but it shouldn't change so I see it as a prefrence thing
         snapPositions = new Vector2[1];
         snapPositions[0] = new Vector2(transform.position.x, transform.position.y) + snapOffset;
-        Debug.Log(snapPositions[0]);
     }
 
     // Update just set up to update the snapPositions of startBlock

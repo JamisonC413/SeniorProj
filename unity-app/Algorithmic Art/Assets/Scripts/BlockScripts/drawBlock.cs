@@ -40,20 +40,13 @@ public class drawBlock : Block
     // Sets the starting information for the block, ID, refrences and snap positions
     void Awake()
     {
-        this.blockID = Block.nextID;
-        this.topSnapped = false;
-        this.botSnapped = false;
-        this.prevBlock = null;
-        this.nextBlock = null;
-
-        Block.nextID++;
+        initialize();
 
         snapPositions = new Vector2[2];
         snapPositions[0] = new Vector2(transform.position.x, transform.position.y) + snapOffset;
         snapPositions[1] = new Vector2(transform.position.x + snapOffset.x, transform.position.y - snapOffset.y);
 
         brush = GameObject.Find("Brush").GetComponent<Brush>();
-        //Debug.Log(snapPositions[0]);
     }
 
     // Used to update information on the draw block
@@ -101,6 +94,20 @@ public class drawBlock : Block
             Y = defaultCoords;
         }
 
+    }
+
+    public void initialize()
+    {
+        this.blockID = Block.nextID;
+        this.topSnapped = false;
+        this.botSnapped = false;
+        this.prevBlock = null;
+        this.nextBlock = null;
+
+        Block.nextID++;
+
+
+        //Debug.Log(snapPositions[0]);
     }
 
     // Will be used to draw line using a child linerenderer component. Not yet implemented

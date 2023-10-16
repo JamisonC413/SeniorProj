@@ -34,19 +34,14 @@ public class moveBrush : Block
     // Sets the starting information for the block, ID, refrences and snap positions
     void Awake()
     {
-        this.blockID = Block.nextID;
-        this.topSnapped = false;
-        this.botSnapped = false;
-        this.prevBlock = null;
-        this.nextBlock = null;
-
-        Block.nextID++;
+        initialize();
 
         snapPositions = new Vector2[2];
         snapPositions[0] = new Vector2(transform.position.x, transform.position.y) + snapOffset;
         snapPositions[1] = new Vector2(transform.position.x + snapOffset.x, transform.position.y - snapOffset.y);
 
-        brush = GameObject.Find("Brush").GetComponent<Brush>();
+        //Note: Replaced GameObject.Find with GameObject.FindGameObjectWithTag because Find is very expensive - Tong
+        brush = GameObject.FindGameObjectWithTag("brush").GetComponent<Brush>();
     }
 
     // Used to update information on the draw block
@@ -94,6 +89,17 @@ public class moveBrush : Block
             Y = defaultCoords;
         }
 
+    }
+
+    public void initialize()
+    {
+        this.blockID = Block.nextID;
+        this.topSnapped = false;
+        this.botSnapped = false;
+        this.prevBlock = null;
+        this.nextBlock = null;
+
+        Block.nextID++;
     }
 
     // Will be used to draw line using a child linerenderer component. Not yet implemented

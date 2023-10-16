@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using UnityEditor;
 using UnityEngine;
 
 // Handles spawning blocks
@@ -8,6 +9,13 @@ public class BlockSpawner : MonoBehaviour
     public GameObject prefabToSpawn; // Reference to the prefab you want to spawn
     private GameObject spawnedObject; // Reference to the spawned object
     public Vector3 ScaleObject = new Vector3(1f,1f, 1f);
+
+
+    private void Start()
+    {
+        string prefabPath = AssetDatabase.GetAssetPath(prefabToSpawn);
+        Debug.Log("Path: " + prefabPath);
+    }
 
     private void OnMouseDown()
     {

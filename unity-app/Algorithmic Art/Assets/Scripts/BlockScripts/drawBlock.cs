@@ -118,6 +118,10 @@ public class drawBlock : Block
 
         lineRenderer = brush.createLineRenderer();
 
+        float width = GameObject.Find("Play").GetComponent<Play>().lineWidth;
+        lineRenderer.startWidth = width;
+        lineRenderer.endWidth = width;
+
         // Add a origin point
         positions.Add(brush.transform.position);
 

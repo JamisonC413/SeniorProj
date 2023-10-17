@@ -5,7 +5,7 @@ using UnityEngine;
 using UnityEngine.UI;
 
 // Script for the Draw Block
-public class colorBlock : Block
+public class widthBlock : Block
 {
 
     // Offset for snaps above and below
@@ -15,7 +15,7 @@ public class colorBlock : Block
     [SerializeField]
     private Play[] playScripts;
 
-    public int color = 0;
+    public float width = .1f;
 
     // Sets the starting information for the block, ID, refrences and snap positions
     void Awake()
@@ -51,8 +51,8 @@ public class colorBlock : Block
     // Will be used to draw line using a child linerenderer component. Not yet implemented
     public override void execute()
     {
-        playScripts[0].currentColor = (Play.Color) color;
-        playScripts[1].currentColor = (Play.Color) color;
+        playScripts[0].lineWidth = width;
+        playScripts[1].lineWidth = width;
 
     }
 }

@@ -29,6 +29,8 @@ public class Play : MonoBehaviour
 
     public Color currentColor = 0;
 
+    public float lineWidth = .1f;
+
     // Handles rendering. Is an IEnumerator so that it can be paused
     public IEnumerator Render()
     {

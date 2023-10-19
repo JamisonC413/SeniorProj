@@ -39,6 +39,7 @@ public class Play : MonoBehaviour
         brush.resetPosition();
         brush.clearLineRenderers();
         currentColor = 0;
+        lineWidth = .1f;
 
         yield return new WaitForSeconds(delay);
 

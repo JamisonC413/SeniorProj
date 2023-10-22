@@ -51,8 +51,28 @@ public class colorBlock : Block
     // Will be used to draw line using a child linerenderer component. Not yet implemented
     public override void execute()
     {
-        playScripts[0].currentColor = (Play.Color) color;
-        playScripts[1].currentColor = (Play.Color) color;
+        switch (color)
+        {
+            case 0:
+                playScripts[0].currentColor = Color.red;
+                playScripts[1].currentColor = Color.red;
+                break;
+            case 1:
+                playScripts[0].currentColor = Color.green;
+                playScripts[1].currentColor = Color.green;
+
+                break;
+            case 2:
+                playScripts[0].currentColor = Color.blue;
+                playScripts[1].currentColor = Color.blue;
+                break;
+            case 3:
+                playScripts[0].currentColor = Color.black;
+                playScripts[1].currentColor = Color.black;
+                break;
+            default: break;
+        }
+
 
     }
 }

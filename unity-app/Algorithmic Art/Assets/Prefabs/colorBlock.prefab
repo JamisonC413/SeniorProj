@@ -289,7 +289,6 @@ MonoBehaviour:
   nextBlock: {fileID: 0}
   snapPositions: []
   snapOffset: {x: 0, y: 1}
-  defaultOption: 0
   playScripts: []
   color: 0
 --- !u!1 &1283003918732208643
@@ -875,6 +874,8 @@ MonoBehaviour:
       m_Image: {fileID: 21300000, guid: 2a3cc7e0f0f3d6a48a752ffce73d3bdb, type: 3}
     - m_Text: 3.
       m_Image: {fileID: 21300000, guid: 245bda9e867230f4fb3fceff86c395f0, type: 3}
+    - m_Text: 4.
+      m_Image: {fileID: 21300000, guid: 7de167ab007d51348b0a2bd6e098f5e0, type: 3}
   m_OnValueChanged:
     m_PersistentCalls:
       m_Calls: []

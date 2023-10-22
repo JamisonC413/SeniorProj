@@ -13,8 +13,7 @@ public class BlockSpawner : MonoBehaviour
 
     private void Start()
     {
-        string prefabPath = AssetDatabase.GetAssetPath(prefabToSpawn);
-        Debug.Log("Path: " + prefabPath);
+
     }
 
     private void OnMouseDown()

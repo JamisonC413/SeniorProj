@@ -36,6 +36,8 @@ public class drawBlockDropDown : MonoBehaviour
     {
         TMP_InputField xInput;
         TMP_InputField yInput;
+        TMP_InputField lengthInput;
+        TMP_InputField radiusInput;
         Toggle toggle;
         string inputData;
         switch (drawBlock.mode)
@@ -101,7 +103,50 @@ public class drawBlockDropDown : MonoBehaviour
 
                 break;
             case 2:
+                lengthInput = (TMP_InputField)(inputs[1].transform.Find("Length").GetComponent("TMP_InputField"));
+                toggle = (Toggle)(inputs[1].transform.Find("Toggle").GetComponent("Toggle"));
 
+                inputData = lengthInput.text;
+                if (!string.IsNullOrEmpty(inputData) && int.TryParse(inputData, out parsedY))
+                {
+                    drawBlock.data[1] = parsedY;
+                }
+                else
+                {
+                    drawBlock.data[1] = defaultCoords;
+                }
+
+                if (toggle.isOn)
+                {
+                    drawBlock.data[2] = 1;
+                }
+                else
+                {
+                    drawBlock.data[2] = 0;
+                }
+                break;
+            case 3:
+                radiusInput = (TMP_InputField)(inputs[1].transform.Find("Radius").GetComponent("TMP_InputField"));
+                toggle = (Toggle)(inputs[1].transform.Find("Toggle").GetComponent("Toggle"));
+
+                inputData = radiusInput.text;
+                if (!string.IsNullOrEmpty(inputData) && int.TryParse(inputData, out parsedY))
+                {
+                    drawBlock.data[1] = parsedY;
+                }
+                else
+                {
+                    drawBlock.data[1] = defaultCoords;
+                }
+
+                if (toggle.isOn)
+                {
+                    drawBlock.data[2] = 1;
+                }
+                else
+                {
+                    drawBlock.data[2] = 0;
+                }
                 break;
             default:
                 break;
@@ -117,6 +162,7 @@ public class drawBlockDropDown : MonoBehaviour
                 inputs[0].SetActive(true);
                 inputs[1].SetActive(false);
                 inputs[2].SetActive(false);
+                inputs[3].SetActive(false);
                 spriteRenderer.sprite = sprites[0];
 
                 // Resize the collider
@@ -131,6 +177,7 @@ public class drawBlockDropDown : MonoBehaviour
                 inputs[0].SetActive(false);
                 inputs[1].SetActive(true);
                 inputs[2].SetActive(false);
+                inputs[3].SetActive(false);
                 spriteRenderer.sprite = sprites[1];
 
                 // Resize the collider
@@ -145,15 +192,31 @@ public class drawBlockDropDown : MonoBehaviour
                 inputs[0].SetActive(false);
                 inputs[1].SetActive(false);
                 inputs[2].SetActive(true);
-                spriteRenderer.sprite = sprites[1];
+                inputs[3].SetActive(false);
+                spriteRenderer.sprite = sprites[0];
 
                 // Resize the collider
-                boxCollider.size = new Vector2(5.37f, 2.4f);
+                boxCollider.size = new Vector2(3.9f, 2.5f);
 
                 // Change the offset of the collider
-                boxCollider.offset = new Vector2(0.75f, 0f);
+                boxCollider.offset = new Vector2(0f, 0f);
 
                 drawBlock.mode = 2;
+                break;
+            case 3:
+                inputs[0].SetActive(false);
+                inputs[1].SetActive(false);
+                inputs[2].SetActive(false);
+                inputs[3].SetActive(true);
+                spriteRenderer.sprite = sprites[0];
+
+                // Resize the collider
+                boxCollider.size = new Vector2(3.9f, 2.5f);
+
+                // Change the offset of the collider
+                boxCollider.offset = new Vector2(0f, 0f);
+
+                drawBlock.mode = 3;
                 break;
             default:
                 break;

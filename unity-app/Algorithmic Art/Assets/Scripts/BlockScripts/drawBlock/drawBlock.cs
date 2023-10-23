@@ -207,7 +207,9 @@ public class drawBlock : Block
             Mesh filledMesh = new Mesh();
 
             // Set the material to use the same color as play.currentColor
-            meshRenderer.material.color = play.currentColor;
+            //meshRenderer.material.color = play.currentColor;
+            meshRenderer.material.EnableKeyword("_EMISSION");
+            meshRenderer.material.SetColor("_EmissionColor", play.currentColor);
 
             Vector3[] vertices = new Vector3[4];
             int[] triangles = new int[6];

@@ -103,13 +103,13 @@ public class drawBlockDropDown : MonoBehaviour
 
                 break;
             case 2:
-                lengthInput = (TMP_InputField)(inputs[1].transform.Find("Length").GetComponent("TMP_InputField"));
-                toggle = (Toggle)(inputs[1].transform.Find("Toggle").GetComponent("Toggle"));
+                lengthInput = (TMP_InputField)(inputs[2].transform.Find("Length").GetComponent("TMP_InputField"));
+                toggle = (Toggle)(inputs[2].transform.Find("Toggle").GetComponent("Toggle"));
 
                 inputData = lengthInput.text;
                 if (!string.IsNullOrEmpty(inputData) && int.TryParse(inputData, out parsedY))
                 {
-                    drawBlock.data[1] = parsedY;
+                    drawBlock.data[1] = Math.Abs(parsedY);
                 }
                 else
                 {

@@ -729,7 +729,9 @@ MonoBehaviour:
   drawArea: {x: 15, y: 15}
   startPosition: {x: 0, y: 0, z: 0}
   lineRenderers: []
+  meshRenderers: []
   LineRendererPrefab: {fileID: 7193110556999826880, guid: b9555aef8b6f84c49b3b23a94d44d579, type: 3}
+  MeshRendererPrefab: {fileID: 4732343664163756651, guid: 600afef661b051244b58fc69f9ce08f7, type: 3}
 --- !u!1 &514888865
 GameObject:
   m_ObjectHideFlags: 0
@@ -2684,7 +2686,7 @@ MonoBehaviour:
   startScript: {fileID: 401359216}
   brush: {fileID: 514575086}
   delay: 0
-  currentColor: 0
+  currentColor: {r: 0, g: 0, b: 0, a: 1}
   lineWidth: 0.1
 --- !u!114 &1392217082
 MonoBehaviour:
@@ -3480,7 +3482,7 @@ MonoBehaviour:
   startScript: {fileID: 401359216}
   brush: {fileID: 514575086}
   delay: 1
-  currentColor: 0
+  currentColor: {r: 0, g: 0, b: 0, a: 1}
   lineWidth: 0.1
 --- !u!114 &1737862637
 MonoBehaviour:

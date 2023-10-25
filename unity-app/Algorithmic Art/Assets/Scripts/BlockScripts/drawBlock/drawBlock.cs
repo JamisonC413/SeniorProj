@@ -79,7 +79,7 @@ public class drawBlock : Block
                 executeRectangle();
                 break;
             case 2:
-
+                executeTriangle();
                 break;
             default:
                 break;
@@ -233,5 +233,82 @@ public class drawBlock : Block
         }
 
         brush.transform.position = new Vector3(xTransform, yTransform, 0f);
+    }
+
+    private void executeTriangle()
+    {
+        // Positions of points to draw in lineRenderer
+        List<Vector3> positions = new List<Vector3>();
+
+        // Clear the list of positions
+        positions.Clear();
+
+
+        LineRenderer lineRenderer = brush.createLineRenderer();
+
+        float width = GameObject.Find("Play").GetComponent<Play>().lineWidth;
+        lineRenderer.startWidth = width;
+        lineRenderer.endWidth = width;
+        lineRenderer.startColor = play.currentColor;
+        lineRenderer.endColor = play.currentColor;
+
+        // Add a origin point
+        positions.Add(brush.transform.position);
+
+        float x1Transform = (float)data[1]/2 + brush.transform.position.x;
+        float x2Transform = data[1] + brush.transform.position.x;
+        float yTransform = (float)(data[1] * Math.Sqrt(3)/2 + brush.transform.position.y);
+
+        if (yTransform > brush.startPosition.y + brush.drawArea.y)
+        {
+            yTransform = brush.startPosition.y + brush.drawArea.y;
+        }
+
+        if (x2Transform > brush.startPosition.x + brush.drawArea.x)
+        {
+            x2Transform = brush.startPosition.x + brush.drawArea.x;
+        }
+
+        // Add the point from the block to the line renderer
+        positions.Add(new Vector3(x1Transform, yTransform, 0f));
+        positions.Add(new Vector3(x2Transform, brush.transform.position.y, 0f));
+        positions.Add(new Vector3(brush.transform.position.x, brush.transform.position.y, 0f));
+
+        //positions.Add(new Vector3(-xTransform, 0f, 0f));
+
+
+        // Render lines
+        lineRenderer.positionCount = positions.Count;
+        lineRenderer.SetPositions(positions.ToArray());
+
+        if (data[2] == 1)
+        {
+            // Fill
+            MeshRenderer meshRenderer = brush.createMeshRenderer();
+
+            Mesh filledMesh = new Mesh();
+
+            // Set the material to use the same color as play.currentColor
+            //meshRenderer.material.color = play.currentColor;
+            meshRenderer.material.EnableKeyword("_EMISSION");
+            meshRenderer.material.SetColor("_EmissionColor", play.currentColor);
+
+            Vector3[] vertices = new Vector3[4];
+            int[] triangles = new int[6];
+
+            vertices[0] = positions[0] - brush.transform.position;
+            vertices[1] = positions[1] - brush.transform.position;
+            vertices[2] = positions[2] - brush.transform.position;
+
+            triangles[0] = 0;
+            triangles[1] = 1;
+            triangles[2] = 2;
+
+            filledMesh.vertices = vertices;
+            filledMesh.triangles = triangles;
+            meshRenderer.gameObject.GetComponent<MeshFilter>().mesh = filledMesh;
+        }
+
+        brush.transform.position = new Vector3(x2Transform, brush.transform.position.y, 0f);
     }
 }

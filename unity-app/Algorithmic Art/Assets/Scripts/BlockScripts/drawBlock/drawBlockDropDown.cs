@@ -126,8 +126,8 @@ public class drawBlockDropDown : MonoBehaviour
                 }
                 break;
             case 3:
-                radiusInput = (TMP_InputField)(inputs[1].transform.Find("Radius").GetComponent("TMP_InputField"));
-                toggle = (Toggle)(inputs[1].transform.Find("Toggle").GetComponent("Toggle"));
+                radiusInput = (TMP_InputField)(inputs[3].transform.Find("Radius").GetComponent("TMP_InputField"));
+                toggle = (Toggle)(inputs[3].transform.Find("Toggle").GetComponent("Toggle"));
 
                 inputData = radiusInput.text;
                 if (!string.IsNullOrEmpty(inputData) && int.TryParse(inputData, out parsedY))

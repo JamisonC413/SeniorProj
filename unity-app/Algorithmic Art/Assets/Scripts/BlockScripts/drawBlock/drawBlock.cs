@@ -1,7 +1,9 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using TMPro;
+using UnityEditor;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -82,6 +84,7 @@ public class drawBlock : Block
                 executeTriangle();
                 break;
             default:
+                executeCircle();
                 break;
         };
     }
@@ -264,6 +267,11 @@ public class drawBlock : Block
             yTransform = brush.startPosition.y + brush.drawArea.y;
         }
 
+        if (x1Transform > brush.startPosition.x + brush.drawArea.x)
+        {
+            x1Transform = brush.startPosition.x + brush.drawArea.x;
+        }
+
         if (x2Transform > brush.startPosition.x + brush.drawArea.x)
         {
             x2Transform = brush.startPosition.x + brush.drawArea.x;
@@ -293,8 +301,8 @@ public class drawBlock : Block
             meshRenderer.material.EnableKeyword("_EMISSION");
             meshRenderer.material.SetColor("_EmissionColor", play.currentColor);
 
-            Vector3[] vertices = new Vector3[4];
-            int[] triangles = new int[6];
+            Vector3[] vertices = new Vector3[3];
+            int[] triangles = new int[3];
 
             vertices[0] = positions[0] - brush.transform.position;
             vertices[1] = positions[1] - brush.transform.position;
@@ -310,5 +318,99 @@ public class drawBlock : Block
         }
 
         brush.transform.position = new Vector3(x2Transform, brush.transform.position.y, 0f);
+    }
+
+    private void executeCircle()
+    {
+        // Positions of points to draw in lineRenderer
+        List<Vector3> positions = new List<Vector3>();
+
+        var pointCount = 100;
+
+        // Clear the list of positions
+        positions.Clear();
+
+
+        LineRenderer lineRenderer = brush.createLineRenderer();
+
+        float width = GameObject.Find("Play").GetComponent<Play>().lineWidth;
+        lineRenderer.startWidth = width;
+        lineRenderer.endWidth = width;
+        lineRenderer.startColor = play.currentColor;
+        lineRenderer.endColor = play.currentColor;
+
+        for (int i = 0; i < pointCount; i++)
+        {
+            float circumference = (float)i / pointCount;
+
+            float currentRadian = circumference * 2 * Mathf.PI;
+
+            float xScaled = Mathf.Cos(currentRadian);
+            float yScaled = Mathf.Sin(currentRadian);
+
+            float x = xScaled * data[1] + brush.transform.position.x;
+            float y = yScaled * data[1] + brush.transform.position.y;
+
+            if (y < brush.startPosition.y)
+            {
+                y = brush.startPosition.y;
+            }
+
+            if (x < brush.startPosition.x)
+            {
+                x = brush.startPosition.x;
+            }
+
+            if (y > brush.startPosition.y + brush.drawArea.y)
+            {
+                y = brush.startPosition.y + brush.drawArea.y;
+            }
+
+            if (x > brush.startPosition.x + brush.drawArea.x)
+            {
+                x = brush.startPosition.x + brush.drawArea.x;
+            }
+
+            positions.Add(new Vector3(x, y, 0f));
+
+        }
+
+        // Render lines
+        lineRenderer.positionCount = positions.Count;
+        lineRenderer.SetPositions(positions.ToArray());
+
+        if (data[2] == 1)
+        {
+            // Fill
+            MeshRenderer meshRenderer = brush.createMeshRenderer();
+
+            Mesh filledMesh = new Mesh();
+
+            // Set the material to use the same color as play.currentColor
+            //meshRenderer.material.color = play.currentColor;
+            meshRenderer.material.EnableKeyword("_EMISSION");
+            meshRenderer.material.SetColor("_EmissionColor", play.currentColor);
+
+            Vector3[] vertices = new Vector3[pointCount];
+            int[] triangles = new int[3 * pointCount];
+
+            for (int i = 0; i < pointCount; i++)
+            {
+                vertices[i] = positions[i] - brush.transform.position;
+            }
+
+            for (int i = 0; i < pointCount - 2; i++)
+            {
+          
+                triangles[i*3] = 0;
+                triangles[i*3 + 1] = i + 2;
+                triangles[i*3 + 2] = i + 1;
+            }
+
+            filledMesh.vertices = vertices;
+            filledMesh.triangles = triangles;
+            meshRenderer.gameObject.GetComponent<MeshFilter>().mesh = filledMesh;
+        }
+
     }
 }

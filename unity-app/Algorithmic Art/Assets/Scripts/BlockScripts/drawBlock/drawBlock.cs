@@ -8,7 +8,7 @@ using UnityEngine;
 using UnityEngine.UI;
 
 // Script for the Draw Block
-public class drawBlock : Block
+public class drawBlock: Block
 {
     // For future code 
     [SerializeField]
@@ -16,6 +16,13 @@ public class drawBlock : Block
     // For future code 
     [SerializeField]
     private TMP_InputField YInput;
+
+    [SerializeField]
+    private GameObject snap1;
+
+    [SerializeField]
+    private GameObject snap2;
+
     // Offset for snaps above and below
     [SerializeField]
     private Vector2 snapOffset = new Vector2(0f, 1f);
@@ -39,8 +46,8 @@ public class drawBlock : Block
         initialize();
 
         snapPositions = new Vector2[2];
-        snapPositions[0] = new Vector2(transform.position.x, transform.position.y) + snapOffset;
-        snapPositions[1] = new Vector2(transform.position.x + snapOffset.x, transform.position.y - snapOffset.y);
+        snapPositions[0] = snap1.transform.position;
+        snapPositions[1] = snap2.transform.position;
 
         brush = GameObject.Find("Brush").GetComponent<Brush>();
     }
@@ -49,9 +56,8 @@ public class drawBlock : Block
     void Update()
     {
         // Updates the snap positions with any new position of block
-        snapPositions[0] = new Vector2(transform.position.x, transform.position.y) + snapOffset;
-        snapPositions[1] = new Vector2(transform.position.x + snapOffset.x, transform.position.y - snapOffset.y);
-
+        snapPositions[0] = snap1.transform.position;
+        snapPositions[1] = snap2.transform.position;
     }
 
     public void initialize()

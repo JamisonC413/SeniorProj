@@ -32,6 +32,7 @@ public class BlockSpawner : MonoBehaviour
 
         // Create the prefab within the same Canvas
         spawnedObject = Instantiate(prefabToSpawn, spawnPosition, Quaternion.identity, canvas.transform);
+        Vector3 scale = new Vector3(33, 28f, 0);
         spawnedObject.transform.localScale = transform.localScale;
 
         // Sorts out the proper layer and positioning of the new object

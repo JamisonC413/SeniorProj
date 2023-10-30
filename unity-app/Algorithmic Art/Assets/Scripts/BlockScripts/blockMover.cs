@@ -56,7 +56,13 @@ public class blockMover : MonoBehaviour
         if (Input.GetMouseButtonDown(0))
         {
             // Cast a ray from the mouse position and grab the first object hit
-            Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
+            Ray ray = new Ray();
+
+            if (Camera.main != null && Camera.main.isActiveAndEnabled)
+            {
+                ray = Camera.main.ScreenPointToRay(Input.mousePosition);
+                
+            }
             RaycastHit2D hit = Physics2D.Raycast(ray.origin, ray.direction);
 
             // Helpful debug code, tells you what object gets hit by raycast

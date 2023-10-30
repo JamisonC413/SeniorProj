@@ -57,8 +57,6 @@ public class drawBlock : Block
     public void initialize()
     {
         this.blockID = Block.nextID;
-        this.topSnapped = false;
-        this.botSnapped = false;
         this.prevBlock = null;
         this.nextBlock = null;
 

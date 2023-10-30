@@ -20,14 +20,8 @@ public class Play : MonoBehaviour
     // Delay between blocks playing (seconds)
     public float delay = 1f;
 
-    public enum Color
-    {
-        Red = 0,
-        Green = 1,
-        Blue = 2
-    }
 
-    public Color currentColor = 0;
+    public Color currentColor = Color.black;
 
     public float lineWidth = .1f;
 
@@ -37,8 +31,8 @@ public class Play : MonoBehaviour
 
         // Resets brush to it's origin
         brush.resetPosition();
-        brush.clearLineRenderers();
-        currentColor = 0;
+        brush.clearRenderers();
+        currentColor = Color.black;
         lineWidth = .1f;
 
         yield return new WaitForSeconds(delay);

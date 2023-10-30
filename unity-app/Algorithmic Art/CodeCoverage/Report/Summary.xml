@@ -1,48 +1,31 @@
 <?xml version="1.0" encoding="utf-8"?>
 <CoverageReport scope="Summary">
   <Summary>
-    <Generatedon>10/16/2023 - 9:33:10 AM</Generatedon>
+    <Generatedon>10/23/2023 - 1:36:26 PM</Generatedon>
     <Parser>MultiReportParser (2x OpenCoverParser)</Parser>
-    <Assemblies>4</Assemblies>
-    <Classes>21</Classes>
-    <Files>21</Files>
-    <Coveredlines>220</Coveredlines>
-    <Uncoveredlines>399</Uncoveredlines>
-    <Coverablelines>619</Coverablelines>
-    <Totallines>1523</Totallines>
-    <Linecoverage>35.5</Linecoverage>
+    <Assemblies>3</Assemblies>
+    <Classes>6</Classes>
+    <Files>6</Files>
+    <Coveredlines>117</Coveredlines>
+    <Uncoveredlines>13</Uncoveredlines>
+    <Coverablelines>130</Coverablelines>
+    <Totallines>389</Totallines>
+    <Linecoverage>90</Linecoverage>
     <Coveredbranches>0</Coveredbranches>
     <Totalbranches>0</Totalbranches>
-    <Coveredmethods>34</Coveredmethods>
-    <Totalmethods>78</Totalmethods>
-    <Methodcoverage>43.5</Methodcoverage>
+    <Coveredmethods>14</Coveredmethods>
+    <Totalmethods>20</Totalmethods>
+    <Methodcoverage>70</Methodcoverage>
   </Summary>
   <Coverage>
-    <Assembly name="Assembly-CSharp" classes="2" coverage="58.3" coveredlines="21" coverablelines="36" totallines="78" branchcoverage="" coveredbranches="0" totalbranches="0" coveredmethods="2" totalmethods="5" methodcoverage="40">
-      <Class name="GetPrefabPath" coverage="0" coveredlines="0" coverablelines="15" totallines="34" branchcoverage="" coveredbranches="0" totalbranches="0" coveredmethods="0" totalmethods="3" methodcoverage="0" />
+    <Assembly name="Assembly-CSharp" classes="1" coverage="100" coveredlines="21" coverablelines="21" totallines="44" branchcoverage="" coveredbranches="0" totalbranches="0" coveredmethods="2" totalmethods="2" methodcoverage="100">
       <Class name="SimpleSquare" coverage="100" coveredlines="21" coverablelines="21" totallines="44" branchcoverage="" coveredbranches="0" totalbranches="0" coveredmethods="2" totalmethods="2" methodcoverage="100" />
     </Assembly>
-    <Assembly name="PlaymodeTests" classes="5" coverage="87.2" coveredlines="96" coverablelines="110" totallines="346" branchcoverage="" coveredbranches="0" totalbranches="0" coveredmethods="12" totalmethods="19" methodcoverage="63.1">
+    <Assembly name="PlaymodeTests" classes="4" coverage="92.3" coveredlines="96" coverablelines="104" totallines="320" branchcoverage="" coveredbranches="0" totalbranches="0" coveredmethods="12" totalmethods="16" methodcoverage="75">
       <Class name="BlockIDTest" coverage="100" coveredlines="47" coverablelines="47" totallines="139" branchcoverage="" coveredbranches="0" totalbranches="0" coveredmethods="6" totalmethods="6" methodcoverage="100" />
       <Class name="BrushTest" coverage="91.6" coveredlines="44" coverablelines="48" totallines="138" branchcoverage="" coveredbranches="0" totalbranches="0" coveredmethods="4" totalmethods="6" methodcoverage="66.6" />
       <Class name="DrawTest" coverage="0" coveredlines="0" coverablelines="4" totallines="18" branchcoverage="" coveredbranches="0" totalbranches="0" coveredmethods="0" totalmethods="2" methodcoverage="0" />
-      <Class name="InputEvent" coverage="0" coveredlines="0" coverablelines="6" totallines="26" branchcoverage="" coveredbranches="0" totalbranches="0" coveredmethods="0" totalmethods="3" methodcoverage="0" />
       <Class name="NewTestScript" coverage="100" coveredlines="5" coverablelines="5" totallines="25" branchcoverage="" coveredbranches="0" totalbranches="0" coveredmethods="2" totalmethods="2" methodcoverage="100" />
-    </Assembly>
-    <Assembly name="Project_Scripts_def" classes="13" coverage="22" coveredlines="103" coverablelines="468" totallines="1074" branchcoverage="" coveredbranches="0" totalbranches="0" coveredmethods="20" totalmethods="52" methodcoverage="38.4">
-      <Class name="Block" coverage="0" coveredlines="0" coverablelines="10" totallines="56" branchcoverage="" coveredbranches="0" totalbranches="0" coveredmethods="0" totalmethods="2" methodcoverage="0" />
-      <Class name="blockMover" coverage="5.2" coveredlines="8" coverablelines="151" totallines="300" branchcoverage="" coveredbranches="0" totalbranches="0" coveredmethods="2" totalmethods="8" methodcoverage="25" />
-      <Class name="BlockSpawner" coverage="26.3" coveredlines="5" coverablelines="19" totallines="44" branchcoverage="" coveredbranches="0" totalbranches="0" coveredmethods="2" totalmethods="4" methodcoverage="50" />
-      <Class name="Brush" coverage="29.1" coveredlines="7" coverablelines="24" totallines="60" branchcoverage="" coveredbranches="0" totalbranches="0" coveredmethods="2" totalmethods="5" methodcoverage="40" />
-      <Class name="colorBlock" coverage="12" coveredlines="3" coverablelines="25" totallines="62" branchcoverage="" coveredbranches="0" totalbranches="0" coveredmethods="1" totalmethods="4" methodcoverage="25" />
-      <Class name="colorBlockDropDown" coverage="0" coveredlines="0" coverablelines="6" totallines="26" branchcoverage="" coveredbranches="0" totalbranches="0" coveredmethods="0" totalmethods="2" methodcoverage="0" />
-      <Class name="drawBlock" coverage="41" coveredlines="32" coverablelines="78" totallines="158" branchcoverage="" coveredbranches="0" totalbranches="0" coveredmethods="4" totalmethods="5" methodcoverage="80" />
-      <Class name="moveBrush" coverage="35.7" coveredlines="25" coverablelines="70" totallines="133" branchcoverage="" coveredbranches="0" totalbranches="0" coveredmethods="3" totalmethods="5" methodcoverage="60" />
-      <Class name="Play" coverage="10" coveredlines="2" coverablelines="20" totallines="62" branchcoverage="" coveredbranches="0" totalbranches="0" coveredmethods="1" totalmethods="3" methodcoverage="33.3" />
-      <Class name="startBlock" coverage="100" coveredlines="14" coverablelines="14" totallines="35" branchcoverage="" coveredbranches="0" totalbranches="0" coveredmethods="3" totalmethods="3" methodcoverage="100" />
-      <Class name="Tab" coverage="25" coveredlines="3" coverablelines="12" totallines="31" branchcoverage="" coveredbranches="0" totalbranches="0" coveredmethods="1" totalmethods="4" methodcoverage="25" />
-      <Class name="TabGroup" coverage="16.6" coveredlines="4" coverablelines="24" totallines="47" branchcoverage="" coveredbranches="0" totalbranches="0" coveredmethods="1" totalmethods="5" methodcoverage="20" />
-      <Class name="TakeScreenshotAndSend" coverage="0" coveredlines="0" coverablelines="15" totallines="60" branchcoverage="" coveredbranches="0" totalbranches="0" coveredmethods="0" totalmethods="2" methodcoverage="0" />
     </Assembly>
     <Assembly name="Tests" classes="1" coverage="0" coveredlines="0" coverablelines="5" totallines="25" branchcoverage="" coveredbranches="0" totalbranches="0" coveredmethods="0" totalmethods="2" methodcoverage="0">
       <Class name="NewTestScript" coverage="0" coveredlines="0" coverablelines="5" totallines="25" branchcoverage="" coveredbranches="0" totalbranches="0" coveredmethods="0" totalmethods="2" methodcoverage="0" />

@@ -13,14 +13,16 @@ public class drawBlock : Block
     // For future code 
     [SerializeField]
     private TMP_InputField YInput;
-    // Offset for snaps above and below
-    [SerializeField]
-    private Vector2 snapOffset = new Vector2(0f, 1f);
 
     // Default for x and y coordinates
     [SerializeField]
     private int defaultCoords = 0;
 
+    [SerializeField]
+    private GameObject snap1;
+
+    [SerializeField]
+    private GameObject snap2;
 
     // The x coordinite input 
     public int X;
@@ -43,8 +45,8 @@ public class drawBlock : Block
         initialize();
 
         snapPositions = new Vector2[2];
-        snapPositions[0] = new Vector2(transform.position.x, transform.position.y) + snapOffset;
-        snapPositions[1] = new Vector2(transform.position.x + snapOffset.x, transform.position.y - snapOffset.y);
+        snapPositions[0] = snap1.transform.position;
+        snapPositions[1] = snap2.transform.position;
 
         brush = GameObject.Find("Brush").GetComponent<Brush>();
     }
@@ -53,8 +55,8 @@ public class drawBlock : Block
     void Update()
     {
         // Updates the snap positions with any new position of block
-        snapPositions[0] = new Vector2(transform.position.x, transform.position.y) + snapOffset;
-        snapPositions[1] = new Vector2(transform.position.x + snapOffset.x, transform.position.y - snapOffset.y);
+        snapPositions[0] = snap1.transform.position;
+        snapPositions[1] = snap2.transform.position;
 
         // Checks the x and Y input for valid integers, if non found than sets to default value 1
         // Note: Paramarterize the default value?
@@ -99,8 +101,6 @@ public class drawBlock : Block
     public void initialize()
     {
         this.blockID = Block.nextID;
-        this.topSnapped = false;
-        this.botSnapped = false;
         this.prevBlock = null;
         this.nextBlock = null;
 
@@ -137,7 +137,7 @@ public class drawBlock : Block
         {
             yTransform = brush.startPosition.y;
         }
-        if(xTransform > brush.startPosition.x + brush.drawArea.x)
+        if (xTransform > brush.startPosition.x + brush.drawArea.x)
         {
             xTransform = brush.startPosition.x + brush.drawArea.x;
         }

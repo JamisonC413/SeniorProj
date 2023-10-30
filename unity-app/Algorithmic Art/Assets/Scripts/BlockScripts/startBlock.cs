@@ -13,8 +13,6 @@ public class startBlock : Block
     {
         // Sets ID, refrences and boolean for snapped
         this.blockID = Block.nextID;
-        this.topSnapped = false;
-        this.botSnapped = false;
         this.prevBlock = null;
         this.nextBlock = null;
 

@@ -13,9 +13,12 @@ public class moveBrush : Block
     // For future code 
     [SerializeField]
     private TMP_InputField YInput;
-    // Offset for snaps above and below
+
     [SerializeField]
-    private Vector2 snapOffset = new Vector2(0f, 1f);
+    private GameObject snap1;
+
+    [SerializeField]
+    private GameObject snap2;
 
     // Default for x and y coordinates
     [SerializeField]
@@ -37,8 +40,8 @@ public class moveBrush : Block
         initialize();
 
         snapPositions = new Vector2[2];
-        snapPositions[0] = new Vector2(transform.position.x, transform.position.y) + snapOffset;
-        snapPositions[1] = new Vector2(transform.position.x + snapOffset.x, transform.position.y - snapOffset.y);
+        snapPositions[0] = snap1.transform.position;
+        snapPositions[1] = snap2.transform.position;
 
         //Note: Replaced GameObject.Find with GameObject.FindGameObjectWithTag because Find is very expensive - Tong
         brush = GameObject.FindGameObjectWithTag("brush").GetComponent<Brush>();
@@ -48,8 +51,8 @@ public class moveBrush : Block
     void Update()
     {
         // Updates the snap positions with any new position of block
-        snapPositions[0] = new Vector2(transform.position.x, transform.position.y) + snapOffset;
-        snapPositions[1] = new Vector2(transform.position.x + snapOffset.x, transform.position.y - snapOffset.y);
+        snapPositions[0] = snap1.transform.position;
+        snapPositions[1] = snap2.transform.position;
 
         // Checks the x and Y input for valid integers, if non found than sets to default value 1
         // Note: Paramarterize the default value?
@@ -94,8 +97,6 @@ public class moveBrush : Block
     public void initialize()
     {
         this.blockID = Block.nextID;
-        this.topSnapped = false;
-        this.botSnapped = false;
         this.prevBlock = null;
         this.nextBlock = null;
 

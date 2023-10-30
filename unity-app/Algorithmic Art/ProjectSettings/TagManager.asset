@@ -8,6 +8,7 @@ TagManager:
   - block
   - brush
   - MainCanvas
+  - Canvas2
   layers:
   - Default
   - TransparentFX

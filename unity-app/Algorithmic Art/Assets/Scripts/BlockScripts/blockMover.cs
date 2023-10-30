@@ -306,6 +306,11 @@ public class blockMover : MonoBehaviour
                 oldPrevBlock = null;
             }
         }
+        else if (newNextBlock != null || newPrevBlock != null)
+        {
+            oldPrevBlock = null;
+            oldNextBlock = null;
+        }
         oldSnapPositions = null;
         insertingBlock = null;
     }

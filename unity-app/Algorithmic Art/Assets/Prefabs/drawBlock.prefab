@@ -148,6 +148,7 @@ GameObject:
   - component: {fileID: 3918490678774855490}
   - component: {fileID: 3298220470990979444}
   - component: {fileID: -4583666910160371836}
+  - component: {fileID: 9099051692030063604}
   m_Layer: 3
   m_Name: drawBlock
   m_TagString: Untagged
@@ -168,6 +169,8 @@ Transform:
   m_LocalScale: {x: 20.529799, y: 19.733479, z: 75.06416}
   m_ConstrainProportionsScale: 1
   m_Children:
+  - {fileID: 1971494217507379217}
+  - {fileID: 7517596754852520284}
   - {fileID: 3410980558298711297}
   - {fileID: 1801497429614301315}
   m_Father: {fileID: 0}
@@ -283,19 +286,33 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   blockID: 0
   blockColor: {r: 0, g: 0, b: 0, a: 0}
-  topSnapped: 0
-  botSnapped: 0
   prevBlock: {fileID: 0}
   nextBlock: {fileID: 0}
   snapPositions: []
   XInput: {fileID: 6772344076810252525}
   YInput: {fileID: 48824597542847681}
-  snapOffset: {x: 0, y: 1}
   defaultCoords: 0
+  snap1: {fileID: 7189482885092073583}
+  snap2: {fileID: 8234123892716047695}
   X: 0
   Y: 0
   brush: {fileID: 0}
   lineRenderer: {fileID: 323659771744740965}
+--- !u!114 &9099051692030063604
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 801895102098321813}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ba684be60d8ea6842856cacd25ef0e46, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  subCanvas: {fileID: 1345184463908643889}
+  sortingLayerName: Text
+  sortingOrder: 3
 --- !u!1 &1230488865231503196
 GameObject:
   m_ObjectHideFlags: 0
@@ -808,7 +825,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.754, y: 0.56779504}
   m_AnchorMax: {x: 0.9583916, y: 0.76610816}
-  m_AnchoredPosition: {x: -0.584671, y: 0}
+  m_AnchoredPosition: {x: -0.58465576, y: 0}
   m_SizeDelta: {x: 1.1696, y: -0.0000038147}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &2316098895287172393
@@ -1459,7 +1476,7 @@ Canvas:
   m_AdditionalShaderChannelsFlag: 25
   m_UpdateRectTransformForStandalone: 0
   m_SortingLayerID: -1911302365
-  m_SortingOrder: 2
+  m_SortingOrder: 3
   m_TargetDisplay: 0
 --- !u!114 &584430833457151415
 MonoBehaviour:
@@ -1538,7 +1555,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.754, y: 0.2642377}
   m_AnchorMax: {x: 0.9583916, y: 0.4688827}
-  m_AnchoredPosition: {x: 0.000045776367, y: 0.0002937317}
+  m_AnchoredPosition: {x: 0.000061035156, y: 0.00030517578}
   m_SizeDelta: {x: 0.00011444, y: 0.00058746}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &1389593880442977233
@@ -1722,6 +1739,37 @@ BoxCollider2D:
   serializedVersion: 2
   m_Size: {x: 1, y: 1}
   m_EdgeRadius: 0
+--- !u!1 &7189482885092073583
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1971494217507379217}
+  m_Layer: 3
+  m_Name: Snappoint1
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1971494217507379217
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7189482885092073583}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 1, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 5170633750512893091}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &7931834579666792390
 GameObject:
   m_ObjectHideFlags: 0
@@ -1891,7 +1939,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: 0, y: -0.4999962}
+  m_AnchoredPosition: {x: 0, y: -0.5}
   m_SizeDelta: {x: -20, y: -13}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &6953081060812910943
@@ -1908,6 +1956,37 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_Padding: {x: -8, y: -5, z: -8, w: -5}
   m_Softness: {x: 0, y: 0}
+--- !u!1 &8234123892716047695
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 7517596754852520284}
+  m_Layer: 3
+  m_Name: Snappoint2
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &7517596754852520284
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8234123892716047695}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: -1, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 5170633750512893091}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &9051486651115508573
 GameObject:
   m_ObjectHideFlags: 0

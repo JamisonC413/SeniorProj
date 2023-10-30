@@ -45,6 +45,8 @@ public class blockMover : MonoBehaviour
 
     private Vector2 lastMousePos = Vector2.zero;
 
+    public GameObject parentCanvas;
+
     // Update is called every frame and handles dragging and snapping
     void Update()
     {
@@ -69,7 +71,9 @@ public class blockMover : MonoBehaviour
                 // Store the block reference as the block we are dragging and calculate the offset
                 block = hit.collider.gameObject;
                 blockScript = (Block)block.GetComponent("Block");
+                block.transform.SetParent(parentCanvas.transform);
                 offset = block.transform.position - Camera.main.ScreenToWorldPoint(Input.mousePosition);
+                
 
                 // Set isDragging to true
                 isDragging = true;
@@ -121,7 +125,10 @@ public class blockMover : MonoBehaviour
             if (Input.GetMouseButtonUp(0))
             {
                 blockScript.setRenderLayersLow();
-                //misplacedDestroy();
+                misplacedDestroy();
+                GameObject scrollArea = GameObject.FindGameObjectWithTag("CodeArea");
+                block.transform.SetParent(scrollArea.transform);
+
                 snapToBlocks();
 
                 // Sets the block for next object to be picked up
@@ -235,7 +242,8 @@ public class blockMover : MonoBehaviour
         // If the object that is hit is not the code area or just doesn't exist than it destoys the block
         if (hit.collider == null || !hit.collider.CompareTag("CodeArea"))
         {
-            Destroy(block);
+            Debug.Log(hit.collider);
+            //Destroy(block);
         }
     }
 

@@ -7,6 +7,7 @@ TagManager:
   - CodeArea
   - block
   - brush
+  - MainCanvas
   layers:
   - Default
   - TransparentFX

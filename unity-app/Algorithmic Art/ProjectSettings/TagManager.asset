@@ -7,6 +7,8 @@ TagManager:
   - CodeArea
   - block
   - brush
+  - MainCanvas
+  - Canvas2
   layers:
   - Default
   - TransparentFX
@@ -14,8 +16,8 @@ TagManager:
   - BlockLayer
   - Water
   - UI
-  - 
-  - 
+  - background
+  - Text
   - 
   - 
   - 
@@ -52,4 +54,7 @@ TagManager:
     locked: 0
   - name: Block
     uniqueID: 2410379607
+    locked: 0
+  - name: Text
+    uniqueID: 2383664931
     locked: 0

@@ -108,8 +108,8 @@ public class BlockIDTest : MonoBehaviour
         db.initialize();
 
         //BlockID is 1 here due to using Object.Instantiate instead of regular Instantiate
-        UnityEngine.Assertions.Assert.IsFalse(db.topSnapped);
-        UnityEngine.Assertions.Assert.IsFalse(db.botSnapped);
+        //UnityEngine.Assertions.Assert.IsFalse(db.topSnapped);
+        //UnityEngine.Assertions.Assert.IsFalse(db.botSnapped);
         UnityEngine.Assertions.Assert.IsNull(db.prevBlock);
         UnityEngine.Assertions.Assert.IsNull(db.nextBlock);
 
@@ -128,8 +128,8 @@ public class BlockIDTest : MonoBehaviour
         mb.initialize();
 
         //BlockID is 1 here due to using Object.Instantiate instead of regular Instantiate
-        UnityEngine.Assertions.Assert.IsFalse(mb.topSnapped);
-        UnityEngine.Assertions.Assert.IsFalse(mb.botSnapped);
+        //UnityEngine.Assertions.Assert.IsFalse(mb.topSnapped);
+        //UnityEngine.Assertions.Assert.IsFalse(mb.botSnapped);
         UnityEngine.Assertions.Assert.IsNull(mb.prevBlock);
         UnityEngine.Assertions.Assert.IsNull(mb.nextBlock);
 

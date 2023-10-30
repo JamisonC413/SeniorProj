@@ -10,7 +10,10 @@ public class colorBlock : Block
 
     // Offset for snaps above and below
     [SerializeField]
-    private Vector2 snapOffset = new Vector2(0f, 1f);
+    private GameObject snap1;
+
+    [SerializeField]
+    private GameObject snap2;
 
     [SerializeField]
     private Play[] playScripts;
@@ -21,16 +24,14 @@ public class colorBlock : Block
     void Awake()
     {
         this.blockID = Block.nextID;
-        this.topSnapped = false;
-        this.botSnapped = false;
         this.prevBlock = null;
         this.nextBlock = null;
 
         Block.nextID++;
 
         snapPositions = new Vector2[2];
-        snapPositions[0] = new Vector2(transform.position.x, transform.position.y) + snapOffset;
-        snapPositions[1] = new Vector2(transform.position.x + snapOffset.x, transform.position.y - snapOffset.y);
+        snapPositions[0] = snap1.transform.position;
+        snapPositions[1] = snap2.transform.position;
 
         playScripts = new Play[2];
         playScripts[0] = GameObject.Find("Play").GetComponent<Play>();
@@ -41,8 +42,8 @@ public class colorBlock : Block
     void Update()
     {
         // Updates the snap positions with any new position of block
-        snapPositions[0] = new Vector2(transform.position.x, transform.position.y) + snapOffset;
-        snapPositions[1] = new Vector2(transform.position.x + snapOffset.x, transform.position.y - snapOffset.y);
+        snapPositions[0] = snap1.transform.position;
+        snapPositions[1] = snap2.transform.position;
 
         // Checks the x and Y input for valid integers, if non found than sets to default value 1
 
@@ -51,6 +52,10 @@ public class colorBlock : Block
     // Will be used to draw line using a child linerenderer component. Not yet implemented
     public override void execute()
     {
+<<<<<<< HEAD
+        playScripts[0].currentColor = (Play.Color)color;
+        playScripts[1].currentColor = (Play.Color)color;
+=======
         switch (color)
         {
             case 0:
@@ -73,6 +78,7 @@ public class colorBlock : Block
             default: break;
         }
 
+>>>>>>> dbf3251a0995ebd93f509699c1af083e98d7b0cb
 
     }
 }

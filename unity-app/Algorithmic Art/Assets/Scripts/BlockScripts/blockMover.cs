@@ -2,12 +2,13 @@ using UnityEngine;
 using System.Collections.Generic;
 using System.Linq;
 using UnityEngine.UIElements;
+using System.Threading;
 
 // Handles moving and snapping blocks.
 public class blockMover : MonoBehaviour
 {
     // Offset tracks the difference between the mouse position and the transform of the block
-    private Vector3 offset; 
+    private Vector3 offset;
 
     // Tracks if a block is getting dragged
     private bool isDragging = false;
@@ -18,13 +19,33 @@ public class blockMover : MonoBehaviour
     [SerializeField]
     private GameObject startBlock;
 
-    [SerializeField]
-    private string[] availableBlocks = new string[] { "drawBlock", "moveBrush" };
-
     // The block currently getting dragged
     // NOTE: expirimented with removing isDragging and replacing it with a null check on this was done... but it didn't work
     //       maybe someone else will have a better idea?
     public GameObject block;
+
+    // Tracks if a block is getting inserted into the middle of a list
+    public Block insertingBlock = null;
+
+    private bool insertingBlockChanged = false;
+
+    private Vector2[] oldSnapPositions = null;
+
+    public Block newPrevBlock = null;
+
+    public Block newNextBlock = null;
+
+    public Block oldPrevBlock = null;
+
+    public Block oldNextBlock = null;
+
+    private bool dragChildren = false;
+
+    private Block blockScript = null;
+
+    private Vector2 lastMousePos = Vector2.zero;
+
+    public GameObject parentCanvas;
 
     // Update is called every frame and handles dragging and snapping
     void Update()
@@ -35,7 +56,13 @@ public class blockMover : MonoBehaviour
         if (Input.GetMouseButtonDown(0))
         {
             // Cast a ray from the mouse position and grab the first object hit
-            Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
+            Ray ray = new Ray();
+
+            if (Camera.main != null && Camera.main.isActiveAndEnabled)
+            {
+                ray = Camera.main.ScreenPointToRay(Input.mousePosition);
+                
+            }
             RaycastHit2D hit = Physics2D.Raycast(ray.origin, ray.direction);
 
             // Helpful debug code, tells you what object gets hit by raycast
@@ -49,17 +76,27 @@ public class blockMover : MonoBehaviour
             {
                 // Store the block reference as the block we are dragging and calculate the offset
                 block = hit.collider.gameObject;
+                blockScript = (Block)block.GetComponent("Block");
+                block.transform.SetParent(parentCanvas.transform);
                 offset = block.transform.position - Camera.main.ScreenToWorldPoint(Input.mousePosition);
+                
 
                 // Set isDragging to true
                 isDragging = true;
 
-
+                if (((Block)block.GetComponent("Block")).prevBlock)
+                {
+                    dragChildren = false;
+                }
+                else
+                {
+                    dragChildren = true;
+                }
                 // Sets refrences of the block to null, also sets the refrences of blocks being broken away from
                 setRefrences();
-                setRenderLayersHigh();
+                blockScript.setRenderLayersHigh();
             }
-            else if(hit.collider != null && hit.collider.CompareTag("CodeArea"))
+            else if (hit.collider != null && hit.collider.CompareTag("CodeArea"))
             {
                 // If a collider is hit but it is the CodeArea than move all blocks, the flag is simply not setting block but setting isDragging true
                 offset = Camera.main.ScreenToWorldPoint(Input.mousePosition);
@@ -72,24 +109,38 @@ public class blockMover : MonoBehaviour
         {
             // Update the object's position based on the mouse position
             Vector3 newPosition = Camera.main.ScreenToWorldPoint(Input.mousePosition) + offset;
-            block.transform.position = new Vector3(newPosition.x, newPosition.y, block.transform.position.z);
+            if (dragChildren)
+            {
+                ((Block)block.GetComponent("Block")).moveChildren(new Vector2(newPosition.x - block.transform.position.x, newPosition.y - block.transform.position.y));
+            }
+            else
+            {
+                block.transform.position = new Vector3(newPosition.x, newPosition.y, block.transform.position.z);
+            }
+            lastMousePos = Camera.main.ScreenToWorldPoint(Input.mousePosition);
 
             // Everything beyond has to do with finding snap partners
-            // NOTE: Need to split stuff into functions after issue is resolved
+
 
             // Gets all colliders that overlap with a circle of radius of searchRadius
-            List<GameObject> blockList = findCloseBlocks();
+            List<GameObject> blockList = findCloseBlocks(); ;
+
+            updateCurrentOptions(blockList);
 
             // Check for mouse button release, handles snapping with located partners
             if (Input.GetMouseButtonUp(0))
             {
-                setRenderLayersLow();
+                blockScript.setRenderLayersLow();
                 misplacedDestroy();
-                snapToBlocks(blockList);
+                GameObject scrollArea = GameObject.FindGameObjectWithTag("CodeArea");
+                block.transform.SetParent(scrollArea.transform);
+
+                snapToBlocks();
 
                 // Sets the block for next object to be picked up
                 block.layer = 0;
                 block = null;
+                blockScript = null;
 
                 isDragging = false;
             }
@@ -119,64 +170,36 @@ public class blockMover : MonoBehaviour
             if (Input.GetMouseButtonUp(0))
             {
                 isDragging = false;
+                dragChildren = false;
             }
         }
 
     }
 
+
+
+
+
     private void setRefrences()
     {
+
         // Sets the refrences of the block and any blocks attached to it to be null.
         Block tempScript = ((Block)block.GetComponent("Block"));
         if (tempScript.prevBlock != null)
         {
+            oldPrevBlock = tempScript.prevBlock;
             tempScript.prevBlock.nextBlock = null;
             tempScript.prevBlock = null;
+
         }
-        if (tempScript.nextBlock != null)
+        if (tempScript.nextBlock != null && !dragChildren)
         {
+            oldNextBlock = tempScript.nextBlock;
             tempScript.nextBlock.prevBlock = null;
             tempScript.nextBlock = null;
         }
     }
 
-    private void setRenderLayersHigh()
-    {
-        // Get the Canvas component from the block
-        Canvas canvasComponent = block.GetComponentInChildren<Canvas>();
-
-        // Gets the rendering component of the block and sets its layer to be above all UI 
-        Renderer rendererComponent = block.GetComponent<Renderer>();
-        if (rendererComponent != null)
-        {
-            rendererComponent.sortingLayerName = "Block";
-        }
-
-        // Check if a Canvas component is found
-        if (canvasComponent != null)
-        {
-            // Set the sorting layer of the Canvas component
-            canvasComponent.sortingLayerName = "Block";
-            // Set the sorting order of the Canvas component
-            canvasComponent.sortingOrder = 1;
-        }
-    }
-
-    private void setRenderLayersLow()
-    {
-        Renderer rendererComponent = block.GetComponent<Renderer>();
-
-        Canvas canvasComponent = block.GetComponentInChildren<Canvas>();
-
-        // Sets the blocks' rendering layer back to a normal blocks so that it appears under UI, palette and canvas
-        rendererComponent.sortingLayerName = "Block Background";
-        rendererComponent.sortingOrder = 1;
-
-        // Set the sorting layer of the Canvas component
-        canvasComponent.sortingLayerName = "Block Background";
-        // Set the sorting order of the Canvas component
-        canvasComponent.sortingOrder = 2;
-    }
 
     private List<GameObject> findCloseBlocks()
     {
@@ -187,8 +210,16 @@ public class blockMover : MonoBehaviour
         // Iterate through list of found objects to see if any are snappable
         foreach (Collider2D collider in colliders)
         {
+            bool isNotConnectedBlock = true;
+            Block currentBlock = blockScript;
+            while (currentBlock && isNotConnectedBlock)
+            {
+                isNotConnectedBlock = currentBlock.gameObject != collider.gameObject;
+                currentBlock = currentBlock.nextBlock;
+            }
+
             // Identification of blocks is done by tag unless you are the start block. This is because we didn't want the start block to be snappable
-            if (collider.CompareTag("block") && collider.gameObject != block)
+            if (collider.CompareTag("block") && isNotConnectedBlock)
             {
                 blockList.Add(collider.gameObject);
             }
@@ -217,84 +248,186 @@ public class blockMover : MonoBehaviour
         // If the object that is hit is not the code area or just doesn't exist than it destoys the block
         if (hit.collider == null || !hit.collider.CompareTag("CodeArea"))
         {
-            Destroy(block);
+            Debug.Log(hit.collider);
+            //Destroy(block);
         }
     }
 
-    private void snapToBlocks(List<GameObject> blockList)
+    private void snapToBlocks()
+    {
+        if (newNextBlock != null)
+        {
+            Block lastBlock = blockScript.getLastBlock();
+            if (insertingBlock)
+            {
+                Vector2 jump = -newNextBlock.snapPositions[0] + lastBlock.snapPositions[1];
+                //new Vector2(blockScript.snapPositions[1].x - newNextBlock.snapPositions[0].x, newNextBlock.snapPositions[0].y - blockScript.snapPositions[1].y)
+                newNextBlock.moveChildren(jump);
+            }
+            else
+            {
+                Vector2 jump = newNextBlock.snapPositions[0] - lastBlock.snapPositions[1];
+                blockScript.moveChildren(jump);
+            }
+
+            newNextBlock.prevBlock = lastBlock;
+            lastBlock.nextBlock = newNextBlock;
+        }
+        if (newPrevBlock != null)
+        {
+            Vector2 jump;
+            if (newPrevBlock.blockID == 0)
+            {
+                jump = newPrevBlock.snapPositions[0] - blockScript.snapPositions[0];
+            }
+            else
+            {
+                jump = newPrevBlock.snapPositions[1] - blockScript.snapPositions[0];
+            }
+
+            blockScript.moveChildren(jump);
+
+            newPrevBlock.nextBlock = blockScript;
+            blockScript.prevBlock = newPrevBlock;
+        }
+
+        if (newNextBlock == oldNextBlock || newPrevBlock == oldPrevBlock)
+        {
+            if (oldNextBlock != null)
+            {
+                oldNextBlock.prevBlock = blockScript;
+                blockScript.nextBlock = oldNextBlock;
+                oldNextBlock = null;
+            }
+            if (oldPrevBlock != null)
+            {
+                oldPrevBlock.nextBlock = blockScript;
+                blockScript.prevBlock = oldPrevBlock;
+                oldPrevBlock = null;
+            }
+        }
+        else if (newNextBlock != null || newPrevBlock != null)
+        {
+            oldPrevBlock = null;
+            oldNextBlock = null;
+        }
+        oldSnapPositions = null;
+        insertingBlock = null;
+    }
+
+
+    private void updateCurrentOptions(List<GameObject> blockList)
     {
 
-        // Deals with snapping
-        foreach (GameObject obj in blockList)
+        if (insertingBlockChanged)
         {
+            insertingBlockChanged = false;
 
-            //Debug.Log(obj.GetComponent("drawBlock"));
+            newPrevBlock = insertingBlock;
+            newNextBlock = insertingBlock.nextBlock;
 
-            // Script of block being dragged
-            Block blockScript = ((Block)block.GetComponent("Block"));
+            // Standard is that 0 is the old position of the snapPosition with highest y (also one of these positions is actually not old, but it nice to have them in one spot).
+            oldSnapPositions = new Vector2[3];
 
-            // Get the nearest block and snap to its closest position
-            if (obj.GetComponent("startBlock") != null)
+            if (insertingBlock.blockID == 0)
             {
-                // If the object is a start block than get the start block script
-                startBlock script = (startBlock)obj.GetComponent("startBlock");
-
-                // Jump to nearest snap position
-                if (script.nextBlock == null)
-                {
-                    Vector2 jump = script.snapPositions[0] - blockScript.snapPositions[0];
-                    block.transform.position = new Vector3(block.transform.position.x + jump.x, block.transform.position.y + jump.y, block.transform.position.z);
-
-
-                    script.nextBlock = blockScript;
-                    blockScript.prevBlock = script;
-                }
+                oldSnapPositions[0] = insertingBlock.snapPositions[0] + new Vector2(0f, 1f);
+                oldSnapPositions[1] = insertingBlock.snapPositions[0];
+                oldSnapPositions[2] = insertingBlock.nextBlock.snapPositions[1];
             }
-            else if (obj.GetComponent("Block") != null)
+            else
             {
-                Debug.Log("HERE");
-                // If the object is a draw block than get the draw block script
-                Block script = (Block)obj.GetComponent("Block");
-
-                // The snap position to be used from the released block
-                Vector2 thisSnap = new Vector2(0f,0f);
-                // Snap position to use from the nearby block
-                Vector2 otherSnap = new Vector2(0f, 0f); 
-
-                if(script.prevBlock == null)
-                {
-                    otherSnap = script.snapPositions[0];
-                    thisSnap = blockScript.snapPositions[1];
-                }
-                if(script.nextBlock == null && Vector2.Distance(script.snapPositions[1], block.transform.position) < Vector2.Distance(script.snapPositions[0], block.transform.position))
-                {
-                    otherSnap = script.snapPositions[1];
-                    thisSnap = blockScript.snapPositions[0];
-                }
-
-
-                Vector2 jump = otherSnap - thisSnap;
-                block.transform.position = new Vector3(block.transform.position.x + jump.x, block.transform.position.y + jump.y, block.transform.position.z);
-
-                // Jump to nearest snap position
-                //if (Vector2.Distance(script.snapPositions[0], block.transform.position) > Vector2.Distance(script.snapPositions[1], block.transform.position) && script.prevBlock == null)
-                //{
-                //    Vector2 jump = script.snapPositions[1] - blockScript.snapPositions[0];
-                //    block.transform.position = new Vector3(block.transform.position.x + jump.x, block.transform.position.y + jump.y, block.transform.position.z);
-                //    jumped = true;
-                //}
-                //else if(script.nextBlock == null) 
-                //{
-                //    Vector2 jump = script.snapPositions[0] - blockScript.snapPositions[1];
-                //    block.transform.position = new Vector3(block.transform.position.x + jump.x, block.transform.position.y + jump.y, block.transform.position.z);
-                //    jumped = true;
-                //}
-
-                script.nextBlock = blockScript;
-                blockScript.prevBlock = script;
+                oldSnapPositions[0] = insertingBlock.snapPositions[0];
+                oldSnapPositions[1] = insertingBlock.snapPositions[1];
+                oldSnapPositions[2] = insertingBlock.nextBlock.snapPositions[1];
             }
 
+            insertingBlock.nextBlock.moveChildren(new Vector2(0, -((Block)block.GetComponent("Block")).getListHeight()));
         }
+
+        if (oldSnapPositions != null)
+        {
+            float comparison = Vector2.Distance(block.transform.position, oldSnapPositions[1]);
+            if (comparison > Vector2.Distance(block.transform.position, oldSnapPositions[0]))
+            {
+                insertingBlock.nextBlock.moveChildren(new Vector2(0, ((Block)block.GetComponent("Block")).getListHeight()));
+
+                if (insertingBlock.prevBlock != null)
+                {
+                    insertingBlock = insertingBlock.prevBlock;
+                    insertingBlockChanged = true;
+                }
+                else
+                {
+                    newPrevBlock = null;
+                    newNextBlock = insertingBlock;
+                    oldSnapPositions = null;
+                    insertingBlock = null;
+                }
+            }
+            else if (comparison > Vector2.Distance(block.transform.position, oldSnapPositions[2]))
+            {
+                insertingBlock.nextBlock.moveChildren(new Vector2(0, ((Block)block.GetComponent("Block")).getListHeight()));
+
+                if (insertingBlock.nextBlock.nextBlock != null)
+                {
+                    insertingBlock = insertingBlock.nextBlock;
+                    insertingBlockChanged = true;
+                }
+                else
+                {
+                    newPrevBlock = insertingBlock.nextBlock;
+                    newNextBlock = null;
+                    oldSnapPositions = null;
+                    insertingBlock = null;
+                }
+            }
+            else if (blockList.Count == 0)
+            {
+                insertingBlock.nextBlock.moveChildren(new Vector2(0, ((Block)block.GetComponent("Block")).getListHeight()));
+                newPrevBlock = null;
+                newNextBlock = null;
+                oldSnapPositions = null;
+                insertingBlock = null;
+            }
+        }
+        else if (blockList.Count > 0)
+        {
+            Block closestBlock = (Block)blockList[0].GetComponent("Block");
+
+            newPrevBlock = null;
+            newNextBlock = null;
+
+            if (closestBlock.blockID == 0 || Vector2.Distance(closestBlock.snapPositions[0], block.transform.position) > Vector2.Distance(closestBlock.snapPositions[1], block.transform.position))
+            {
+                newPrevBlock = closestBlock;
+                if (closestBlock.nextBlock != null)
+                {
+                    insertingBlock = closestBlock;
+                    insertingBlockChanged = true;
+                }
+            }
+            else
+            {
+                newNextBlock = closestBlock;
+                if (closestBlock.prevBlock != null)
+                {
+                    insertingBlock = closestBlock.prevBlock;
+                    insertingBlockChanged = true;
+                }
+            }
+        }
+        else
+        {
+            newPrevBlock = null;
+            newNextBlock = null;
+            if (insertingBlock)
+            {
+                oldSnapPositions = null;
+                insertingBlock = null;
+            }
+        }
+
 
     }
 }

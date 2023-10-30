@@ -14,10 +14,14 @@ public class Brush : MonoBehaviour
 
     public List<GameObject> lineRenderers = new List<GameObject>();
 
+    public List<GameObject> meshRenderers = new List<GameObject>();
+
     private float LineRendererID = 0;
+    private float MeshRendererID = 0;
 
     public GameObject LineRendererPrefab;
 
+    public GameObject MeshRendererPrefab;
     // Start is called before the first frame update
     void Start()
     {
@@ -38,6 +42,7 @@ public class Brush : MonoBehaviour
         LineRendererID++;
         Debug.Log("start pos : " + startPosition);
         GameObject newLineObject = Instantiate(LineRendererPrefab, startPosition, Quaternion.identity, gameObject.transform);
+        newLineObject.name = "Line Renderer" + LineRendererID;
 
         // Add LineRenderer to the new GameObject
         lineRenderers.Add(newLineObject);
@@ -45,7 +50,21 @@ public class Brush : MonoBehaviour
         return newLineObject.GetComponent<LineRenderer>();
     }
 
-    public void clearLineRenderers()
+    public MeshRenderer createMeshRenderer()
+    {
+        // Create an empty GameObject as a child of the brush
+        MeshRendererID++;
+        Debug.Log("start pos : " + startPosition);
+        GameObject newMeshObject = Instantiate(MeshRendererPrefab, gameObject.transform.position, Quaternion.identity);
+        newMeshObject.name = "Mesh Renderer" + MeshRendererID;
+
+        // Add LineRenderer to the new GameObject
+        meshRenderers.Add(newMeshObject);
+
+        return newMeshObject.GetComponent<MeshRenderer>();
+    }
+
+    public void clearRenderers()
     {
         // Iterate through each LineRenderer in the list
         foreach (GameObject lineRenderer in lineRenderers)
@@ -54,7 +73,16 @@ public class Brush : MonoBehaviour
             Destroy(lineRenderer);
         }
 
-        // Clear the list
+        // Iterate through each LineRenderer in the list
+        foreach (GameObject meshRenderer in meshRenderers)
+        {
+            // Destroy the GameObject associated with the LineRenderer
+            Destroy(meshRenderer);
+        }
+
+        // Clear the lists
         lineRenderers.Clear();
+        meshRenderers.Clear();
     }
+
 }

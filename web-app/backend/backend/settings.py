@@ -40,6 +40,7 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'api',
+    'corsheaders',
 ]
 
 MIDDLEWARE = [
@@ -74,10 +75,7 @@ CORS_ALLOW_HEADERS = [
 ]
 
 
-CORS_ALLOWED_ORIGINS = [
-    'http://localhost:3000',  # React default port = 3000
-    'http://localhost:8000',  # Django default port = 8000
-]
+CORS_ALLOW_ALL_ORIGINS = True
 
 ROOT_URLCONF = 'backend.urls'
 

@@ -101,10 +101,10 @@ function Game() {
             <div id="game" style={{ flexGrow: "1" }}>
                 <Unity unityProvider={unityProvider} style={{ width: "100%", height: "100%" }} />
             </div>
-            <div>
+            {/* <div>
                 <h3>Adjust cube rotation speed:</h3>
                 <input type="range" min="-100" max="100" value={sliderValue} onChange={handleSliderChange} />
-            </div>
+            </div> */}
         </>
     )
 }

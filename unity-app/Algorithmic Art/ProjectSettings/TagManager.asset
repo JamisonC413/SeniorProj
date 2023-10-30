@@ -3,12 +3,15 @@
 --- !u!78 &1
 TagManager:
   serializedVersion: 2
-  tags: []
+  tags:
+  - CodeArea
+  - block
+  - brush
   layers:
   - Default
   - TransparentFX
   - Ignore Raycast
-  - 
+  - BlockLayer
   - Water
   - UI
   - 
@@ -40,4 +43,13 @@ TagManager:
   m_SortingLayers:
   - name: Default
     uniqueID: 0
+    locked: 0
+  - name: Block Background
+    uniqueID: 1243513093
+    locked: 0
+  - name: UI
+    uniqueID: 1001162781
+    locked: 0
+  - name: Block
+    uniqueID: 2410379607
     locked: 0

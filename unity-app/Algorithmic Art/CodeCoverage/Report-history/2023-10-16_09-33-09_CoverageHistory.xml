@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<coverage version="1.0" date="2023-10-16_09-33-09" tag="">
+  <assembly name="Assembly-CSharp">
+    <class name="GetPrefabPath" coveredlines="0" coverablelines="15" totallines="34" coveredbranches="0" totalbranches="0" />
+    <class name="SimpleSquare" coveredlines="21" coverablelines="21" totallines="44" coveredbranches="0" totalbranches="0" />
+  </assembly>
+  <assembly name="PlaymodeTests">
+    <class name="BlockIDTest" coveredlines="47" coverablelines="47" totallines="139" coveredbranches="0" totalbranches="0" />
+    <class name="BrushTest" coveredlines="44" coverablelines="48" totallines="138" coveredbranches="0" totalbranches="0" />
+    <class name="DrawTest" coveredlines="0" coverablelines="4" totallines="18" coveredbranches="0" totalbranches="0" />
+    <class name="InputEvent" coveredlines="0" coverablelines="6" totallines="26" coveredbranches="0" totalbranches="0" />
+    <class name="NewTestScript" coveredlines="5" coverablelines="5" totallines="25" coveredbranches="0" totalbranches="0" />
+  </assembly>
+  <assembly name="Project_Scripts_def">
+    <class name="Block" coveredlines="0" coverablelines="10" totallines="56" coveredbranches="0" totalbranches="0" />
+    <class name="blockMover" coveredlines="8" coverablelines="151" totallines="300" coveredbranches="0" totalbranches="0" />
+    <class name="BlockSpawner" coveredlines="5" coverablelines="19" totallines="44" coveredbranches="0" totalbranches="0" />
+    <class name="Brush" coveredlines="7" coverablelines="24" totallines="60" coveredbranches="0" totalbranches="0" />
+    <class name="colorBlock" coveredlines="3" coverablelines="25" totallines="62" coveredbranches="0" totalbranches="0" />
+    <class name="colorBlockDropDown" coveredlines="0" coverablelines="6" totallines="26" coveredbranches="0" totalbranches="0" />
+    <class name="drawBlock" coveredlines="32" coverablelines="78" totallines="158" coveredbranches="0" totalbranches="0" />
+    <class name="moveBrush" coveredlines="25" coverablelines="70" totallines="133" coveredbranches="0" totalbranches="0" />
+    <class name="Play" coveredlines="2" coverablelines="20" totallines="62" coveredbranches="0" totalbranches="0" />
+    <class name="startBlock" coveredlines="14" coverablelines="14" totallines="35" coveredbranches="0" totalbranches="0" />
+    <class name="Tab" coveredlines="3" coverablelines="12" totallines="31" coveredbranches="0" totalbranches="0" />
+    <class name="TabGroup" coveredlines="4" coverablelines="24" totallines="47" coveredbranches="0" totalbranches="0" />
+    <class name="TakeScreenshotAndSend" coveredlines="0" coverablelines="15" totallines="60" coveredbranches="0" totalbranches="0" />
+  </assembly>
+  <assembly name="Tests">
+    <class name="NewTestScript" coveredlines="0" coverablelines="5" totallines="25" coveredbranches="0" totalbranches="0" />
+  </assembly>
+</coverage>

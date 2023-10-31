@@ -148,6 +148,7 @@ GameObject:
   - component: {fileID: 3918490678774855490}
   - component: {fileID: 3298220470990979444}
   - component: {fileID: 6238816860785711961}
+  - component: {fileID: 5200767087731606436}
   m_Layer: 3
   m_Name: colorBlock
   m_TagString: Untagged
@@ -168,6 +169,8 @@ Transform:
   m_LocalScale: {x: 20.529799, y: 19.733479, z: 75.06416}
   m_ConstrainProportionsScale: 1
   m_Children:
+  - {fileID: 1273347998052561645}
+  - {fileID: 2381491785755674181}
   - {fileID: 3410980558298711297}
   - {fileID: 1801497429614301315}
   m_Father: {fileID: 0}
@@ -256,7 +259,7 @@ BoxCollider2D:
   m_IsTrigger: 0
   m_UsedByEffector: 0
   m_UsedByComposite: 0
-  m_Offset: {x: 0, y: 0}
+  m_Offset: {x: -0.7068709, y: 0}
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
     pivot: {x: 0.5, y: 0.5}
@@ -267,7 +270,7 @@ BoxCollider2D:
     adaptiveTiling: 0
   m_AutoTiling: 0
   serializedVersion: 2
-  m_Size: {x: 3.91, y: 2.4}
+  m_Size: {x: 2.496258, y: 2.4}
   m_EdgeRadius: 0
 --- !u!114 &6238816860785711961
 MonoBehaviour:
@@ -283,14 +286,28 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   blockID: 0
   blockColor: {r: 0, g: 0, b: 0, a: 0}
-  topSnapped: 0
-  botSnapped: 0
   prevBlock: {fileID: 0}
   nextBlock: {fileID: 0}
   snapPositions: []
-  snapOffset: {x: 0, y: 1}
+  snap1: {fileID: 1733360864726369921}
+  snap2: {fileID: 6305974905727213465}
   playScripts: []
   color: 0
+--- !u!114 &5200767087731606436
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 801895102098321813}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ba684be60d8ea6842856cacd25ef0e46, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  subCanvas: {fileID: 1345184463908643889}
+  sortingLayerName: Text
+  sortingOrder: 3
 --- !u!1 &1283003918732208643
 GameObject:
   m_ObjectHideFlags: 0
@@ -377,6 +394,37 @@ MonoBehaviour:
     m_PersistentCalls:
       m_Calls: []
   m_IsOn: 1
+--- !u!1 &1733360864726369921
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1273347998052561645}
+  m_Layer: 3
+  m_Name: Snappoint1
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1273347998052561645
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1733360864726369921}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 1, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 5170633750512893091}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1789360455741016512
 GameObject:
   m_ObjectHideFlags: 0
@@ -894,6 +942,37 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   dropDown: {fileID: 5238281632959575279}
   colorBlock: {fileID: 6238816860785711961}
+--- !u!1 &6305974905727213465
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 2381491785755674181}
+  m_Layer: 3
+  m_Name: Snappoint2
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &2381491785755674181
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6305974905727213465}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: -1, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 5170633750512893091}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &6706529815638144230
 GameObject:
   m_ObjectHideFlags: 0

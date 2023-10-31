@@ -1,5 +1,36 @@
 %YAML 1.1
 %TAG !u! tag:unity3d.com,2011:
+--- !u!1 &190884271173836663
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1374638001077687684}
+  m_Layer: 3
+  m_Name: Snappoint2
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1374638001077687684
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 190884271173836663}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: -1, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 5170633750512893091}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &284854058597531257
 GameObject:
   m_ObjectHideFlags: 0
@@ -503,6 +534,7 @@ GameObject:
   - component: {fileID: 3918490678774855490}
   - component: {fileID: 3298220470990979444}
   - component: {fileID: -4583666910160371836}
+  - component: {fileID: 2466038216013627378}
   m_Layer: 3
   m_Name: drawBlock
   m_TagString: Untagged
@@ -523,6 +555,8 @@ Transform:
   m_LocalScale: {x: 20.529799, y: 19.733479, z: 75.06416}
   m_ConstrainProportionsScale: 1
   m_Children:
+  - {fileID: 7487707673540732382}
+  - {fileID: 1374638001077687684}
   - {fileID: 3410980558298711297}
   - {fileID: 1801497429614301315}
   m_Father: {fileID: 0}
@@ -611,7 +645,7 @@ BoxCollider2D:
   m_IsTrigger: 0
   m_UsedByEffector: 0
   m_UsedByComposite: 0
-  m_Offset: {x: 0, y: 0}
+  m_Offset: {x: -0.51344335, y: 0}
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
     pivot: {x: 0.5, y: 0.5}
@@ -622,7 +656,7 @@ BoxCollider2D:
     adaptiveTiling: 0
   m_AutoTiling: 0
   serializedVersion: 2
-  m_Size: {x: 3.9, y: 2.4}
+  m_Size: {x: 2.8731134, y: 2.4}
   m_EdgeRadius: 0
 --- !u!114 &-4583666910160371836
 MonoBehaviour:
@@ -633,23 +667,38 @@ MonoBehaviour:
   m_GameObject: {fileID: 801895102098321813}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 6b9822ff91463ec4eb1928e86e28ec79, type: 3}
+  m_Script: {fileID: 11500000, guid: b820b1cfed5da554ab8e529be78f1e6f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   blockID: 0
   blockColor: {r: 0, g: 0, b: 0, a: 0}
-  topSnapped: 0
-  botSnapped: 0
   prevBlock: {fileID: 0}
   nextBlock: {fileID: 0}
   snapPositions: []
   XInput: {fileID: 6772344076810252525}
   YInput: {fileID: 48824597542847681}
+  snap1: {fileID: 1142323820438946147}
+  snap2: {fileID: 190884271173836663}
   snapOffset: {x: 0, y: 1}
   brush: {fileID: 0}
   data: 
   mode: 0
   play: {fileID: 0}
+--- !u!114 &2466038216013627378
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 801895102098321813}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ba684be60d8ea6842856cacd25ef0e46, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  subCanvas: {fileID: 1345184463908643889}
+  sortingLayerName: Text
+  sortingOrder: 3
 --- !u!1 &1049151958884123165
 GameObject:
   m_ObjectHideFlags: 0
@@ -725,6 +774,37 @@ MonoBehaviour:
   m_FillOrigin: 0
   m_UseSpriteMesh: 0
   m_PixelsPerUnitMultiplier: 1
+--- !u!1 &1142323820438946147
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 7487707673540732382}
+  m_Layer: 3
+  m_Name: Snappoint1
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &7487707673540732382
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1142323820438946147}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 1, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 5170633750512893091}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1167180607381910963
 GameObject:
   m_ObjectHideFlags: 0

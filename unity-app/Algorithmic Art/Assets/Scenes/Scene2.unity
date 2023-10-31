@@ -3713,6 +3713,7 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 582939148}
+  - {fileID: 1783843321}
   m_Father: {fileID: 1429317954}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!210 &1064226987
@@ -3789,7 +3790,7 @@ MonoBehaviour:
   prevBlock: {fileID: 0}
   nextBlock: {fileID: 0}
   snapPositions: []
-  snapOffset: {x: 0, y: -1}
+  snapPosition: {fileID: 1783843320}
 --- !u!212 &1064226990
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -4873,8 +4874,8 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 460666633}
   m_HandleRect: {fileID: 460666632}
   m_Direction: 2
-  m_Value: 0.9999999
-  m_Size: 0.5587851
+  m_Value: 0.99999976
+  m_Size: 0.558785
   m_NumberOfSteps: 0
   m_OnValueChanged:
     m_PersistentCalls:
@@ -5347,6 +5348,37 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
+--- !u!1 &1783843320
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1783843321}
+  m_Layer: 1
+  m_Name: snapPoint
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1783843321
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1783843320}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: -1, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 1064226986}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1944627347
 GameObject:
   m_ObjectHideFlags: 0

@@ -9,6 +9,7 @@ TagManager:
   - brush
   - MainCanvas
   - Canvas2
+  - text
   layers:
   - Default
   - TransparentFX

@@ -72,7 +72,11 @@ public class blockMover : MonoBehaviour
             //}
 
             // If the raycast collides with object than check the tag for block
-            if (hit.collider != null && hit.collider.CompareTag("block"))
+            if (hit.collider != null && hit.collider.CompareTag("text"))
+            {
+
+            }
+            else if (hit.collider != null && hit.collider.CompareTag("block"))
             {
                 // Store the block reference as the block we are dragging and calculate the offset
                 block = hit.collider.gameObject;

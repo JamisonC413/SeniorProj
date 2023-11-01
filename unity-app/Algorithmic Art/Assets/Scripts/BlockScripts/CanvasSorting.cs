@@ -15,6 +15,7 @@ public class CanvasSorting : MonoBehaviour
         {
             // Set the sorting layer and order
             subCanvas.overrideSorting = true;
+            subCanvas.gameObject.layer = 7;
             subCanvas.sortingLayerName = sortingLayerName;
             subCanvas.sortingOrder = sortingOrder;
         }

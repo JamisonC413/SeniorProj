@@ -31,9 +31,9 @@ public class BlockSpawner : MonoBehaviour
         Canvas canvas = rootObject.GetComponent<Canvas>();
 
         // Create the prefab within the same Canvas
-        spawnedObject = Instantiate(prefabToSpawn, spawnPosition, Quaternion.identity, canvas.transform);
-        Vector3 scale = new Vector3(33, 28f, 0);
-        spawnedObject.transform.localScale = transform.localScale;
+        spawnedObject = Instantiate(prefabToSpawn, spawnPosition, Quaternion.identity);
+        //Vector3 scale = new Vector3(33, 28f, 0);
+        spawnedObject.transform.localScale = ScaleObject;
 
         // Sorts out the proper layer and positioning of the new object
         Renderer renderer = spawnedObject.GetComponent<Renderer>();

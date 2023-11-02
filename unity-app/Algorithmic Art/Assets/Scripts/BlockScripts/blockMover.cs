@@ -81,7 +81,7 @@ public class blockMover : MonoBehaviour
                 // Store the block reference as the block we are dragging and calculate the offset
                 block = hit.collider.gameObject;
                 blockScript = (Block)block.GetComponent("Block");
-                block.transform.SetParent(parentCanvas.transform);
+                //block.transform.SetParent(parentCanvas.transform);
                 offset = block.transform.position - Camera.main.ScreenToWorldPoint(Input.mousePosition);
                 
 
@@ -137,7 +137,7 @@ public class blockMover : MonoBehaviour
                 blockScript.setRenderLayersLow();
                 misplacedDestroy();
                 GameObject scrollArea = GameObject.FindGameObjectWithTag("CodeArea");
-                block.transform.SetParent(scrollArea.transform);
+                //block.transform.SetParent(scrollArea.transform);
 
                 snapToBlocks();
 

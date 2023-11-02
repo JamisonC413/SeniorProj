@@ -33,6 +33,8 @@ public class drawBlock2 : Block
     // Contains the data that drawBlock needs, uses this and mode to determine the shape and the details of the shape
     public int[] data;
 
+    public float scale = 0.35f;
+
     // Determines the shape that will get drawn
     // 0 = line
     // 1 = rectangle
@@ -116,8 +118,8 @@ public class drawBlock2 : Block
         // Add a origin point
         positions.Add(brush.transform.position);
 
-        float xTransform = data[0] + brush.transform.position.x;
-        float yTransform = data[1] + brush.transform.position.y;
+        float xTransform = data[0] + brush.transform.position.x * scale;
+        float yTransform = data[1] + brush.transform.position.y * scale;
 
         // Create bounds for the lines
         if (xTransform < brush.startPosition.x)
@@ -171,8 +173,8 @@ public class drawBlock2 : Block
         // Add a origin point
         positions.Add(brush.transform.position);
 
-        float xTransform = data[0] + brush.transform.position.x;
-        float yTransform = data[1] + brush.transform.position.y;
+        float xTransform = data[0] + brush.transform.position.x * scale;
+        float yTransform = data[1] + brush.transform.position.y * scale;
 
         // Create bounds for the lines
         if (xTransform < brush.startPosition.x)
@@ -194,11 +196,11 @@ public class drawBlock2 : Block
 
 
         // Add the point from the block to the line renderer
-        positions.Add(new Vector3(brush.transform.position.x, yTransform, 0f));
+        positions.Add(new Vector3(brush.transform.position.x * scale, yTransform, 0f));
         positions.Add(new Vector3(xTransform, yTransform, 0f));
-        positions.Add(new Vector3(xTransform, brush.transform.position.y, 0f));
-        positions.Add(new Vector3(brush.transform.position.x, brush.transform.position.y, 0f));
-        positions.Add(new Vector3(brush.transform.position.x, yTransform, 0f));
+        positions.Add(new Vector3(xTransform, brush.transform.position.y * scale, 0f));
+        positions.Add(new Vector3(brush.transform.position.x * scale, brush.transform.position.y * scale, 0f));
+        positions.Add(new Vector3(brush.transform.position.x * scale, yTransform, 0f));
 
         //positions.Add(new Vector3(-xTransform, 0f, 0f));
 
@@ -222,10 +224,10 @@ public class drawBlock2 : Block
             Vector3[] vertices = new Vector3[4];
             int[] triangles = new int[6];
 
-            vertices[0] = positions[0] - brush.transform.position;
-            vertices[1] = positions[1] - brush.transform.position;
-            vertices[2] = positions[2] - brush.transform.position;
-            vertices[3] = positions[3] - brush.transform.position;
+            vertices[0] = positions[0] - brush.transform.position * scale;
+            vertices[1] = positions[1] - brush.transform.position * scale;
+            vertices[2] = positions[2] - brush.transform.position * scale;
+            vertices[3] = positions[3] - brush.transform.position * scale;
 
             triangles[0] = 0;
             triangles[1] = 1;

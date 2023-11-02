@@ -3559,7 +3559,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!114 &1039439492
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -5361,7 +5361,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   lineRenderer: {fileID: 1378480240}
   startScript: {fileID: 1064226989}
-  brush: {fileID: 0}
+  brush: {fileID: 774330118}
   delay: 1
   currentColor: {r: 0, g: 0, b: 0, a: 1}
   lineWidth: 0.1

@@ -8,7 +8,7 @@ public class drawBlockDropDown : MonoBehaviour
 {
     public TMP_Dropdown dropDown; // Reference to your Dropdown component
 
-    public drawBlock drawBlock;
+    public drawBlock2 drawBlock;
 
     [SerializeField]
     private GameObject[] inputs;

@@ -146,7 +146,7 @@ GameObject:
   - component: {fileID: 3918490678774855490}
   - component: {fileID: 3298220470990979444}
   - component: {fileID: 3614174798389772965}
-  - component: {fileID: 6596132697456834633}
+  - component: {fileID: 121780773111057112}
   m_Layer: 3
   m_Name: drawBlock3
   m_TagString: Untagged
@@ -284,7 +284,7 @@ MonoBehaviour:
   subCanvas: {fileID: 162084334645819180}
   sortingLayerName: Text
   sortingOrder: 3
---- !u!114 &6596132697456834633
+--- !u!114 &121780773111057112
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -293,7 +293,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 801895102098321813}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 6b9822ff91463ec4eb1928e86e28ec79, type: 3}
+  m_Script: {fileID: 11500000, guid: 714013bf7ecbe7d49abdd128c46e1def, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   blockID: 0
@@ -303,8 +303,8 @@ MonoBehaviour:
   snapPositions: []
   XInput: {fileID: 0}
   YInput: {fileID: 0}
-  snap1: {fileID: 4682862232900888875}
-  snap2: {fileID: 5714691596816748175}
+  snap1: {fileID: 0}
+  snap2: {fileID: 0}
   snapOffset: {x: 0, y: 1}
   brush: {fileID: 0}
   data: 
@@ -1094,7 +1094,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   dropDown: {fileID: 6433649737268760568}
-  drawBlock: {fileID: 6596132697456834633}
+  drawBlock: {fileID: 121780773111057112}
   inputs: []
   sprites: []
   defaultCoords: 0

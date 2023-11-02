@@ -470,8 +470,8 @@ GameObject:
   - component: {fileID: 5170633750512893091}
   - component: {fileID: 3918490678774855490}
   - component: {fileID: 3298220470990979444}
-  - component: {fileID: -4583666910160371836}
   - component: {fileID: 8897598965305281810}
+  - component: {fileID: 1503010250205931145}
   m_Layer: 3
   m_Name: drawBlock
   m_TagString: Untagged
@@ -594,32 +594,6 @@ BoxCollider2D:
   serializedVersion: 2
   m_Size: {x: 3.9, y: 2.4}
   m_EdgeRadius: 0
---- !u!114 &-4583666910160371836
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 801895102098321813}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 6b9822ff91463ec4eb1928e86e28ec79, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  blockID: 0
-  blockColor: {r: 0, g: 0, b: 0, a: 0}
-  prevBlock: {fileID: 0}
-  nextBlock: {fileID: 0}
-  snapPositions: []
-  XInput: {fileID: 0}
-  YInput: {fileID: 0}
-  snap1: {fileID: 5029463636420389555}
-  snap2: {fileID: 4776385521320262991}
-  snapOffset: {x: 0, y: 1}
-  brush: {fileID: 0}
-  data: 
-  mode: 0
-  play: {fileID: 0}
 --- !u!114 &8897598965305281810
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -635,6 +609,32 @@ MonoBehaviour:
   subCanvas: {fileID: 4447178704277877065}
   sortingLayerName: Text
   sortingOrder: 3
+--- !u!114 &1503010250205931145
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 801895102098321813}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 714013bf7ecbe7d49abdd128c46e1def, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  blockID: 0
+  blockColor: {r: 0, g: 0, b: 0, a: 0}
+  prevBlock: {fileID: 0}
+  nextBlock: {fileID: 0}
+  snapPositions: []
+  XInput: {fileID: 8785099575449329865}
+  YInput: {fileID: 7750851849453428931}
+  snap1: {fileID: 5029463636420389555}
+  snap2: {fileID: 4776385521320262991}
+  snapOffset: {x: 0, y: 1}
+  brush: {fileID: 0}
+  data: 
+  mode: 0
+  play: {fileID: 0}
 --- !u!1 &1128730596976051429
 GameObject:
   m_ObjectHideFlags: 0
@@ -3166,7 +3166,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   dropDown: {fileID: 6680952917213800892}
-  drawBlock: {fileID: -4583666910160371836}
+  drawBlock: {fileID: 1503010250205931145}
   inputs:
   - {fileID: 4740572998806768269}
   - {fileID: 1128730596976051429}

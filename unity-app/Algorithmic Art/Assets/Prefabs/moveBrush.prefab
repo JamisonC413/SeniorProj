@@ -160,6 +160,7 @@ MonoBehaviour:
   defaultCoords: 0
   X: 0
   Y: 0
+  scale: 0.25
   brush: {fileID: 0}
 --- !u!114 &4444595087670230547
 MonoBehaviour:

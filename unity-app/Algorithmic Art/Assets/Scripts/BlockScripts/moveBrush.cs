@@ -30,7 +30,7 @@ public class moveBrush : Block
     // The Y coordinite input 
     public int Y;
 
-    public float scale = 0.1f;
+    public float scale = 0.25f;
 
     // The brushes gameobject 
     public Brush brush;

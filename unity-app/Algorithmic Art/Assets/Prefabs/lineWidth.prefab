@@ -155,7 +155,9 @@ MonoBehaviour:
   snap1: {fileID: 4688453931078770021}
   snap2: {fileID: 5338188421783581530}
   playScripts: []
-  width: 0.1
+  width: 1
+  scale: 0.03
+  scaleMax: 0.055
 --- !u!114 &6872234786565570123
 MonoBehaviour:
   m_ObjectHideFlags: 0

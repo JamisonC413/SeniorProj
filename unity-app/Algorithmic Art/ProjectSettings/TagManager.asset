@@ -13,6 +13,7 @@ TagManager:
   - brush2
   - play
   - play2
+  - fastforward
   layers:
   - Default
   - TransparentFX

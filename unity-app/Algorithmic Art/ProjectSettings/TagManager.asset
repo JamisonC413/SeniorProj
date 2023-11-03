@@ -10,6 +10,8 @@ TagManager:
   - MainCanvas
   - Canvas2
   - text
+  - brush2
+  - play
   layers:
   - Default
   - TransparentFX

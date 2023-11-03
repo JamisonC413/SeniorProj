@@ -633,7 +633,7 @@ MonoBehaviour:
   snapOffset: {x: 0, y: 1}
   brush: {fileID: 0}
   data: []
-  scale: 0.25
+  scale: 0.3
   mode: 0
   play: {fileID: 0}
 --- !u!1 &1128730596976051429

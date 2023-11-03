@@ -30,10 +30,14 @@ public class moveBrush : Block
     // The Y coordinite input 
     public int Y;
 
-    public float scale = 0.25f;
+    public float scale = 0.3f;
+    
+    public float scaleMaximized = 0.55f;
 
     // The brushes gameobject 
     public Brush brush;
+
+    public Brush brush2;
 
 
     // Sets the starting information for the block, ID, refrences and snap positions
@@ -47,6 +51,7 @@ public class moveBrush : Block
 
         //Note: Replaced GameObject.Find with GameObject.FindGameObjectWithTag because Find is very expensive - Tong
         brush = GameObject.FindGameObjectWithTag("brush").GetComponent<Brush>();
+        brush2 = GameObject.FindGameObjectWithTag("brush2").GetComponent<Brush>();
     }
 
     // Used to update information on the draw block
@@ -132,5 +137,35 @@ public class moveBrush : Block
 
         // Transform the brush
         brush.transform.position = new Vector3(xTransform, yTransform, 0f);
+
+        moveBrushMaximized(brush2);
+    }
+
+    private void moveBrushMaximized(Brush brush)
+    {
+        float xTransform = X * scaleMaximized + brush.transform.position.x;
+        float yTransform = Y * scaleMaximized + brush.transform.position.y;
+
+        // Create bounds for the lines
+        if (xTransform < brush.startPosition.x)
+        {
+            xTransform = brush.startPosition.x;
+        }
+        if (yTransform < brush.startPosition.y)
+        {
+            yTransform = brush.startPosition.y;
+        }
+        if (xTransform > brush.startPosition.x + brush.drawArea.x)
+        {
+            xTransform = brush.startPosition.x + brush.drawArea.x;
+        }
+        if (yTransform > brush.startPosition.y + brush.drawArea.y)
+        {
+            yTransform = brush.startPosition.y + brush.drawArea.y;
+        }
+
+        // Transform the brush
+        brush.transform.position = new Vector3(xTransform, yTransform, 0f);
+
     }
 }

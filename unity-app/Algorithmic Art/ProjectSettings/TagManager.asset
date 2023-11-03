@@ -12,6 +12,7 @@ TagManager:
   - text
   - brush2
   - play
+  - play2
   layers:
   - Default
   - TransparentFX

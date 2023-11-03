@@ -632,8 +632,8 @@ MonoBehaviour:
   snap2: {fileID: 4776385521320262991}
   snapOffset: {x: 0, y: 1}
   brush: {fileID: 0}
-  data: 
-  scale: 0.35
+  data: []
+  scale: 0.25
   mode: 0
   play: {fileID: 0}
 --- !u!1 &1128730596976051429

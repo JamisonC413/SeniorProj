@@ -31,9 +31,9 @@ public class drawBlock2 : Block
     public Brush brush;
 
     // Contains the data that drawBlock needs, uses this and mode to determine the shape and the details of the shape
-    public int[] data;
+    public float[] data;
 
-    public float scale = 0.35f;
+    public float scale = 0.1f;
 
     // Determines the shape that will get drawn
     // 0 = line
@@ -118,8 +118,9 @@ public class drawBlock2 : Block
         // Add a origin point
         positions.Add(brush.transform.position);
 
-        float xTransform = data[0] + brush.transform.position.x * scale;
-        float yTransform = data[1] + brush.transform.position.y * scale;
+        scaleData(data);
+        float xTransform = data[0] + brush.transform.position.x;
+        float yTransform = data[1] + brush.transform.position.y;
 
         // Create bounds for the lines
         if (xTransform < brush.startPosition.x)
@@ -172,9 +173,10 @@ public class drawBlock2 : Block
 
         // Add a origin point
         positions.Add(brush.transform.position);
+        scaleData(data);
 
-        float xTransform = data[0] + brush.transform.position.x * scale;
-        float yTransform = data[1] + brush.transform.position.y * scale;
+        float xTransform = data[0] + brush.transform.position.x;
+        float yTransform = data[1] + brush.transform.position.y;
 
         // Create bounds for the lines
         if (xTransform < brush.startPosition.x)
@@ -264,6 +266,7 @@ public class drawBlock2 : Block
 
         // Add a origin point
         positions.Add(brush.transform.position);
+        scaleData(data);
 
         float x1Transform = (float)data[1] / 2 + brush.transform.position.x;
         float x2Transform = data[1] + brush.transform.position.x;
@@ -339,6 +342,7 @@ public class drawBlock2 : Block
 
 
         LineRenderer lineRenderer = brush.createLineRenderer();
+        scaleData(data);
 
         float width = GameObject.Find("Play").GetComponent<Play>().lineWidth;
         lineRenderer.startWidth = width;
@@ -419,5 +423,13 @@ public class drawBlock2 : Block
             meshRenderer.gameObject.GetComponent<MeshFilter>().mesh = filledMesh;
         }
 
+    }
+
+    public void scaleData(float[] arr)
+    {
+        for (int i = 0; i < arr.Length; i++)
+        {
+            arr[i] = arr[i] * scale;
+        }
     }
 }

@@ -30,6 +30,8 @@ public class moveBrush : Block
     // The Y coordinite input 
     public int Y;
 
+    public float scale = 0.1f;
+
     // The brushes gameobject 
     public Brush brush;
 
@@ -107,8 +109,8 @@ public class moveBrush : Block
     public override void execute()
     {
 
-        float xTransform = X + brush.transform.position.x;
-        float yTransform = Y + brush.transform.position.y;
+        float xTransform = X * scale + brush.transform.position.x;
+        float yTransform = Y * scale + brush.transform.position.y;
 
         // Create bounds for the lines
         if (xTransform < brush.startPosition.x)

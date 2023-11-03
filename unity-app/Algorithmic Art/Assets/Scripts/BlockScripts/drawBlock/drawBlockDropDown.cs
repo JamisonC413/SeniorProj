@@ -29,7 +29,7 @@ public class drawBlockDropDown : MonoBehaviour
     void Start()
     {
         dropDown.onValueChanged.AddListener(OnDropdownValueChanged);
-        drawBlock.data = new int[3];
+        drawBlock.data = new float[3];
     }
 
     private void Update()

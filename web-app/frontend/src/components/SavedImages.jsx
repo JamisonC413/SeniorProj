@@ -5,7 +5,7 @@ import React, { useEffect } from 'react'
 function SavedImages() {
 
     // update backend URL for each run
-    const backendURL = "https://rotten-tools-hunt.loca.lt";
+    const backendURL = "http://localhost:8000";
 
     // Get and render all images
     useEffect(() => {

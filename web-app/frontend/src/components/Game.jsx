@@ -13,7 +13,7 @@ function Game() {
 
     // URL of the web app backend.
     // update backend URL for each run
-    const backendURL = "https://rotten-tools-hunt.loca.lt";
+    const backendURL = "http://localhost:8000";
 
     // Set up the state of the Unity application by specifying the location of the build files.
     //

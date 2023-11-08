@@ -27,6 +27,10 @@ public class Block : MonoBehaviour
     // Tracks all positions that can be used to snap to this block
     public Vector2[] snapPositions;
 
+    public Sprite defaultSprite;
+
+    public Sprite selected;
+
     // Prototype for moving all children blocks of this block. This updates all the transforms to the same as the translation param
     public void moveChildren(Vector2 translation)
     {

@@ -153,6 +153,8 @@ MonoBehaviour:
   prevBlock: {fileID: 0}
   nextBlock: {fileID: 0}
   snapPositions: []
+  defaultSprite: {fileID: 21300000, guid: 202891e6753aab241bccffeed18eb449, type: 3}
+  selected: {fileID: 21300000, guid: f7b17ee1e81df434dab4cf22db0f68df, type: 3}
   XInput: {fileID: 6772344076810252525}
   YInput: {fileID: 48824597542847681}
   snap1: {fileID: 5942996767820930529}
@@ -163,6 +165,7 @@ MonoBehaviour:
   scale: 0.3
   scaleMaximized: 0.5
   brush: {fileID: 0}
+  brush2: {fileID: 0}
 --- !u!114 &4444595087670230547
 MonoBehaviour:
   m_ObjectHideFlags: 0

@@ -38,6 +38,8 @@ public class drawBlock: Block
     // 1 = rectangle
     public int mode = 0;
 
+    public float scalingConstant = .5F;
+
     public Play play;
 
     // Sets the starting information for the block, ID, refrences and snap positions
@@ -115,8 +117,8 @@ public class drawBlock: Block
         // Add a origin point
         positions.Add(brush.transform.position);
 
-        float xTransform = data[0] + brush.transform.position.x;
-        float yTransform = data[1] + brush.transform.position.y;
+        float xTransform = data[0]*scalingConstant + brush.transform.position.x;
+        float yTransform = data[1]*scalingConstant + brush.transform.position.y;
 
         // Create bounds for the lines
         if (xTransform < brush.startPosition.x)
@@ -170,8 +172,8 @@ public class drawBlock: Block
         // Add a origin point
         positions.Add(brush.transform.position);
 
-        float xTransform = data[0] + brush.transform.position.x;
-        float yTransform = data[1] + brush.transform.position.y;
+        float xTransform = data[0]*scalingConstant + brush.transform.position.x;
+        float yTransform = data[1]*scalingConstant + brush.transform.position.y;
 
         // Create bounds for the lines
         if (xTransform < brush.startPosition.x)
@@ -262,9 +264,9 @@ public class drawBlock: Block
         // Add a origin point
         positions.Add(brush.transform.position);
 
-        float x1Transform = (float)data[1]/2 + brush.transform.position.x;
-        float x2Transform = data[1] + brush.transform.position.x;
-        float yTransform = (float)(data[1] * Math.Sqrt(3)/2 + brush.transform.position.y);
+        float x1Transform = data[1]*scalingConstant*.5F + brush.transform.position.x;
+        float x2Transform = data[1]*scalingConstant + brush.transform.position.x;
+        float yTransform = (float)(data[1] * scalingConstant * Math.Sqrt(3)/2 + brush.transform.position.y);
 
         if (yTransform > brush.startPosition.y + brush.drawArea.y)
         {
@@ -352,8 +354,8 @@ public class drawBlock: Block
             float xScaled = Mathf.Cos(currentRadian);
             float yScaled = Mathf.Sin(currentRadian);
 
-            float x = xScaled * data[1] + brush.transform.position.x;
-            float y = yScaled * data[1] + brush.transform.position.y;
+            float x = xScaled * data[1] * scalingConstant + brush.transform.position.x;
+            float y = yScaled * data[1] * scalingConstant + brush.transform.position.y;
 
             if (y < brush.startPosition.y)
             {

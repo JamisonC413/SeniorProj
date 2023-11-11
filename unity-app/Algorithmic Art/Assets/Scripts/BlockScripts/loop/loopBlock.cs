@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class loopBlock : Block
+public class loopBlock : Block, NestedBlock
 {
 
     [SerializeField]
@@ -55,6 +55,7 @@ public class loopBlock : Block
             if (renderer != null)
             {
                 renderer.sortingLayerName = "Block";
+                renderer.sortingOrder = 0;
             }
             else
             {
@@ -63,10 +64,7 @@ public class loopBlock : Block
             spawnedObject2.tag = "block";
             spawnedObject2.transform.position = this.snapPositions[1];//- (spawnedObject2.GetComponent<Block>()).snapPositions[0]);
         }
-        else
-        {
 
-        }
     }
 
     public void initialize()

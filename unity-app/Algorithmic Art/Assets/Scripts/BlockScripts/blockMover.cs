@@ -88,7 +88,8 @@ public class blockMover : MonoBehaviour
                 // Set isDragging to true
                 isDragging = true;
 
-                if (((Block)block.GetComponent("Block")).prevBlock)
+
+                if (((Block)block.GetComponent("Block")).prevBlock && (NestedBlock)block.GetComponent("NestedBlock") == null)
                 {
                     dragChildren = false;
                 }
@@ -188,19 +189,38 @@ public class blockMover : MonoBehaviour
     {
 
         // Sets the refrences of the block and any blocks attached to it to be null.
-        Block tempScript = ((Block)block.GetComponent("Block"));
-        if (tempScript.prevBlock != null)
+        if (blockScript.prevBlock && blockScript.nextBlock && !dragChildren)
         {
-            oldPrevBlock = tempScript.prevBlock;
-            tempScript.prevBlock.nextBlock = null;
-            tempScript.prevBlock = null;
+            Block nextBlock = blockScript.nextBlock;
+            Block prevBlock = blockScript.prevBlock;
+            prevBlock.nextBlock = nextBlock;
+            nextBlock.prevBlock = prevBlock;
 
+            Vector2 jump;
+            if (blockScript.prevBlock.blockID == 0)
+            {
+                jump = -nextBlock.snapPositions[0] + prevBlock.snapPositions[0];
+            }
+            else
+            {
+                jump = -nextBlock.snapPositions[0] + prevBlock.snapPositions[1];
+            }
+            nextBlock.moveChildren(jump);
+
+            blockScript.prevBlock = null;
+            blockScript.nextBlock = null;
         }
-        if (tempScript.nextBlock != null && !dragChildren)
+        else if(blockScript.prevBlock != null)
         {
-            oldNextBlock = tempScript.nextBlock;
-            tempScript.nextBlock.prevBlock = null;
-            tempScript.nextBlock = null;
+            oldPrevBlock = blockScript.prevBlock;
+            blockScript.prevBlock.nextBlock = null;
+            blockScript.prevBlock = null;
+        }
+        else if (blockScript.nextBlock != null && !dragChildren)
+        {
+            oldNextBlock = blockScript.nextBlock;
+            blockScript.nextBlock.prevBlock = null;
+            blockScript.nextBlock = null;
         }
     }
 

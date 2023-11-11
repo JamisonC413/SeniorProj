@@ -81,6 +81,7 @@ public class Block : MonoBehaviour
         if (rendererComponent != null)
         {
             rendererComponent.sortingLayerName = "Block";
+            rendererComponent.sortingOrder = 1;
         }
 
         // Check if a Canvas component is found
@@ -89,7 +90,7 @@ public class Block : MonoBehaviour
             // Set the sorting layer of the Canvas component
             canvasComponent.sortingLayerName = "Block";
             // Set the sorting order of the Canvas component
-            canvasComponent.sortingOrder = 1;
+            canvasComponent.sortingOrder = 2;
         }
 
         if (nextBlock != null)
@@ -103,15 +104,20 @@ public class Block : MonoBehaviour
         Renderer rendererComponent = gameObject.GetComponent<Renderer>();
 
         Canvas canvasComponent = gameObject.GetComponentInChildren<Canvas>();
+        if (rendererComponent != null)
+        {
+            // Sets the blocks' rendering layer back to a normal blocks so that it appears under UI, palette and canvas
+            rendererComponent.sortingLayerName = "Block Background";
+            rendererComponent.sortingOrder = 1;
+        }
 
-        // Sets the blocks' rendering layer back to a normal blocks so that it appears under UI, palette and canvas
-        rendererComponent.sortingLayerName = "Block Background";
-        rendererComponent.sortingOrder = 1;
-
-        // Set the sorting layer of the Canvas component
-        canvasComponent.sortingLayerName = "Block Background";
-        // Set the sorting order of the Canvas component
-        canvasComponent.sortingOrder = 2;
+        if (canvasComponent != null)
+        {
+            // Set the sorting layer of the Canvas component
+            canvasComponent.sortingLayerName = "Block Background";
+            // Set the sorting order of the Canvas component
+            canvasComponent.sortingOrder = 2;
+        }
 
         if (nextBlock != null)
         {

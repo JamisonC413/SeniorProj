@@ -41,14 +41,6 @@ public class blockMover : MonoBehaviour
     // The new next block in the list, will be attached to the prev of block
     public Block newNextBlock = null;
 
-    // The old prev block in the list 
-    // NOTE: The functionality for this variable no longer needed due to snapping update? Check later.
-    public Block oldPrevBlock = null;
-
-    // The old prev block in the list 
-    // NOTE: The functionality for this variable no longer needed due to snapping update? Check later.
-    public Block oldNextBlock = null;
-
     // Flag for dragging the block individually or all children as well
     private bool dragChildren = false;
 
@@ -155,35 +147,6 @@ public class blockMover : MonoBehaviour
                 isDragging = false;
             }
         }
-        // Remove panning?
-        else if (isDragging)
-        {
-            // Handles the pan functionality
-
-            // Finds all gameobjects that are a block
-            GameObject[] blocks = GameObject.FindGameObjectsWithTag("block");
-            // Gets the offset of mouse position from the last frame to the current one 
-            Vector2 translate = offset - Camera.main.ScreenToWorldPoint(Input.mousePosition);
-
-            // For every gameobject update thier transforms
-            foreach (GameObject block in blocks)
-            {
-                block.transform.position = block.transform.position - new Vector3(translate.x, translate.y, block.transform.position.z);
-            }
-
-            // Transform the startBlocks position as well (special case since it doesn't have a tag as a block)
-            startBlock.transform.position = startBlock.transform.position - new Vector3(translate.x, translate.y, 0f);
-
-            // Save offset as this frames mouse position
-            offset = Camera.main.ScreenToWorldPoint(Input.mousePosition);
-
-            // Check for mouse button release. Stop panning mouse is released 
-            if (Input.GetMouseButtonUp(0))
-            {
-                isDragging = false;
-                dragChildren = false;
-            }
-        }
 
     }
 
@@ -224,14 +187,12 @@ public class blockMover : MonoBehaviour
         else if(blockScript.prevBlock != null)
         {
             // If the block has a previous block than reset it
-            oldPrevBlock = blockScript.prevBlock;
             blockScript.prevBlock.nextBlock = null;
             blockScript.prevBlock = null;
         }
         else if (blockScript.nextBlock != null && !dragChildren)
         {
             // If the block has a next block than reset it 
-            oldNextBlock = blockScript.nextBlock;
             blockScript.nextBlock.prevBlock = null;
             blockScript.nextBlock = null;
         }
@@ -288,7 +249,7 @@ public class blockMover : MonoBehaviour
         // If the object that is hit is not the code area or just doesn't exist than it destoys the block
         if (hit.collider == null || !hit.collider.CompareTag("CodeArea"))
         {
-            Debug.Log(hit.collider);
+            //Debug.Log(hit.collider);
             //Destroy(block);
         }
     }
@@ -337,28 +298,7 @@ public class blockMover : MonoBehaviour
             blockScript.prevBlock = newPrevBlock;
         }
 
-        // NOTE: Outdated? This was responsible for reinserting a block to its old position.
-        // May not be required. Depends on sponsor feedback pertaining to nested blocks
-        if (newNextBlock == oldNextBlock || newPrevBlock == oldPrevBlock)
-        {
-            if (oldNextBlock != null)
-            {
-                oldNextBlock.prevBlock = blockScript;
-                blockScript.nextBlock = oldNextBlock;
-                oldNextBlock = null;
-            }
-            if (oldPrevBlock != null)
-            {
-                oldPrevBlock.nextBlock = blockScript;
-                blockScript.prevBlock = oldPrevBlock;
-                oldPrevBlock = null;
-            }
-        }
-        else if (newNextBlock != null || newPrevBlock != null)
-        {
-            oldPrevBlock = null;
-            oldNextBlock = null;
-        }
+
         oldSnapPositions = null;
         insertingBlock = null;
     }
@@ -404,7 +344,6 @@ public class blockMover : MonoBehaviour
             insertingBlock.nextBlock.moveChildren(new Vector2(0, -((Block)block.GetComponent("Block")).getListHeight()));
         }
 
-        // NOTE: This special case may no longer be required. Depends on sponsor input for loops.
         if (oldSnapPositions != null)
         {
             float comparison = Vector2.Distance(block.transform.position, oldSnapPositions[1]);

@@ -14,9 +14,11 @@ public class moveBrush : Block
     [SerializeField]
     private TMP_InputField YInput;
 
+    // Stores the gamobject used to track top snap position
     [SerializeField]
     private GameObject snap1;
 
+    // Bottom snapObject
     [SerializeField]
     private GameObject snap2;
 
@@ -30,13 +32,16 @@ public class moveBrush : Block
     // The Y coordinite input 
     public int Y;
 
+    // Scale for canvas
     public float scale = 0.3f;
     
+    // Scale for maximized canvas
     public float scaleMaximized = 0.55f;
 
     // The brushes gameobject 
     public Brush brush;
 
+    // Brush for maximized canvas
     public Brush brush2;
 
 
@@ -113,7 +118,7 @@ public class moveBrush : Block
     // Will be used to draw line using a child linerenderer component. Not yet implemented
     public override void execute()
     {
-
+        // Multiplies scale by the tranlation for the brush
         float xTransform = X * scale + brush.transform.position.x;
         float yTransform = Y * scale + brush.transform.position.y;
 

@@ -1,8 +1,6 @@
 using UnityEngine;
 using System.Collections.Generic;
 using System.Linq;
-using UnityEngine.UIElements;
-using System.Threading;
 
 // Handles moving and snapping blocks.
 public class blockMover : MonoBehaviour
@@ -16,6 +14,7 @@ public class blockMover : MonoBehaviour
     // The search radius for finding blocks to snap to
     public float searchRadius = .1f;
 
+    // The startBlock is a special case when dealing with certain scenarios, storing a refrence made some code simpler
     [SerializeField]
     private GameObject startBlock;
 
@@ -24,28 +23,35 @@ public class blockMover : MonoBehaviour
     //       maybe someone else will have a better idea?
     public GameObject block;
 
+    // The script for the block currently being dragged
+    private Block blockScript = null;
+
     // Tracks if a block is getting inserted into the middle of a list
     public Block insertingBlock = null;
 
+    // Tracks the frame that insertingBlock gets changed
     private bool insertingBlockChanged = false;
 
+    // Old positions of key block snaps for inserting a block
     private Vector2[] oldSnapPositions = null;
 
+    // The new previous block in the list, will be attached to the prev of block
     public Block newPrevBlock = null;
 
+    // The new next block in the list, will be attached to the prev of block
     public Block newNextBlock = null;
 
+    // The old prev block in the list 
+    // NOTE: The functionality for this variable no longer needed due to snapping update? Check later.
     public Block oldPrevBlock = null;
 
+    // The old prev block in the list 
+    // NOTE: The functionality for this variable no longer needed due to snapping update? Check later.
     public Block oldNextBlock = null;
 
+    // Flag for dragging the block individually or all children as well
     private bool dragChildren = false;
 
-    private Block blockScript = null;
-
-    private Vector2 lastMousePos = Vector2.zero;
-
-    public GameObject parentCanvas;
 
     // Update is called every frame and handles dragging and snapping
     void Update()
@@ -81,14 +87,14 @@ public class blockMover : MonoBehaviour
                 // Store the block reference as the block we are dragging and calculate the offset
                 block = hit.collider.gameObject;
                 blockScript = (Block)block.GetComponent("Block");
-                //block.transform.SetParent(parentCanvas.transform);
                 offset = block.transform.position - Camera.main.ScreenToWorldPoint(Input.mousePosition);
                 
 
                 // Set isDragging to true
                 isDragging = true;
 
-
+                // If a block is nested - drag Children
+                // If a block has
                 if (((Block)block.GetComponent("Block")).prevBlock && (NestedBlock)block.GetComponent("NestedBlock") == null)
                 {
                     dragChildren = false;
@@ -122,7 +128,6 @@ public class blockMover : MonoBehaviour
             {
                 block.transform.position = new Vector3(newPosition.x, newPosition.y, block.transform.position.z);
             }
-            lastMousePos = Camera.main.ScreenToWorldPoint(Input.mousePosition);
 
             // Everything beyond has to do with finding snap partners
 
@@ -130,6 +135,7 @@ public class blockMover : MonoBehaviour
             // Gets all colliders that overlap with a circle of radius of searchRadius
             List<GameObject> blockList = findCloseBlocks(); ;
 
+            // Updates the options for nearby blocks to snap to
             updateCurrentOptions(blockList);
 
             // Check for mouse button release, handles snapping with located partners
@@ -138,8 +144,7 @@ public class blockMover : MonoBehaviour
                 blockScript.setRenderLayersLow();
                 misplacedDestroy();
                 GameObject scrollArea = GameObject.FindGameObjectWithTag("CodeArea");
-                //block.transform.SetParent(scrollArea.transform);
-
+                // Snaps to available blocks
                 snapToBlocks();
 
                 // Sets the block for next object to be picked up
@@ -150,6 +155,7 @@ public class blockMover : MonoBehaviour
                 isDragging = false;
             }
         }
+        // Remove panning?
         else if (isDragging)
         {
             // Handles the pan functionality
@@ -184,18 +190,21 @@ public class blockMover : MonoBehaviour
 
 
 
-
+    // Sets refrences to blocks that were attached, used when picking up a new block
     private void setRefrences()
     {
 
-        // Sets the refrences of the block and any blocks attached to it to be null.
+        // Sets the refrences of the block and any blocks attached to it to be null. Depends on a few factors
         if (blockScript.prevBlock && blockScript.nextBlock && !dragChildren)
         {
+            // If the block is in the middle of a list and there is not a flag for dragging children than completely disconnect 
+            // from the middle of the list
             Block nextBlock = blockScript.nextBlock;
             Block prevBlock = blockScript.prevBlock;
             prevBlock.nextBlock = nextBlock;
             nextBlock.prevBlock = prevBlock;
 
+            // The block beneath the block being removed gets bumped up in the list, filling the vacancy of the removed block
             Vector2 jump;
             if (blockScript.prevBlock.blockID == 0)
             {
@@ -207,24 +216,28 @@ public class blockMover : MonoBehaviour
             }
             nextBlock.moveChildren(jump);
 
+            // The block getting removed has all refrences reset, ready to be snapped somewhere else
             blockScript.prevBlock = null;
             blockScript.nextBlock = null;
         }
+        // These cases don't have to deal with removing from the middle of a list, only one of them should be executed if the case above was not
         else if(blockScript.prevBlock != null)
         {
+            // If the block has a previous block than reset it
             oldPrevBlock = blockScript.prevBlock;
             blockScript.prevBlock.nextBlock = null;
             blockScript.prevBlock = null;
         }
         else if (blockScript.nextBlock != null && !dragChildren)
         {
+            // If the block has a next block than reset it 
             oldNextBlock = blockScript.nextBlock;
             blockScript.nextBlock.prevBlock = null;
             blockScript.nextBlock = null;
         }
     }
 
-
+    // Finds nearby blocks and determines if they are valid to snap to
     private List<GameObject> findCloseBlocks()
     {
         // Gets all colliders that overlap with a circle of radius of searchRadius
@@ -234,8 +247,10 @@ public class blockMover : MonoBehaviour
         // Iterate through list of found objects to see if any are snappable
         foreach (Collider2D collider in colliders)
         {
+            // Bool for checking that the block is not one of the children blocks to the block that is being moved (only applies when picking up a list of blocks)
             bool isNotConnectedBlock = true;
             Block currentBlock = blockScript;
+            // Checks that the current block is not connected to the block being dragged
             while (currentBlock && isNotConnectedBlock)
             {
                 isNotConnectedBlock = currentBlock.gameObject != collider.gameObject;
@@ -247,8 +262,8 @@ public class blockMover : MonoBehaviour
             {
                 blockList.Add(collider.gameObject);
             }
-            // To identify the start block as snappable without tag, checks if it has a script called startBlock
-            else if (collider.gameObject.GetComponent("startBlock") != null)
+            // To identify the start block as snappable without tag, compares to the existing refrence
+            else if (collider.gameObject.GetComponent<startBlock>() != null)
             {
                 blockList.Add(collider.gameObject);
             }
@@ -260,6 +275,7 @@ public class blockMover : MonoBehaviour
         return blockList;
     }
 
+    // Destroys the block when it is dragged over the wrong area.
     private void misplacedDestroy()
     {
         // Ignore raycast set so that we can check if the block was placed on the main code area
@@ -277,15 +293,17 @@ public class blockMover : MonoBehaviour
         }
     }
 
+    // Snaps to the blocks selected to be the newPrevious and newNext
     private void snapToBlocks()
     {
+        // If newNextBlock exists than move the block to the top of the next block, if it is being inserted than move the nextBlock to the bottom of this block
         if (newNextBlock != null)
         {
             Block lastBlock = blockScript.getLastBlock();
             if (insertingBlock)
             {
+                // Handles calculating offset to move the block
                 Vector2 jump = -newNextBlock.snapPositions[0] + lastBlock.snapPositions[1];
-                //new Vector2(blockScript.snapPositions[1].x - newNextBlock.snapPositions[0].x, newNextBlock.snapPositions[0].y - blockScript.snapPositions[1].y)
                 newNextBlock.moveChildren(jump);
             }
             else
@@ -297,9 +315,11 @@ public class blockMover : MonoBehaviour
             newNextBlock.prevBlock = lastBlock;
             lastBlock.nextBlock = newNextBlock;
         }
+        // If there is a newPreviousBlock than jump this block to the bottom snap position of it
         if (newPrevBlock != null)
         {
             Vector2 jump;
+            // Calculate jump (special case for the startBlock) StartBlock always has the id == 0
             if (newPrevBlock.blockID == 0)
             {
                 jump = newPrevBlock.snapPositions[0] - blockScript.snapPositions[0];
@@ -309,12 +329,16 @@ public class blockMover : MonoBehaviour
                 jump = newPrevBlock.snapPositions[1] - blockScript.snapPositions[0];
             }
 
+            // Move this block and all children to the bottom of the newPreviousBlock
             blockScript.moveChildren(jump);
 
+            // Sets refrences, creating list
             newPrevBlock.nextBlock = blockScript;
             blockScript.prevBlock = newPrevBlock;
         }
 
+        // NOTE: Outdated? This was responsible for reinserting a block to its old position.
+        // May not be required. Depends on sponsor feedback pertaining to nested blocks
         if (newNextBlock == oldNextBlock || newPrevBlock == oldPrevBlock)
         {
             if (oldNextBlock != null)
@@ -339,20 +363,30 @@ public class blockMover : MonoBehaviour
         insertingBlock = null;
     }
 
-
+    // Updates the options for blocks based off what is connected to nearby blocks 
     private void updateCurrentOptions(List<GameObject> blockList)
     {
-
+        // If the inserting block got changed than updates options pertaining to a insert case
         if (insertingBlockChanged)
         {
+            // Reset the flag
             insertingBlockChanged = false;
 
+            // By default the inserting block is the block that will be above the dragged block i.e. newPrevBlock
             newPrevBlock = insertingBlock;
+
+            // By aboves default, the nextBlock of the insertBlock will be the newNext.
+            
+            // NOTE: It should be impossible for insertingBlock to get changed
+            // and for there to not be a nextBlock
+            // (insertingBlockChanged flag should only be true when user tries inserting into the middle of a list),
+            // if this line gives a null than logic elsewhere got broken.
             newNextBlock = insertingBlock.nextBlock;
 
             // Standard is that 0 is the old position of the snapPosition with highest y (also one of these positions is actually not old, but it nice to have them in one spot).
             oldSnapPositions = new Vector2[3];
 
+            // If the block is the startBlock there is a special case for the triggering snap positions. This is because start doesn't have two snapPostions
             if (insertingBlock.blockID == 0)
             {
                 oldSnapPositions[0] = insertingBlock.snapPositions[0] + new Vector2(0f, 1f);
@@ -366,9 +400,11 @@ public class blockMover : MonoBehaviour
                 oldSnapPositions[2] = insertingBlock.nextBlock.snapPositions[1];
             }
 
+            // Moves the blocks beneath the insertingBlock down, making room for new block 
             insertingBlock.nextBlock.moveChildren(new Vector2(0, -((Block)block.GetComponent("Block")).getListHeight()));
         }
 
+        // NOTE: This special case may no longer be required. Depends on sponsor input for loops.
         if (oldSnapPositions != null)
         {
             float comparison = Vector2.Distance(block.transform.position, oldSnapPositions[1]);
@@ -415,16 +451,21 @@ public class blockMover : MonoBehaviour
                 insertingBlock = null;
             }
         }
+        // If there are nearby blocks
         else if (blockList.Count > 0)
         {
+            // Get the closest block, determines case for connecting based on this block
             Block closestBlock = (Block)blockList[0].GetComponent("Block");
 
             newPrevBlock = null;
             newNextBlock = null;
 
+            // If the closest block is the start block or the distance to the bottom snapPoint is in snapPositions[0] than execute this case
             if (closestBlock.blockID == 0 || Vector2.Distance(closestBlock.snapPositions[0], block.transform.position) > Vector2.Distance(closestBlock.snapPositions[1], block.transform.position))
             {
+                // Sets the newPrevBlock
                 newPrevBlock = closestBlock;
+                // Raise flag for insertion if the nextBlock slot is already taken
                 if (closestBlock.nextBlock != null)
                 {
                     insertingBlock = closestBlock;
@@ -433,7 +474,12 @@ public class blockMover : MonoBehaviour
             }
             else
             {
+                // Must be closer to top of block, so sets newNextBlock
                 newNextBlock = closestBlock;
+                // If the prevBlock refrence is taken than set the inserting block to the prevBlock refrence
+                // NOTE: The decision to make insertingBlock always the newPrevBlock is important to keeping the 
+                // inserting block code simpler. That is why here we set the insertingBlock equal to closestBlock's previous
+                // while above we simply make it the closest block.
                 if (closestBlock.prevBlock != null)
                 {
                     insertingBlock = closestBlock.prevBlock;
@@ -443,6 +489,7 @@ public class blockMover : MonoBehaviour
         }
         else
         {
+            // No blocks are nearby, reset all prospective options
             newPrevBlock = null;
             newNextBlock = null;
             if (insertingBlock)

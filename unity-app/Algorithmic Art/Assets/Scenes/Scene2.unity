@@ -2745,6 +2745,7 @@ GameObject:
   - component: {fileID: 653413314}
   - component: {fileID: 653413313}
   - component: {fileID: 653413316}
+  - component: {fileID: 653413317}
   m_Layer: 5
   m_Name: Maximize
   m_TagString: Untagged
@@ -2880,6 +2881,18 @@ MonoBehaviour:
   mainCamera: {fileID: 1014806381}
   camera2: {fileID: 1034741796}
   canvas: {fileID: 678764869}
+--- !u!114 &653413317
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 653413311}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c09ff82d8bf2d454890d994f84bd4fd9, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &678764869
 GameObject:
   m_ObjectHideFlags: 0
@@ -3586,9 +3599,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   lineRenderer: {fileID: 0}
-  startScript: {fileID: 0}
-  brush: {fileID: 0}
-  brush2: {fileID: 0}
+  startScript: {fileID: 1064226989}
+  brush: {fileID: 774330118}
+  brush2: {fileID: 169055497}
   delay: 0
   currentColor: {r: 0, g: 0, b: 0, a: 1}
   lineWidth: 0.1
@@ -4104,7 +4117,7 @@ GameObject:
   - component: {fileID: 1064226987}
   m_Layer: 0
   m_Name: Start
-  m_TagString: Untagged
+  m_TagString: start
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -4267,6 +4280,7 @@ GameObject:
   - component: {fileID: 1083822552}
   - component: {fileID: 1083822551}
   - component: {fileID: 1083822550}
+  - component: {fileID: 1083822553}
   m_Layer: 5
   m_Name: Play2
   m_TagString: play2
@@ -4337,8 +4351,8 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 0}
-        m_TargetAssemblyTypeName: Play, Assembly-CSharp
+      - m_Target: {fileID: 1083822553}
+        m_TargetAssemblyTypeName: Play, ProjectScripts
         m_MethodName: StartRendering
         m_Mode: 1
         m_Arguments:
@@ -4387,6 +4401,26 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1083822547}
   m_CullTransparentMesh: 1
+--- !u!114 &1083822553
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1083822547}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5e89553b93c03a844bf7686546bf7b91, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  lineRenderer: {fileID: 0}
+  startScript: {fileID: 1064226989}
+  brush: {fileID: 774330118}
+  brush2: {fileID: 169055497}
+  delay: 1
+  currentColor: {r: 0, g: 0, b: 0, a: 1}
+  lineWidth: 0.03
+  lineWidth2: 0.055
 --- !u!1 &1146563800
 GameObject:
   m_ObjectHideFlags: 0
@@ -4544,6 +4578,7 @@ GameObject:
   - component: {fileID: 1212789012}
   - component: {fileID: 1212789011}
   - component: {fileID: 1212789010}
+  - component: {fileID: 1212789013}
   m_Layer: 5
   m_Name: FastForward2
   m_TagString: Untagged
@@ -4614,8 +4649,8 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 0}
-        m_TargetAssemblyTypeName: Play, Assembly-CSharp
+      - m_Target: {fileID: 1212789013}
+        m_TargetAssemblyTypeName: Play, ProjectScripts
         m_MethodName: StartRendering
         m_Mode: 1
         m_Arguments:
@@ -4664,6 +4699,26 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1212789007}
   m_CullTransparentMesh: 1
+--- !u!114 &1212789013
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1212789007}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5e89553b93c03a844bf7686546bf7b91, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  lineRenderer: {fileID: 0}
+  startScript: {fileID: 1064226989}
+  brush: {fileID: 774330118}
+  brush2: {fileID: 169055497}
+  delay: 0
+  currentColor: {r: 0, g: 0, b: 0, a: 1}
+  lineWidth: 0.03
+  lineWidth2: 0.055
 --- !u!1 &1301214896
 GameObject:
   m_ObjectHideFlags: 0
@@ -5477,8 +5532,8 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 460666633}
   m_HandleRect: {fileID: 460666632}
   m_Direction: 2
-  m_Value: 0.9999999
-  m_Size: 0.5587851
+  m_Value: 1.0000001
+  m_Size: 0.55878514
   m_NumberOfSteps: 0
   m_OnValueChanged:
     m_PersistentCalls:
@@ -6696,6 +6751,7 @@ GameObject:
   - component: {fileID: 2126663111}
   - component: {fileID: 2126663110}
   - component: {fileID: 2126663109}
+  - component: {fileID: 2126663113}
   m_Layer: 5
   m_Name: Minimize
   m_TagString: Untagged
@@ -6831,6 +6887,18 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2126663107}
   m_CullTransparentMesh: 1
+--- !u!114 &2126663113
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2126663107}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c09ff82d8bf2d454890d994f84bd4fd9, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &2126779169
 GameObject:
   m_ObjectHideFlags: 0

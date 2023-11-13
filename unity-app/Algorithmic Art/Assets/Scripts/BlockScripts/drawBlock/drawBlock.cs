@@ -17,10 +17,12 @@ public class drawBlock : Block
     // For future code 
     [SerializeField]
     private TMP_InputField YInput;
-
+    
+    // Top snap point
     [SerializeField]
     private GameObject snap1;
 
+    // Bot snap point
     [SerializeField]
     private GameObject snap2;
 
@@ -43,9 +45,9 @@ public class drawBlock : Block
     // 0 = line
     // 1 = rectangle
     public int mode = 0;
-
+    
+    // Two main play scripts, the color and linewidth are dictated by these scripts
     public Play play;
-    public Play play2;
 
     // Sets the starting information for the block, ID, refrences and snap positions
     void Awake()
@@ -68,6 +70,7 @@ public class drawBlock : Block
         snapPositions[1] = snap2.transform.position;
     }
 
+    // Initialize basic variables
     public void initialize()
     {
         this.blockID = Block.nextID;
@@ -79,11 +82,11 @@ public class drawBlock : Block
         play = GameObject.FindGameObjectWithTag("play").GetComponent<Play>();
     }
 
-    // Will be used to draw line using a child linerenderer component. Not yet implemented
+    // Will be used to draw shape using a child linerenderer component. Not yet implemented
     public override void execute()
     {
 
-
+        // Modes for different shapes
         switch (mode)
         {
             case 0:
@@ -105,6 +108,7 @@ public class drawBlock : Block
         };
     }
 
+    // Responible for drawing a line
     private void executeLine()
     {
         //The LineRenderer
@@ -163,6 +167,7 @@ public class drawBlock : Block
         lineRenderer.SetPositions(positions.ToArray());
     }
 
+    // Responible for drawing a line in the maximized canvas
     private void executeLineMaximized()
     {
         //The LineRenderer
@@ -221,6 +226,8 @@ public class drawBlock : Block
         lineRenderer.SetPositions(positions.ToArray());
     }
 
+
+    // Responible for drawing a rectangle 
     private void executeRectangle()
     {
 
@@ -316,6 +323,7 @@ public class drawBlock : Block
         brush.transform.position = new Vector3(xTransform, yTransform, 0f);
     }
 
+    // Responible for drawing a rectangle in the maximized canvas
     private void executeRectangleMaximized(Brush brush)
     {
 
@@ -325,9 +333,9 @@ public class drawBlock : Block
         // Clear the list of positions
         positions.Clear();
 
-
         LineRenderer lineRenderer = brush.createLineRenderer();
 
+        // Gets and sets line width of the renderer
         float width = play.lineWidth2;
         lineRenderer.startWidth = width;
         lineRenderer.endWidth = width;

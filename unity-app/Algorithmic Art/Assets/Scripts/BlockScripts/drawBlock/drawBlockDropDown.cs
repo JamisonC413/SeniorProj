@@ -8,7 +8,7 @@ public class drawBlockDropDown : MonoBehaviour
 {
     public TMP_Dropdown dropDown; // Reference to your Dropdown component
 
-    public drawBlock2 drawBlock;
+    public drawBlock drawBlock;
 
     [SerializeField]
     private GameObject[] inputs;
@@ -172,6 +172,8 @@ public class drawBlockDropDown : MonoBehaviour
                 boxCollider.offset = new Vector2(0f, 0f);
 
                 drawBlock.mode = 0;
+                drawBlock.defaultSprite = sprites[0];
+                drawBlock.selected = sprites[2];
                 break;
             case 1:
                 inputs[0].SetActive(false);
@@ -179,6 +181,8 @@ public class drawBlockDropDown : MonoBehaviour
                 inputs[2].SetActive(false);
                 inputs[3].SetActive(false);
                 spriteRenderer.sprite = sprites[1];
+                drawBlock.defaultSprite = sprites[1];
+                drawBlock.selected = sprites[3];
 
                 // Resize the collider
                 boxCollider.size = new Vector2(5.37f, 2.4f);
@@ -194,6 +198,8 @@ public class drawBlockDropDown : MonoBehaviour
                 inputs[2].SetActive(true);
                 inputs[3].SetActive(false);
                 spriteRenderer.sprite = sprites[0];
+                drawBlock.defaultSprite = sprites[0];
+                drawBlock.selected = sprites[2];
 
                 // Resize the collider
                 boxCollider.size = new Vector2(3.9f, 2.5f);
@@ -209,6 +215,8 @@ public class drawBlockDropDown : MonoBehaviour
                 inputs[2].SetActive(false);
                 inputs[3].SetActive(true);
                 spriteRenderer.sprite = sprites[0];
+                drawBlock.defaultSprite = sprites[0];
+                drawBlock.selected = sprites[2];
 
                 // Resize the collider
                 boxCollider.size = new Vector2(3.9f, 2.5f);

@@ -56,9 +56,11 @@ public class Play : MonoBehaviour
         while (block != null)
         {
             Debug.Log(block + "was run");
+            block.gameObject.GetComponent<SpriteRenderer>().sprite = block.selected;
             block.execute();
-            block = block.nextBlock;
             yield return new WaitForSeconds(delay);
+            block.gameObject.GetComponent<SpriteRenderer>().sprite = block.defaultSprite;
+            block = block.nextBlock;
         }
        
         yield return null;

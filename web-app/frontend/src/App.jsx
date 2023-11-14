@@ -9,6 +9,7 @@ import { BrowserRouter as Router, Link, Routes, Route } from "react-router-dom";
 function App() {
   return (
     <Router>
+    {/*Menu*/}
     <NavBar />
     <div className="App"
       style={{
@@ -17,10 +18,11 @@ function App() {
         flexDirection: "column",
         padding: "15px"
       }}>
-        <Routes>
-          <Route exact path="/" element={<Game />} />
-          <Route path="/imageGallery" element={<ImageGallery />} />
-        </Routes>
+      {/*Routes linking components*/}
+      <Routes>
+        <Route exact path="/" element={<Game />} />
+        <Route path="/imageGallery" element={<SavedImages />} />
+      </Routes>
     </div>
     </Router>
 

@@ -5,6 +5,7 @@ import Nav from 'react-bootstrap/Nav';
 import Navbar from 'react-bootstrap/Navbar';
 import 'bootstrap/dist/css/bootstrap.min.css';
 
+// Menu for navigating to Home, Image Gallery, and Tutorials page
 function NavBar() {
   return (
     <Navbar expand="lg" className="bg-body-tertiary" data-bs-theme="dark">

@@ -1,6 +1,7 @@
 import React from "react"; 
 import SavedImages from './SavedImages';
   
+// Contains the SavedImages component
 const ImageGallery = () => { 
   return ( 
     <div> 

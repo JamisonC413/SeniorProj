@@ -15,7 +15,7 @@ public class widthBlock : Block
     private GameObject snap2;
 
     [SerializeField]
-    private Play[] playScripts;
+    private Play playScript;
 
     public float width = 1f;
 
@@ -36,9 +36,7 @@ public class widthBlock : Block
         snapPositions[0] = snap1.transform.position;
         snapPositions[1] = snap2.transform.position;
 
-        playScripts = new Play[2];
-        playScripts[0] = GameObject.FindGameObjectWithTag("play").GetComponent<Play>();
-        playScripts[1] = GameObject.FindGameObjectWithTag("fastforward").GetComponent<Play>();
+        playScript = GameObject.FindGameObjectWithTag("playHandler").GetComponent<Play>();
     }
 
     // Used to update information on the draw block
@@ -55,10 +53,8 @@ public class widthBlock : Block
     // Will be used to draw line using a child linerenderer component. Not yet implemented
     public override void execute()
     {
-        playScripts[0].lineWidth = width * scale;
-        playScripts[1].lineWidth = width * scale;
-        playScripts[0].lineWidth2 = width * scaleMax;
-        playScripts[1].lineWidth2 = width * scaleMax;
+        playScript.lineWidth = width * scale;
+        playScript.lineWidth2 = width * scaleMax;
 
     }
 }

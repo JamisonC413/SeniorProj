@@ -16,7 +16,7 @@ public class colorBlock : Block
     private GameObject snap2;
 
     [SerializeField]
-    private Play[] playScripts;
+    private Play playScript;
 
     public int color = 0;
 
@@ -33,9 +33,7 @@ public class colorBlock : Block
         snapPositions[0] = snap1.transform.position;
         snapPositions[1] = snap2.transform.position;
 
-        playScripts = new Play[2];
-        playScripts[0] = GameObject.Find("Play").GetComponent<Play>();
-        playScripts[1] = GameObject.Find("FastForward").GetComponent<Play>();
+        playScript = GameObject.FindGameObjectWithTag("playHandler").GetComponent<Play>();
     }
 
     // Used to update information on the draw block
@@ -56,21 +54,16 @@ public class colorBlock : Block
         switch (color)
         {
             case 0:
-                playScripts[0].currentColor = Color.red;
-                playScripts[1].currentColor = Color.red;
+                playScript.currentColor = Color.red;
                 break;
             case 1:
-                playScripts[0].currentColor = Color.green;
-                playScripts[1].currentColor = Color.green;
-
+                playScript.currentColor = Color.green;
                 break;
             case 2:
-                playScripts[0].currentColor = Color.blue;
-                playScripts[1].currentColor = Color.blue;
+                playScript.currentColor = Color.blue;
                 break;
             case 3:
-                playScripts[0].currentColor = Color.black;
-                playScripts[1].currentColor = Color.black;
+                playScript.currentColor = Color.black;
                 break;
             default: break;
         }

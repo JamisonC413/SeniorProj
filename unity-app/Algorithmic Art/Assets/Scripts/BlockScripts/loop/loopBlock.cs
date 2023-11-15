@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class loopBlock : Block, NestedBlock
+public class loopBlock : NestedBlock
 {
 
     [SerializeField]
@@ -15,6 +15,8 @@ public class loopBlock : Block, NestedBlock
 
     [SerializeField]
     private GameObject bottomBlockPrefab;
+
+    public Play playScript;
 
     [SerializeField]
     private GameObject sideBar;
@@ -78,8 +80,21 @@ public class loopBlock : Block, NestedBlock
 
     public override void execute()
     {
-
+        StartCoroutine(loopExecute());
     }
 
+    private IEnumerator loopExecute()
+    {
+        Block block = this.nextBlock;
+        while (block != null)
+        {
+            Debug.Log(block + "was run");
+            block.gameObject.GetComponent<SpriteRenderer>().sprite = block.selected;
+            block.execute();
+            yield return new WaitForSeconds(playScript.delay);
+            block.gameObject.GetComponent<SpriteRenderer>().sprite = block.defaultSprite;
+            block = block.nextBlock;
+        }
+    }
 
 }

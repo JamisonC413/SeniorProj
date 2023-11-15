@@ -70,8 +70,9 @@ public class Play : MonoBehaviour
     }
 
     //Starts the rendering coroutine
-    public void StartRendering()
+    public void StartRendering(float delay)
     {
+        this.delay = delay;
         if (!locked)
         {
             locked = true;

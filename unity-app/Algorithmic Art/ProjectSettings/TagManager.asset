@@ -15,6 +15,7 @@ TagManager:
   - play2
   - fastforward
   - start
+  - playHandler
   layers:
   - Default
   - TransparentFX

@@ -3556,7 +3556,6 @@ GameObject:
   - component: {fileID: 1005902140}
   - component: {fileID: 1005902139}
   - component: {fileID: 1005902138}
-  - component: {fileID: 1005902137}
   m_Layer: 5
   m_Name: FastForward
   m_TagString: fastforward
@@ -3583,26 +3582,6 @@ RectTransform:
   m_AnchoredPosition: {x: 306, y: 272}
   m_SizeDelta: {x: 43.44, y: 42.62}
   m_Pivot: {x: 0.5, y: 0.5}
---- !u!114 &1005902137
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1005902135}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 5e89553b93c03a844bf7686546bf7b91, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  lineRenderer: {fileID: 0}
-  startScript: {fileID: 1064226989}
-  brush: {fileID: 774330118}
-  brush2: {fileID: 169055497}
-  delay: 0
-  currentColor: {r: 0, g: 0, b: 0, a: 1}
-  lineWidth: 0.1
-  lineWidth2: 0.1
 --- !u!114 &1005902138
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -3647,10 +3626,10 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 1005902137}
-        m_TargetAssemblyTypeName: Play, Assembly-CSharp
+      - m_Target: {fileID: 1916524838}
+        m_TargetAssemblyTypeName: Play, ProjectScripts
         m_MethodName: StartRendering
-        m_Mode: 1
+        m_Mode: 4
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
           m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
@@ -4348,15 +4327,15 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 1083822553}
+      - m_Target: {fileID: 1916524838}
         m_TargetAssemblyTypeName: Play, ProjectScripts
         m_MethodName: StartRendering
-        m_Mode: 1
+        m_Mode: 4
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
           m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
           m_IntArgument: 0
-          m_FloatArgument: 0
+          m_FloatArgument: 1
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
@@ -4418,6 +4397,7 @@ MonoBehaviour:
   currentColor: {r: 0, g: 0, b: 0, a: 1}
   lineWidth: 0.03
   lineWidth2: 0.055
+  locked: 0
 --- !u!1 &1146563800
 GameObject:
   m_ObjectHideFlags: 0
@@ -4646,10 +4626,10 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 1212789013}
+      - m_Target: {fileID: 1916524838}
         m_TargetAssemblyTypeName: Play, ProjectScripts
         m_MethodName: StartRendering
-        m_Mode: 1
+        m_Mode: 4
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
           m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
@@ -4716,6 +4696,7 @@ MonoBehaviour:
   currentColor: {r: 0, g: 0, b: 0, a: 1}
   lineWidth: 0.03
   lineWidth2: 0.055
+  locked: 0
 --- !u!1 &1301214896
 GameObject:
   m_ObjectHideFlags: 0
@@ -5719,7 +5700,6 @@ GameObject:
   - component: {fileID: 1624300342}
   - component: {fileID: 1624300341}
   - component: {fileID: 1624300340}
-  - component: {fileID: 1624300339}
   m_Layer: 5
   m_Name: Play
   m_TagString: play
@@ -5746,26 +5726,6 @@ RectTransform:
   m_AnchoredPosition: {x: 251.11, y: 272}
   m_SizeDelta: {x: 41.67, y: 42.62}
   m_Pivot: {x: 0.5, y: 0.5}
---- !u!114 &1624300339
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1624300337}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 5e89553b93c03a844bf7686546bf7b91, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  lineRenderer: {fileID: 1378480240}
-  startScript: {fileID: 1064226989}
-  brush: {fileID: 774330118}
-  brush2: {fileID: 169055497}
-  delay: 1
-  currentColor: {r: 0, g: 0, b: 0, a: 1}
-  lineWidth: 0.03
-  lineWidth2: 0.055
 --- !u!114 &1624300340
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -5810,15 +5770,15 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 1624300339}
-        m_TargetAssemblyTypeName: Play, Assembly-CSharp
+      - m_Target: {fileID: 1916524838}
+        m_TargetAssemblyTypeName: Play, ProjectScripts
         m_MethodName: StartRendering
-        m_Mode: 1
+        m_Mode: 4
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
           m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
           m_IntArgument: 0
-          m_FloatArgument: 0
+          m_FloatArgument: 1
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
@@ -6035,6 +5995,59 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 1064226986}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &1916524837
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1916524839}
+  - component: {fileID: 1916524838}
+  m_Layer: 0
+  m_Name: PlayHandler
+  m_TagString: playHandler
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &1916524838
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1916524837}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5e89553b93c03a844bf7686546bf7b91, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  lineRenderer: {fileID: 1378480240}
+  startScript: {fileID: 1064226989}
+  brush: {fileID: 774330118}
+  brush2: {fileID: 169055497}
+  delay: 1
+  currentColor: {r: 0, g: 0, b: 0, a: 1}
+  lineWidth: 0.03
+  lineWidth2: 0.055
+  locked: 0
+--- !u!4 &1916524839
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1916524837}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1944627347
 GameObject:
@@ -7042,3 +7055,4 @@ SceneRoots:
   - {fileID: 169055496}
   - {fileID: 678764873}
   - {fileID: 1039439493}
+  - {fileID: 1916524839}

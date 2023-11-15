@@ -79,7 +79,7 @@ public class drawBlock : Block
 
         Block.nextID++;
 
-        play = GameObject.FindGameObjectWithTag("play").GetComponent<Play>();
+        play = GameObject.FindGameObjectWithTag("playHandler").GetComponent<Play>();
     }
 
     // Will be used to draw shape using a child linerenderer component. Not yet implemented

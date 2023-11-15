@@ -1,3 +1,4 @@
+using Codice.Client.Common.Locks;
 using System;
 using System.Collections;
 using System.Collections.Generic;
@@ -28,6 +29,8 @@ public class Play : MonoBehaviour
     public float lineWidth = .03f;
 
     public float lineWidth2 = .055f;
+
+    public bool locked = false;
 
     void Start()
     {
@@ -62,13 +65,18 @@ public class Play : MonoBehaviour
             block.gameObject.GetComponent<SpriteRenderer>().sprite = block.defaultSprite;
             block = block.nextBlock;
         }
-       
+        locked = false;
         yield return null;
     }
 
     //Starts the rendering coroutine
-    public void StartRendering()
+    public void StartRendering(float delay)
     {
-        StartCoroutine(Render());
+        this.delay = delay;
+        if (!locked)
+        {
+            locked = true;
+            StartCoroutine(Render());
+        }
     }
 }

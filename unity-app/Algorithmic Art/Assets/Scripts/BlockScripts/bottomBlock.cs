@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class loopBlockBottom : Block
+public class bottomBlock : Block
 {
     [SerializeField]
     private GameObject snap1;
@@ -10,7 +10,7 @@ public class loopBlockBottom : Block
     [SerializeField]
     private GameObject snap2;
 
-    public loopBlock topBlock;
+    public NestedBlock topBlock;
 
     // Start is called before the first frame update
     void Awake()
@@ -29,11 +29,6 @@ public class loopBlockBottom : Block
         snapPositions[0] = snap1.transform.position;
         snapPositions[1] = snap2.transform.position;
 
-        //if (!prevBlock && topBlock )
-        //{
-        //    prevBlock = topBlock;
-        //    topBlock.nextBlock = this;
-        //}
     }
 
     public void initialize()
@@ -44,4 +39,5 @@ public class loopBlockBottom : Block
 
         Block.nextID++;
     }
+
 }

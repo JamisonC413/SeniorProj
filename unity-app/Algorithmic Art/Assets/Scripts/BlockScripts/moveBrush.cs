@@ -116,7 +116,7 @@ public class moveBrush : Block
     }
 
     // Will be used to draw line using a child linerenderer component. Not yet implemented
-    public override void execute()
+    public override Block execute()
     {
         // Multiplies scale by the tranlation for the brush
         float xTransform = X * scale + brush.transform.position.x;
@@ -144,6 +144,8 @@ public class moveBrush : Block
         brush.transform.position = new Vector3(xTransform, yTransform, 0f);
 
         moveBrushMaximized(brush2);
+
+        return nextBlock;
     }
 
     private void moveBrushMaximized(Brush brush)

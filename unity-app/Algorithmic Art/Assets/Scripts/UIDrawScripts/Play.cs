@@ -32,6 +32,7 @@ public class Play : MonoBehaviour
 
     public bool locked = false;
 
+    public Block currentBlock;
     void Start()
     {
         
@@ -55,15 +56,15 @@ public class Play : MonoBehaviour
 
 
         // Tracks the block that we are currently on, allowing us to iterate through the block list
-        Block block = startScript.nextBlock;
-        while (block != null)
+        currentBlock = startScript.nextBlock;
+        while (currentBlock != null)
         {
-            Debug.Log(block + "was run");
-            block.gameObject.GetComponent<SpriteRenderer>().sprite = block.selected;
-            block.execute();
+            Debug.Log(currentBlock + "was run");
+            currentBlock.gameObject.GetComponent<SpriteRenderer>().sprite = currentBlock.selected;
+            Block nextBlock = currentBlock.execute();
             yield return new WaitForSeconds(delay);
-            block.gameObject.GetComponent<SpriteRenderer>().sprite = block.defaultSprite;
-            block = block.nextBlock;
+            currentBlock.gameObject.GetComponent<SpriteRenderer>().sprite = currentBlock.defaultSprite;
+            currentBlock = nextBlock;
         }
         locked = false;
         yield return null;

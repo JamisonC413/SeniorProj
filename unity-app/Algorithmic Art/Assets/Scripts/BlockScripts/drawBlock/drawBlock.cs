@@ -11,12 +11,6 @@ using UnityEngine.UI;
 // Script for the Draw Block
 public class drawBlock : Block
 {
-    // For future code 
-    [SerializeField]
-    private TMP_InputField XInput;
-    // For future code 
-    [SerializeField]
-    private TMP_InputField YInput;
     
     // Top snap point
     [SerializeField]
@@ -83,7 +77,7 @@ public class drawBlock : Block
     }
 
     // Will be used to draw shape using a child linerenderer component. Not yet implemented
-    public override void execute()
+    public override Block execute()
     {
 
         // Modes for different shapes
@@ -106,6 +100,7 @@ public class drawBlock : Block
                 executeCircleMaximized(brush2);
                 break;
         };
+        return nextBlock;
     }
 
     // Responible for drawing a line

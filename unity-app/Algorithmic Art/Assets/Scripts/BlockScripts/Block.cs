@@ -74,9 +74,9 @@ public class Block : MonoBehaviour
     }
 
     // Execute function used by every block. In the block's specific script this will be overriden by each block
-    virtual public void execute()
+    virtual public Block execute()
     {
-        // No functionality by default
+        return null;
     }
 
     // Sets the block and any canvas child it has to render above other UI and game elements 

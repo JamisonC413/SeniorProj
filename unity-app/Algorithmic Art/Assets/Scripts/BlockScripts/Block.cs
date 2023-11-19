@@ -74,9 +74,9 @@ public class Block : MonoBehaviour
     }
 
     // Execute function used by every block. In the block's specific script this will be overriden by each block
-    virtual public Block execute()
+    virtual public IEnumerator execute()
     {
-        return null;
+        yield return null;
     }
 
     // Sets the block and any canvas child it has to render above other UI and game elements 
@@ -139,5 +139,11 @@ public class Block : MonoBehaviour
         {
             nextBlock.setRenderLayersLow();
         }
+    }
+
+    virtual public Block getNextPlayBlock()
+    {
+        // Not defined by default
+        return nextBlock;
     }
 }

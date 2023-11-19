@@ -76,8 +76,9 @@ public class drawBlock : Block
         play = GameObject.FindGameObjectWithTag("playHandler").GetComponent<Play>();
     }
 
+
     // Will be used to draw shape using a child linerenderer component. Not yet implemented
-    public override Block execute()
+    public override IEnumerator execute()
     {
 
         // Modes for different shapes
@@ -100,7 +101,7 @@ public class drawBlock : Block
                 executeCircleMaximized(brush2);
                 break;
         };
-        return nextBlock;
+        yield return null;
     }
 
     // Responible for drawing a line

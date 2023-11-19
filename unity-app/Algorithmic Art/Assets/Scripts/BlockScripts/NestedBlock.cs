@@ -91,4 +91,9 @@ public class NestedBlock : Block
         }
 
     }
+
+    public override Block getNextPlayBlock()
+    {
+        return bottomBlock.nextBlock;
+    }
 }

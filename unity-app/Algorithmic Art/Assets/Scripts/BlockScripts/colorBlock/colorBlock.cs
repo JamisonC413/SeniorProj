@@ -48,7 +48,7 @@ public class colorBlock : Block
     }
 
     // Will be used to draw line using a child linerenderer component. Not yet implemented
-    public override Block execute()
+    public override IEnumerator execute()
     {
         this.gameObject.GetComponent<SpriteRenderer>().sprite = selected;
         switch (color)
@@ -67,6 +67,6 @@ public class colorBlock : Block
                 break;
             default: break;
         }
-        return nextBlock;
+        yield return null;
     }
 }

@@ -8,15 +8,8 @@ public class loopBlock : NestedBlock
 {
     [SerializeField]
     private TMP_InputField numRepeats;
-    public override Block execute()
+    public override IEnumerator execute()
     {
-        StartCoroutine(loopExecute());
-        return bottomBlock.nextBlock;
-    }
-
-    private IEnumerator loopExecute()
-    {
-
         string inputData = numRepeats.text;
         if (!string.IsNullOrEmpty(inputData) && int.TryParse(inputData, out int parsed))
         {
@@ -27,19 +20,27 @@ public class loopBlock : NestedBlock
                 yield return new WaitForSeconds(playScript.delay);
                 gameObject.GetComponent<SpriteRenderer>().sprite = defaultSprite;
 
-                Block currentBlock = this.nextBlock;
+                Block currentBlock = nextBlock;
                 while (currentBlock != bottomBlock)
                 {
                     Debug.Log(currentBlock + "was run");
                     currentBlock.gameObject.GetComponent<SpriteRenderer>().sprite = currentBlock.selected;
-                    Block nextBlock = currentBlock.execute();
-                    yield return new WaitForSeconds(playScript.delay);
+                    yield return StartCoroutine(currentBlock.execute());
+
+                    if (currentBlock is not NestedBlock)
+                    {
+                        yield return new WaitForSeconds(playScript.delay);
+                    }
                     currentBlock.gameObject.GetComponent<SpriteRenderer>().sprite = currentBlock.defaultSprite;
-                    currentBlock = nextBlock;
+                    currentBlock = currentBlock.getNextPlayBlock();
+                    Debug.Log(blockID);
                 }
+
                 currentBlock.gameObject.GetComponent<SpriteRenderer>().sprite = currentBlock.selected;
                 yield return new WaitForSeconds(playScript.delay);
                 currentBlock.gameObject.GetComponent<SpriteRenderer>().sprite = currentBlock.defaultSprite;
+                
+
             }
 
         }
@@ -48,7 +49,7 @@ public class loopBlock : NestedBlock
             Debug.Log("Error parsing number of loop repeats");
         }
 
-
     }
+
 
 }

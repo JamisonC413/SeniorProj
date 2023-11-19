@@ -61,10 +61,15 @@ public class Play : MonoBehaviour
         {
             Debug.Log(currentBlock + "was run");
             currentBlock.gameObject.GetComponent<SpriteRenderer>().sprite = currentBlock.selected;
-            Block nextBlock = currentBlock.execute();
-            yield return new WaitForSeconds(delay);
+
+            yield return StartCoroutine(currentBlock.execute());
+
+            if(currentBlock is not NestedBlock)
+            {
+                yield return new WaitForSeconds(delay);
+            }
             currentBlock.gameObject.GetComponent<SpriteRenderer>().sprite = currentBlock.defaultSprite;
-            currentBlock = nextBlock;
+            currentBlock = currentBlock.getNextPlayBlock();
         }
         locked = false;
         yield return null;

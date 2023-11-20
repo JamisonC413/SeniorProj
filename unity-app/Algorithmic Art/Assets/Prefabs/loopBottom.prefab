@@ -10,8 +10,8 @@ GameObject:
   m_Component:
   - component: {fileID: 5170633750512893091}
   - component: {fileID: 3918490678774855490}
-  - component: {fileID: 7446838073792295684}
   - component: {fileID: 2594166690871397331}
+  - component: {fileID: 7992538943915703776}
   m_Layer: 0
   m_Name: loopBottom
   m_TagString: Untagged
@@ -88,28 +88,6 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
---- !u!114 &7446838073792295684
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 801895102098321813}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: db6caa47075d8b4488bcc3524e5ff32f, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  blockID: 0
-  blockColor: {r: 0, g: 0, b: 0, a: 0}
-  prevBlock: {fileID: 0}
-  nextBlock: {fileID: 0}
-  snapPositions: []
-  defaultSprite: {fileID: 21300000, guid: 68deeff132ac3ab4a9dc107d8d23a8a5, type: 3}
-  selected: {fileID: 21300000, guid: 793fe018c18907c448559b92547ebafc, type: 3}
-  snap1: {fileID: 1733360864726369921}
-  snap2: {fileID: 6305974905727213465}
-  topBlock: {fileID: 0}
 --- !u!61 &2594166690871397331
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -155,6 +133,28 @@ BoxCollider2D:
   serializedVersion: 2
   m_Size: {x: 4.05, y: 1.21}
   m_EdgeRadius: 0
+--- !u!114 &7992538943915703776
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 801895102098321813}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: dcfd1ed5a3d91a64984785177c5de179, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  blockID: 0
+  blockColor: {r: 0, g: 0, b: 0, a: 0}
+  prevBlock: {fileID: 0}
+  nextBlock: {fileID: 0}
+  snapPositions: []
+  defaultSprite: {fileID: 21300000, guid: 68deeff132ac3ab4a9dc107d8d23a8a5, type: 3}
+  selected: {fileID: 21300000, guid: 793fe018c18907c448559b92547ebafc, type: 3}
+  snap1: {fileID: 1733360864726369921}
+  snap2: {fileID: 6305974905727213465}
+  topBlock: {fileID: 0}
 --- !u!1 &1733360864726369921
 GameObject:
   m_ObjectHideFlags: 0

@@ -51,10 +51,9 @@ public class widthBlock : Block
     }
 
     // Will be used to draw line using a child linerenderer component. Not yet implemented
-    public override IEnumerator execute()
+    public override void execute()
     {
         playScript.lineWidth = width * scale;
         playScript.lineWidth2 = width * scaleMax;
-        yield return null;
     }
 }

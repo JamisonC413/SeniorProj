@@ -33,6 +33,7 @@ public class Block : MonoBehaviour
     // Selected is the highlighted version of the block sprite, switches to the highlighted version when block is playing
     public Sprite selected;
 
+
     // Prototype for moving all children blocks of this block. This updates all the transforms to the same as the translation param
     public void moveChildren(Vector2 translation)
     {
@@ -74,9 +75,9 @@ public class Block : MonoBehaviour
     }
 
     // Execute function used by every block. In the block's specific script this will be overriden by each block
-    virtual public IEnumerator execute()
+    virtual public void execute()
     {
-        yield return null;
+        //yield return null;
     }
 
     // Sets the block and any canvas child it has to render above other UI and game elements 
@@ -141,9 +142,9 @@ public class Block : MonoBehaviour
         }
     }
 
-    virtual public Block getNextPlayBlock()
-    {
-        // Not defined by default
-        return nextBlock;
-    }
+    //virtual public Block getNextPlayBlock()
+    //{
+    //    // Not defined by default
+    //    return nextBlock;
+    //}
 }

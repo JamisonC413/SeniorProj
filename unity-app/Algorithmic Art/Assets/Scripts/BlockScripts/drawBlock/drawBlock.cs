@@ -78,7 +78,7 @@ public class drawBlock : Block
 
 
     // Will be used to draw shape using a child linerenderer component. Not yet implemented
-    public override IEnumerator execute()
+    public override void execute()
     {
 
         // Modes for different shapes
@@ -101,7 +101,6 @@ public class drawBlock : Block
                 executeCircleMaximized(brush2);
                 break;
         };
-        yield return null;
     }
 
     // Responible for drawing a line

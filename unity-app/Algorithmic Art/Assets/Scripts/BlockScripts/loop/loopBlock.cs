@@ -8,47 +8,31 @@ public class loopBlock : NestedBlock
 {
     [SerializeField]
     private TMP_InputField numRepeats;
-    public override IEnumerator execute()
+
+    public int repeat;
+
+    public void Start()
     {
-        string inputData = numRepeats.text;
-        if (!string.IsNullOrEmpty(inputData) && int.TryParse(inputData, out int parsed))
-        {
+        repeat = 0;
+    }
 
-            for (int i = 0; i < parsed; i++)
+    public override void execute()
+    {
+        if(repeat == 0)
+        {
+            string inputData = numRepeats.text;
+            if (!string.IsNullOrEmpty(inputData) && int.TryParse(inputData, out int parsed))
             {
-                gameObject.GetComponent<SpriteRenderer>().sprite = selected;
-                yield return new WaitForSeconds(playScript.delay);
-                gameObject.GetComponent<SpriteRenderer>().sprite = defaultSprite;
-
-                Block currentBlock = nextBlock;
-                while (currentBlock != bottomBlock)
-                {
-                    Debug.Log(currentBlock + "was run");
-                    currentBlock.gameObject.GetComponent<SpriteRenderer>().sprite = currentBlock.selected;
-                    yield return StartCoroutine(currentBlock.execute());
-
-                    if (currentBlock is not NestedBlock)
-                    {
-                        yield return new WaitForSeconds(playScript.delay);
-                    }
-                    currentBlock.gameObject.GetComponent<SpriteRenderer>().sprite = currentBlock.defaultSprite;
-                    currentBlock = currentBlock.getNextPlayBlock();
-                    Debug.Log(blockID);
-                }
-
-                currentBlock.gameObject.GetComponent<SpriteRenderer>().sprite = currentBlock.selected;
-                yield return new WaitForSeconds(playScript.delay);
-                currentBlock.gameObject.GetComponent<SpriteRenderer>().sprite = currentBlock.defaultSprite;
-                
-
+                repeat = parsed;
             }
-
+            else
+            {
+                repeat = 1;
+            }
         }
-        else
-        {
-            Debug.Log("Error parsing number of loop repeats");
-        }
+        Debug.Log(repeat);
 
+        repeat--;
     }
 
 

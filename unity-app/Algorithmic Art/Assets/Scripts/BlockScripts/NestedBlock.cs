@@ -14,7 +14,7 @@ public class NestedBlock : Block
     [SerializeField]
     private GameObject snap2;
 
-    public bottomBlock bottomBlock;
+    public nestedBottom bottomBlock;
 
     [SerializeField]
     private GameObject bottomBlockPrefab;
@@ -62,7 +62,7 @@ public class NestedBlock : Block
 
             spawnedObject2.transform.localScale = gameObject.transform.localScale;
 
-            bottomBlock = spawnedObject2.GetComponent<bottomBlock>();
+            bottomBlock = spawnedObject2.GetComponent<nestedBottom>();
             bottomBlock.topBlock = this;
             this.nextBlock = bottomBlock;
             bottomBlock.prevBlock = this;
@@ -92,8 +92,9 @@ public class NestedBlock : Block
 
     }
 
-    public override Block getNextPlayBlock()
-    {
-        return bottomBlock.nextBlock;
-    }
+
+    //public override Block getNextPlayBlock()
+    //{
+    //    return bottomBlock.nextBlock;
+    //}
 }

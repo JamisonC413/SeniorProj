@@ -79,7 +79,7 @@ public class blockMover : MonoBehaviour
                 // Store the block reference as the block we are dragging and calculate the offset
                 block = hit.collider.gameObject;
                 blockScript = block.GetComponent<Block>();
-                if(blockScript is not bottomBlock)
+                if(blockScript is not nestedBottom)
                 {
                     offset = block.transform.position - Camera.main.ScreenToWorldPoint(Input.mousePosition);
 

@@ -229,6 +229,7 @@ MonoBehaviour:
   backGround: {fileID: 2177130011354771220}
   playScript: {fileID: 0}
   numRepeats: {fileID: 1762104692946884085}
+  repeat: 0
 --- !u!1 &1733360864726369921
 GameObject:
   m_ObjectHideFlags: 0

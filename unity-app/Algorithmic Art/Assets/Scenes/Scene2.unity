@@ -4480,6 +4480,7 @@ MonoBehaviour:
   lineWidth: 0.03
   lineWidth2: 0.055
   locked: 0
+  currentBlock: {fileID: 0}
 --- !u!1 &1146563800
 GameObject:
   m_ObjectHideFlags: 0
@@ -4779,6 +4780,7 @@ MonoBehaviour:
   lineWidth: 0.03
   lineWidth2: 0.055
   locked: 0
+  currentBlock: {fileID: 0}
 --- !u!1 &1301214896
 GameObject:
   m_ObjectHideFlags: 0
@@ -6251,6 +6253,7 @@ MonoBehaviour:
   lineWidth: 0.03
   lineWidth2: 0.055
   locked: 0
+  currentBlock: {fileID: 0}
 --- !u!4 &1916524839
 Transform:
   m_ObjectHideFlags: 0

@@ -11,12 +11,6 @@ using UnityEngine.UI;
 // Script for the Draw Block
 public class drawBlock : Block
 {
-    // For future code 
-    [SerializeField]
-    private TMP_InputField XInput;
-    // For future code 
-    [SerializeField]
-    private TMP_InputField YInput;
     
     // Top snap point
     [SerializeField]
@@ -81,6 +75,7 @@ public class drawBlock : Block
 
         play = GameObject.FindGameObjectWithTag("playHandler").GetComponent<Play>();
     }
+
 
     // Will be used to draw shape using a child linerenderer component. Not yet implemented
     public override void execute()

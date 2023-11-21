@@ -55,6 +55,5 @@ public class widthBlock : Block
     {
         playScript.lineWidth = width * scale;
         playScript.lineWidth2 = width * scaleMax;
-
     }
 }

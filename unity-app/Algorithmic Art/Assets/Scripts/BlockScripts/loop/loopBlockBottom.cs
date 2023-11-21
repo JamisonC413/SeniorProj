@@ -2,46 +2,29 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class loopBlockBottom : Block
+public class loopBlockBottom : nestedBottom
 {
-    [SerializeField]
-    private GameObject snap1;
-
-    [SerializeField]
-    private GameObject snap2;
-
-    public loopBlock topBlock;
-
-    // Start is called before the first frame update
-    void Awake()
+    private Block tempNextBlock = null;
+    public override void updateExecute()
     {
-        snapPositions = new Vector2[2];
-        snapPositions[0] = snap1.transform.position;
-        snapPositions[1] = snap2.transform.position;
-
-        initialize();
+        //(loopBlock)topBlock.nextBlock
     }
 
-    // Update is called once per frame
-    void Update()
+    public override void execute()
     {
-        // Updates the snap positions with any new position of block
-        snapPositions[0] = snap1.transform.position;
-        snapPositions[1] = snap2.transform.position;
+        if(!tempNextBlock)
+        {
+            tempNextBlock = nextBlock;
+        }
 
-        //if (!prevBlock && topBlock )
-        //{
-        //    prevBlock = topBlock;
-        //    topBlock.nextBlock = this;
-        //}
-    }
-
-    public void initialize()
-    {
-        this.blockID = Block.nextID;
-        this.prevBlock = null;
-        this.nextBlock = null;
-
-        Block.nextID++;
+        if (((loopBlock)topBlock).repeat > 0)
+        {
+            nextBlock = topBlock;
+        }
+        else
+        {
+            nextBlock = tempNextBlock;
+            tempNextBlock = null;
+        }
     }
 }

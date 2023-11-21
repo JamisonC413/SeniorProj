@@ -91,26 +91,30 @@ public class blockMover : MonoBehaviour
             {
                 // Store the block reference as the block we are dragging and calculate the offset
                 block = hit.collider.gameObject;
-                blockScript = (Block)block.GetComponent("Block");
-                offset = block.transform.position - currentCamera.ScreenToWorldPoint(Input.mousePosition);
-                
 
-                // Set isDragging to true
-                isDragging = true;
+                blockScript = block.GetComponent<Block>();
+                if(blockScript is not nestedBottom)
+                {
+                    offset = block.transform.position - Camera.main.ScreenToWorldPoint(Input.mousePosition);
 
-                // If a block is nested - drag Children
-                // If a block has
-                if (((Block)block.GetComponent("Block")).prevBlock && (NestedBlock)block.GetComponent("NestedBlock") == null)
-                {
-                    dragChildren = false;
+
+                    // Set isDragging to true
+                    isDragging = true;
+
+                    // If a block is nested - drag Children
+                    // If a block has
+                    if (((Block)block.GetComponent("Block")).prevBlock && (NestedBlock)block.GetComponent("NestedBlock") == null)
+                    {
+                        dragChildren = false;
+                    }
+                    else
+                    {
+                        dragChildren = true;
+                    }
+                    // Sets refrences of the block to null, also sets the refrences of blocks being broken away from
+                    setRefrences();
+                    blockScript.setRenderLayersHigh();
                 }
-                else
-                {
-                    dragChildren = true;
-                }
-                // Sets refrences of the block to null, also sets the refrences of blocks being broken away from
-                setRefrences();
-                blockScript.setRenderLayersHigh();
             }
             else if (hit.collider != null && hit.collider.CompareTag("CodeArea"))
             {
@@ -169,9 +173,30 @@ public class blockMover : MonoBehaviour
     // Sets refrences to blocks that were attached, used when picking up a new block
     private void setRefrences()
     {
-
+        if ((NestedBlock)block.GetComponent("NestedBlock") != null && ((NestedBlock)blockScript).bottomBlock.nextBlock != null)
+        {
+            // If the block is in the middle of a list and there is not a flag for dragging children than completely disconnect 
+            // from the middle of the list
+            Block nextBlock = ((NestedBlock)blockScript).bottomBlock.nextBlock;
+            Block prevBlock = blockScript.prevBlock;
+            nextBlock.prevBlock.nextBlock = null;
+            prevBlock.nextBlock = nextBlock;
+            nextBlock.prevBlock = prevBlock;
+           
+            // The block beneath the block being removed gets bumped up in the list, filling the vacancy of the removed block
+            Vector2 jump;
+            if (blockScript.prevBlock.blockID == 0)
+            {
+                jump = -nextBlock.snapPositions[0] + prevBlock.snapPositions[0];
+            }
+            else
+            {
+                jump = -nextBlock.snapPositions[0] + prevBlock.snapPositions[1];
+            }
+            nextBlock.moveChildren(jump);
+        }
         // Sets the refrences of the block and any blocks attached to it to be null. Depends on a few factors
-        if (blockScript.prevBlock && blockScript.nextBlock && !dragChildren)
+        else if (blockScript.prevBlock && blockScript.nextBlock && !dragChildren)
         {
             // If the block is in the middle of a list and there is not a flag for dragging children than completely disconnect 
             // from the middle of the list

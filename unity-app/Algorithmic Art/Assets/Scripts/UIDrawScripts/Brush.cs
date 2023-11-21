@@ -40,7 +40,7 @@ public class Brush : MonoBehaviour
     {
         // Create an empty GameObject as a child of the brush
         LineRendererID++;
-        Debug.Log("start pos : " + startPosition);
+        //Debug.Log("start pos : " + startPosition);
         GameObject newLineObject = Instantiate(LineRendererPrefab, startPosition, Quaternion.identity, gameObject.transform);
         newLineObject.name = "Line Renderer" + LineRendererID;
 
@@ -54,7 +54,7 @@ public class Brush : MonoBehaviour
     {
         // Create an empty GameObject as a child of the brush
         MeshRendererID++;
-        Debug.Log("start pos : " + startPosition);
+        //Debug.Log("start pos : " + startPosition);
         GameObject newMeshObject = Instantiate(MeshRendererPrefab, gameObject.transform.position, Quaternion.identity);
         newMeshObject.name = "Mesh Renderer" + MeshRendererID;
 

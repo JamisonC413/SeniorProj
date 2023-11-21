@@ -41,6 +41,12 @@ public class blockMover : MonoBehaviour
     // The new next block in the list, will be attached to the prev of block
     public Block newNextBlock = null;
 
+    // Camera for maximized canvas view
+    public Camera cameraMax;
+
+    // Current Camera that is active
+    public Camera currentCamera = null;
+
     // Flag for dragging the block individually or all children as well
     private bool dragChildren = false;
 
@@ -58,9 +64,16 @@ public class blockMover : MonoBehaviour
 
             if (Camera.main != null && Camera.main.isActiveAndEnabled)
             {
+                currentCamera = Camera.main;
                 ray = Camera.main.ScreenPointToRay(Input.mousePosition);
                 
             }
+            else if (cameraMax != null && cameraMax.isActiveAndEnabled)
+            {
+                currentCamera = cameraMax;
+                ray = cameraMax.ScreenPointToRay(Input.mousePosition);
+            }
+
             RaycastHit2D hit = Physics2D.Raycast(ray.origin, ray.direction);
 
             // Helpful debug code, tells you what object gets hit by raycast
@@ -78,6 +91,7 @@ public class blockMover : MonoBehaviour
             {
                 // Store the block reference as the block we are dragging and calculate the offset
                 block = hit.collider.gameObject;
+
                 blockScript = block.GetComponent<Block>();
                 if(blockScript is not nestedBottom)
                 {
@@ -105,7 +119,7 @@ public class blockMover : MonoBehaviour
             else if (hit.collider != null && hit.collider.CompareTag("CodeArea"))
             {
                 // If a collider is hit but it is the CodeArea than move all blocks, the flag is simply not setting block but setting isDragging true
-                offset = Camera.main.ScreenToWorldPoint(Input.mousePosition);
+                offset = currentCamera.ScreenToWorldPoint(Input.mousePosition);
                 isDragging = true;
             }
         }
@@ -114,7 +128,7 @@ public class blockMover : MonoBehaviour
         if (isDragging && block != null)
         {
             // Update the object's position based on the mouse position
-            Vector3 newPosition = Camera.main.ScreenToWorldPoint(Input.mousePosition) + offset;
+            Vector3 newPosition = currentCamera.ScreenToWorldPoint(Input.mousePosition) + offset;
             if (dragChildren)
             {
                 ((Block)block.GetComponent("Block")).moveChildren(new Vector2(newPosition.x - block.transform.position.x, newPosition.y - block.transform.position.y));
@@ -267,7 +281,7 @@ public class blockMover : MonoBehaviour
         block.layer = LayerMask.NameToLayer("Ignore Raycast");
 
         // Raycast from mouse to hit objects behind
-        Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
+        Ray ray = currentCamera.ScreenPointToRay(Input.mousePosition);
         RaycastHit2D hit = Physics2D.Raycast(ray.origin, ray.direction);
 
         // If the object that is hit is not the code area or just doesn't exist than it destoys the block

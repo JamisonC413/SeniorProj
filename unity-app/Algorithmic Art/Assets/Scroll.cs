@@ -17,21 +17,33 @@ public class Scroll : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        offset = offset - (Vector2)transform.position;
-
-        // Finds all gameobjects that are a block
-        GameObject[] blocks = GameObject.FindGameObjectsWithTag("block");
-
-        // For every gameobject update thier transforms
-        foreach (GameObject block in blocks)
+        
+        if (this.gameObject.activeSelf)
         {
-            block.transform.position = block.transform.position - new Vector3(offset.x, offset.y, block.transform.position.z);
+            offset = offset - (Vector2)transform.position;
+
+            // Finds all gameobjects that are a block
+            GameObject[] blocks = GameObject.FindGameObjectsWithTag("block");
+
+            // For every gameobject update thier transforms
+            foreach (GameObject block in blocks)
+            {
+                block.transform.position = block.transform.position - new Vector3(offset.x, offset.y, block.transform.position.z);
+            }
+
+            // Transform the startBlocks position as well (special case since it doesn't have a tag as a block)
+            startBlock.transform.position = startBlock.transform.position - new Vector3(offset.x, offset.y, 0f);
+
+            offset = transform.position;
         }
 
-        // Transform the startBlocks position as well (special case since it doesn't have a tag as a block)
-        startBlock.transform.position = startBlock.transform.position - new Vector3(offset.x, offset.y, 0f);
 
-        offset = transform.position;
+    }
 
+    public Vector2 getOffset()
+    {
+        Vector2 currentoffset = offset - (Vector2)transform.position;
+
+        return currentoffset;
     }
 }

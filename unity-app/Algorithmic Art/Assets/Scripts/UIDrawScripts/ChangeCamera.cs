@@ -2,6 +2,7 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class ChangeCamera : MonoBehaviour
 {
@@ -11,8 +12,13 @@ public class ChangeCamera : MonoBehaviour
     // Second camera, which is the camera for the maximized view
     public GameObject camera2;
 
+    // Canvas of minimized view
+    public GameObject canvasMinView;
+
     // Canvas of maximized view
-    public GameObject canvas;
+    public GameObject canvasMaxView;
+
+    public ScrollbarSync scrollbarSync;
 
     // Boolean fields to determine the state of the view
     public static bool maximized = false;
@@ -21,11 +27,14 @@ public class ChangeCamera : MonoBehaviour
     // Swap to maximized view
     public void maximize()
     {
-        camera2.SetActive(true);
-        canvas.SetActive(true);
         mainCamera.SetActive(false);
+        canvasMinView.SetActive(false);
+        canvasMaxView.SetActive(true);
+        camera2.SetActive(true);
 
         MoveAllBlocks.moveAllBlocks();
+
+        scrollbarSync.SyncScrollRectsMax();
 
         maximized = true;
         minimized = false;
@@ -34,11 +43,15 @@ public class ChangeCamera : MonoBehaviour
     // Swap to minimzed view
     public void minimize()
     {
-        canvas.SetActive(false);
-        mainCamera.SetActive(true);
+        canvasMaxView.SetActive(false);
         camera2.SetActive(false);
+        canvasMinView.SetActive(true);
+        mainCamera.SetActive(true);
+        
 
         MoveAllBlocks.moveAllBlocks();
+
+        scrollbarSync.SyncScrollRectsMin();
 
         maximized = false;
         minimized = true;

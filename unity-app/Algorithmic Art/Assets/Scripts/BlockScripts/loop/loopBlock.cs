@@ -30,7 +30,6 @@ public class loopBlock : NestedBlock
                 repeat = 1;
             }
         }
-        Debug.Log(repeat);
 
         repeat--;
     }

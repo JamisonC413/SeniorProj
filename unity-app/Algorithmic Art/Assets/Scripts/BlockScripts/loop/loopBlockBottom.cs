@@ -5,6 +5,8 @@ using UnityEngine;
 public class loopBlockBottom : nestedBottom
 {
     private Block tempNextBlock = null;
+
+    private bool firstRun = true;
     public override void updateExecute()
     {
         //(loopBlock)topBlock.nextBlock
@@ -12,12 +14,13 @@ public class loopBlockBottom : nestedBottom
 
     public override void execute()
     {
-        if(!tempNextBlock)
+        if(firstRun)
         {
             tempNextBlock = nextBlock;
+            firstRun = false;
         }
 
-        if (((loopBlock)topBlock).repeat > 0)
+        if (((loopBlock)topBlock).repeat >= 1)
         {
             nextBlock = topBlock;
         }
@@ -25,6 +28,7 @@ public class loopBlockBottom : nestedBottom
         {
             nextBlock = tempNextBlock;
             tempNextBlock = null;
+            firstRun = true;
         }
     }
 }

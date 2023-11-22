@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Security.Cryptography;
@@ -56,6 +57,7 @@ public class NestedBlock : Block
 
         if (!bottomBlock)
         {
+            Debug.Log("Success");
             // Create the prefab 
             GameObject spawnedObject2 = Instantiate(bottomBlockPrefab, gameObject.transform.position, Quaternion.identity);
             //Vector3 scale = new Vector3(33, 28f, 0);
@@ -86,6 +88,7 @@ public class NestedBlock : Block
         }
         else
         {
+            Debug.Log("Not A Success");
             backGround.transform.localScale = new Vector3(backGround.transform.localScale.x, (gameObject.transform.position.y - bottomBlock.transform.position.y) * (1 / gameObject.transform.localScale.y), 0f);
             backGround.transform.position = new Vector3(gameObject.transform.position.x, gameObject.transform.position.y - ((gameObject.transform.position.y - bottomBlock.transform.position.y) / 2), gameObject.transform.position.z);
         }

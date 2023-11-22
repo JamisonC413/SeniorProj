@@ -13,7 +13,7 @@ GameObject:
   - component: {fileID: 2594166690871397331}
   - component: {fileID: 5735797449778967124}
   m_Layer: 0
-  m_Name: dupicateBottom
+  m_Name: duplicateBottom
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

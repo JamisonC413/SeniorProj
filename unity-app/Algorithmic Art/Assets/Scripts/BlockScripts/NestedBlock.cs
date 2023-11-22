@@ -93,7 +93,12 @@ public class NestedBlock : Block
             backGround.transform.position = new Vector3(gameObject.transform.position.x, gameObject.transform.position.y - ((gameObject.transform.position.y - bottomBlock.transform.position.y) / 2), gameObject.transform.position.z);
         }
 
+        updateExecute();
     }
 
+    public virtual void updateExecute()
+    {
+
+    }
 
 }

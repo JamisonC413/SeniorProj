@@ -14,10 +14,6 @@ public class blockMover : MonoBehaviour
     // The search radius for finding blocks to snap to
     public float searchRadius = .1f;
 
-    // The startBlock is a special case when dealing with certain scenarios, storing a refrence made some code simpler
-    [SerializeField]
-    private GameObject startBlock;
-
     // The block currently getting dragged
     // NOTE: expirimented with removing isDragging and replacing it with a null check on this was done... but it didn't work
     //       maybe someone else will have a better idea?
@@ -50,6 +46,7 @@ public class blockMover : MonoBehaviour
     // Flag for dragging the block individually or all children as well
     private bool dragChildren = false;
 
+    private bool isStart = false;
 
     // Update is called every frame and handles dragging and snapping
     void Update()
@@ -185,7 +182,7 @@ public class blockMover : MonoBehaviour
            
             // The block beneath the block being removed gets bumped up in the list, filling the vacancy of the removed block
             Vector2 jump;
-            if (blockScript.prevBlock.blockID == 0)
+            if (isStart)
             {
                 jump = -nextBlock.snapPositions[0] + prevBlock.snapPositions[0];
             }
@@ -207,7 +204,7 @@ public class blockMover : MonoBehaviour
 
             // The block beneath the block being removed gets bumped up in the list, filling the vacancy of the removed block
             Vector2 jump;
-            if (blockScript.prevBlock.blockID == 0)
+            if (isStart)
             {
                 jump = -nextBlock.snapPositions[0] + prevBlock.snapPositions[0];
             }
@@ -319,7 +316,7 @@ public class blockMover : MonoBehaviour
         {
             Vector2 jump;
             // Calculate jump (special case for the startBlock) StartBlock always has the id == 0
-            if (newPrevBlock.blockID == 0)
+            if (isStart)
             {
                 jump = newPrevBlock.snapPositions[0] - blockScript.snapPositions[0];
             }
@@ -365,7 +362,7 @@ public class blockMover : MonoBehaviour
             oldSnapPositions = new Vector2[3];
 
             // If the block is the startBlock there is a special case for the triggering snap positions. This is because start doesn't have two snapPostions
-            if (insertingBlock.blockID == 0)
+            if (insertingBlock.snapPositions.Length == 1)
             {
                 oldSnapPositions[0] = insertingBlock.snapPositions[0] + new Vector2(0f, 1f);
                 oldSnapPositions[1] = insertingBlock.snapPositions[0];
@@ -438,7 +435,7 @@ public class blockMover : MonoBehaviour
             newNextBlock = null;
 
             // If the closest block is the start block or the distance to the bottom snapPoint is in snapPositions[0] than execute this case
-            if (closestBlock.blockID == 0 || Vector2.Distance(closestBlock.snapPositions[0], block.transform.position) > Vector2.Distance(closestBlock.snapPositions[1], block.transform.position))
+            if (closestBlock.snapPositions.Length == 1 || Vector2.Distance(closestBlock.snapPositions[0], block.transform.position) > Vector2.Distance(closestBlock.snapPositions[1], block.transform.position))
             {
                 // Sets the newPrevBlock
                 newPrevBlock = closestBlock;

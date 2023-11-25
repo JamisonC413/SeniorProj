@@ -90,8 +90,14 @@ public class blockMover : MonoBehaviour
                 block = hit.collider.gameObject;
 
                 blockScript = block.GetComponent<Block>();
+
                 if(blockScript is not nestedBottom)
                 {
+                    if (blockScript.snapPositions.Length == 1)
+                    {
+                        isStart = true;
+                    }
+
                     offset = block.transform.position - Camera.main.ScreenToWorldPoint(Input.mousePosition);
 
 
@@ -158,6 +164,7 @@ public class blockMover : MonoBehaviour
                 block = null;
                 blockScript = null;
 
+                isStart = false;
                 isDragging = false;
             }
         }
@@ -182,7 +189,7 @@ public class blockMover : MonoBehaviour
            
             // The block beneath the block being removed gets bumped up in the list, filling the vacancy of the removed block
             Vector2 jump;
-            if (isStart)
+            if (prevBlock.snapPositions.Length == 1)
             {
                 jump = -nextBlock.snapPositions[0] + prevBlock.snapPositions[0];
             }
@@ -316,7 +323,7 @@ public class blockMover : MonoBehaviour
         {
             Vector2 jump;
             // Calculate jump (special case for the startBlock) StartBlock always has the id == 0
-            if (isStart)
+            if (newPrevBlock.snapPositions.Length == 1)
             {
                 jump = newPrevBlock.snapPositions[0] - blockScript.snapPositions[0];
             }

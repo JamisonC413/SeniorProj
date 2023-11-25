@@ -40,14 +40,14 @@ public class duplicateBlock : NestedBlock
             if (newLength > oldLineListLength)
             {
                 Debug.Log("Rotating");
-                GameObject rotate = Instantiate(brush.lineRenderers[newLength - 1], brush.startPosition, Quaternion.identity);
+                GameObject rotate = Instantiate(brush.lineRenderers[newLength - 1], brush.lineRenderers[newLength - 1].transform.position, Quaternion.identity);
                 rotate.GetComponent<LineRenderer>().transform.RotateAround(startPos, Vector3.forward, 180);
                 brush.lineRenderers.Add(rotate);
                 oldLineListLength = brush.lineRenderers.Count;
             }
             if (newMeshLength > oldMeshListLength)
             {
-                GameObject rotate = brush.meshRenderers[newLength - 1];
+                GameObject rotate = brush.meshRenderers[newMeshLength - 1];
                 //rotate.rot
             }
         }

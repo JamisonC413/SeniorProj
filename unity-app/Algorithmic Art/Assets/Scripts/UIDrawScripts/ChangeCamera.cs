@@ -20,6 +20,8 @@ public class ChangeCamera : MonoBehaviour
 
     public ScrollbarSync scrollbarSync;
 
+    public Brush brush;
+
     // Boolean fields to determine the state of the view
     public static bool maximized = false;
     public static bool minimized = true;
@@ -35,6 +37,7 @@ public class ChangeCamera : MonoBehaviour
         MoveAllBlocks.moveAllBlocks();
 
         scrollbarSync.SyncScrollRectsMax();
+        brush.moveDrawing();
 
         maximized = true;
         minimized = false;
@@ -52,6 +55,7 @@ public class ChangeCamera : MonoBehaviour
         MoveAllBlocks.moveAllBlocks();
 
         scrollbarSync.SyncScrollRectsMin();
+        brush.moveDrawing();
 
         maximized = false;
         minimized = true;

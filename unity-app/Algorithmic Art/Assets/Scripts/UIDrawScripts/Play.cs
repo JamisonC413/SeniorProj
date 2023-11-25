@@ -18,8 +18,6 @@ public class Play : MonoBehaviour
     // The brushes gameobject
     public Brush brush;
 
-    public Brush brush2;
-
     // Delay between blocks playing (seconds)
     public float delay = 1f;
 
@@ -45,8 +43,6 @@ public class Play : MonoBehaviour
         // Resets brush to it's origin
         brush.resetPosition();
         brush.clearRenderers();
-        brush2.resetPosition();
-        brush2.clearRenderers();
         currentColor = Color.black;
         lineWidth = 0.03f;
         lineWidth2 = .055f;

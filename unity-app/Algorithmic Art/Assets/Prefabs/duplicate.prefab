@@ -259,6 +259,7 @@ MonoBehaviour:
   bottomBlockPrefab: {fileID: 801895102098321813, guid: 26ce72383b6d1f74d8a0c9b216e2267d, type: 3}
   backGround: {fileID: 7975511284140938672}
   playScript: {fileID: 0}
+  numDuplicate: {fileID: 1762104692946884085}
   brush: {fileID: 0}
   flag: 0
 --- !u!1 &3035689437680261194

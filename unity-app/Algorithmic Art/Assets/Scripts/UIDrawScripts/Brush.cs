@@ -41,7 +41,7 @@ public class Brush : MonoBehaviour
         // Create an empty GameObject as a child of the brush
         LineRendererID++;
         //Debug.Log("start pos : " + startPosition);
-        GameObject newLineObject = Instantiate(LineRendererPrefab, startPosition, Quaternion.identity, gameObject.transform);
+        GameObject newLineObject = Instantiate(LineRendererPrefab, new Vector3(0,0,0), Quaternion.identity);
         newLineObject.name = "Line Renderer" + LineRendererID;
 
         // Add LineRenderer to the new GameObject

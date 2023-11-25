@@ -41,7 +41,7 @@ public class duplicateBlock : NestedBlock
             {
                 Debug.Log("Rotating");
                 GameObject rotate = Instantiate(brush.lineRenderers[newLength - 1], brush.startPosition, Quaternion.identity);
-                rotate.GetComponent<LineRenderer>().transform.RotateAround(startPos, Vector3.fwd, 180);
+                rotate.GetComponent<LineRenderer>().transform.RotateAround(startPos, Vector3.forward, 180);
                 brush.lineRenderers.Add(rotate);
                 oldLineListLength = brush.lineRenderers.Count;
             }

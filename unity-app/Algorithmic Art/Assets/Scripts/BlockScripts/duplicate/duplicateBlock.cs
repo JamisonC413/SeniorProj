@@ -18,15 +18,15 @@ public class duplicateBlock : NestedBlock
     void Start()
     {
         brush = GameObject.FindGameObjectWithTag("brush").GetComponent<Brush>();
-        int oldLineListLength = brush.lineRenderers.Count;
-        int oldMeshListLength = brush.meshRenderers.Count;
-        startPos = brush.transform.position;
         flag = false;
     }
 
     public override void execute()
     {
         flag = true;
+        oldLineListLength = brush.lineRenderers.Count;
+        oldMeshListLength = brush.meshRenderers.Count;
+        startPos = brush.transform.position;
     }
 
     // Update is called once per frame
@@ -34,13 +34,18 @@ public class duplicateBlock : NestedBlock
     {
         if (flag)
         {
+          //  Debug.Log("OldLength:" + oldLineListLength);
             int newLength = brush.lineRenderers.Count;
+            int newMeshLength = brush.meshRenderers.Count;
             if (newLength > oldLineListLength)
             {
-                GameObject rotate = brush.lineRenderers[newLength - 1];
-                rotate.GetComponent<LineRenderer>().transform.RotateAround(startPos, Vector3.right, 180);
+                Debug.Log("Rotating");
+                GameObject rotate = Instantiate(brush.lineRenderers[newLength - 1], brush.startPosition, Quaternion.identity);
+                rotate.GetComponent<LineRenderer>().transform.RotateAround(startPos, Vector3.fwd, 180);
+                brush.lineRenderers.Add(rotate);
+                oldLineListLength = brush.lineRenderers.Count;
             }
-            if (newLength > oldMeshListLength)
+            if (newMeshLength > oldMeshListLength)
             {
                 GameObject rotate = brush.meshRenderers[newLength - 1];
                 //rotate.rot

@@ -426,7 +426,7 @@ public class blockMover : MonoBehaviour
             }
         }
         // If there are nearby blocks
-        else if (blockList.Count > 0)
+        else if (blockList.Count > 0 && blockScript.snapPositions.Length != 1)
         {
             // Get the closest block, determines case for connecting based on this block
             Block closestBlock = (Block)blockList[0].GetComponent("Block");

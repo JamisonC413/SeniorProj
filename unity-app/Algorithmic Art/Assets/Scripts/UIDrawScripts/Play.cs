@@ -31,10 +31,9 @@ public class Play : MonoBehaviour
     public bool locked = false;
 
     public Block currentBlock;
-    void Start()
-    {
-        
-    }
+
+    public Dictionary<string, functionStart> functions = new Dictionary<string, functionStart>();
+
 
     // Handles rendering. Is an IEnumerator so that it can be paused
     public IEnumerator Render()

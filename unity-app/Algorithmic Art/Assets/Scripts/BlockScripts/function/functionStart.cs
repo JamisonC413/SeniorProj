@@ -1,12 +1,9 @@
-using Codice.CM.Client.Differences;
-using System.Collections;
-using System.Collections.Generic;
-using System.Security.Cryptography;
 using UnityEngine;
 
 public class functionStart : Block
 {
-    public string startName;
+    [SerializeField]
+    private string startName;
 
     // Top snap point
     [SerializeField]
@@ -21,12 +18,19 @@ public class functionStart : Block
         this.nextBlock = null;
 
         Block.nextID++;
-        startName = null;
+        //startName = null;
 
         snapPositions = new Vector2[1];
         snapPositions[0] = snap1.transform.position;
 
         playScript = GameObject.FindGameObjectWithTag("playHandler").GetComponent<Play>();
+
+        // Ask about this?!
+        if (startName == null)
+        {
+            Debug.Log("Add a name to the functionStart prefab");
+        }
+        playScript.functions.Add(startName, this);
     }
 
     void Update()
@@ -37,6 +41,9 @@ public class functionStart : Block
 
     public void OnDestroy()
     {
-
+        if (playScript.functions.ContainsKey(startName))
+        {
+            playScript.functions.Remove(startName);
+        }
     }
 }

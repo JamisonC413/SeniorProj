@@ -83,64 +83,64 @@ public class Block : MonoBehaviour
     // Sets the block and any canvas child it has to render above other UI and game elements 
     // NOTE: As of updating the system to only allow scrolling this functionality can likely be simplified. Probably don't need
     // to change the render layer since they cannot be panned over the left or right windows.
-    public void setRenderLayersHigh()
-    {
-        // Get the Canvas component from the block
-        Canvas canvasComponent = gameObject.GetComponentInChildren<Canvas>();
+    //public void setRenderLayersHigh()
+    //{
+    //    // Get the Canvas component from the block
+    //    Canvas canvasComponent = gameObject.GetComponentInChildren<Canvas>();
 
-        // Gets the rendering component of the block and sets its layer to be above all UI 
-        Renderer rendererComponent = gameObject.GetComponent<Renderer>();
-        if (rendererComponent != null)
-        {
-            rendererComponent.sortingLayerName = "Block";
-            rendererComponent.sortingOrder = 1;
-        }
+    //    // Gets the rendering component of the block and sets its layer to be above all UI 
+    //    Renderer rendererComponent = gameObject.GetComponent<Renderer>();
+    //    if (rendererComponent != null)
+    //    {
+    //        rendererComponent.sortingLayerName = "Block";
+    //        rendererComponent.sortingOrder = 1;
+    //    }
 
-        // Check if a Canvas component is found
-        if (canvasComponent != null)
-        {
-            // Set the sorting layer of the Canvas component
-            canvasComponent.sortingLayerName = "Block";
-            // Set the sorting order of the Canvas component
-            canvasComponent.sortingOrder = 2;
-        }
+    //    // Check if a Canvas component is found
+    //    if (canvasComponent != null)
+    //    {
+    //        // Set the sorting layer of the Canvas component
+    //        canvasComponent.sortingLayerName = "Block";
+    //        // Set the sorting order of the Canvas component
+    //        canvasComponent.sortingOrder = 2;
+    //    }
 
-        // Call on all children
-        if (nextBlock != null)
-        {
-            nextBlock.setRenderLayersHigh();
-        }
-    }
+    //    // Call on all children
+    //    if (nextBlock != null)
+    //    {
+    //        nextBlock.setRenderLayersHigh();
+    //    }
+    //}
 
-    // Sets the render layers of block to the proper value 
-    public void setRenderLayersLow()
-    {
-        // Get the renderer component and canvas component
-        Renderer rendererComponent = gameObject.GetComponent<Renderer>();
-        Canvas canvasComponent = gameObject.GetComponentInChildren<Canvas>();
+    //// Sets the render layers of block to the proper value 
+    //public void setRenderLayersLow()
+    //{
+    //    // Get the renderer component and canvas component
+    //    Renderer rendererComponent = gameObject.GetComponent<Renderer>();
+    //    Canvas canvasComponent = gameObject.GetComponentInChildren<Canvas>();
 
-        // If renderer and canvas exist than they will be set to the proper values.
-        if (rendererComponent != null)
-        {
-            // Sets the blocks' rendering layer back to a normal blocks so that it appears under UI, palette and canvas
-            rendererComponent.sortingLayerName = "Block Background";
-            rendererComponent.sortingOrder = 1;
-        }
+    //    // If renderer and canvas exist than they will be set to the proper values.
+    //    if (rendererComponent != null)
+    //    {
+    //        // Sets the blocks' rendering layer back to a normal blocks so that it appears under UI, palette and canvas
+    //        rendererComponent.sortingLayerName = "Block Background";
+    //        rendererComponent.sortingOrder = 1;
+    //    }
 
-        if (canvasComponent != null)
-        {
-            // Set the sorting layer of the Canvas component
-            canvasComponent.sortingLayerName = "Block Background";
-            // Set the sorting order of the Canvas component
-            canvasComponent.sortingOrder = 2;
-        }
+    //    if (canvasComponent != null)
+    //    {
+    //        // Set the sorting layer of the Canvas component
+    //        canvasComponent.sortingLayerName = "Block Background";
+    //        // Set the sorting order of the Canvas component
+    //        canvasComponent.sortingOrder = 2;
+    //    }
 
-        // Do for all children
-        if (nextBlock != null)
-        {
-            nextBlock.setRenderLayersLow();
-        }
-    }
+    //    // Do for all children
+    //    if (nextBlock != null)
+    //    {
+    //        nextBlock.setRenderLayersLow();
+    //    }
+    //}
 
     //virtual public Block getNextPlayBlock()
     //{

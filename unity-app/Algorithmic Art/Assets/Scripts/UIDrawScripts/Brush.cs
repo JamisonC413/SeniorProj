@@ -7,7 +7,8 @@ public class Brush : MonoBehaviour
 {
     // Tracks the hieght and width of the rectangular draw area. Used to 
     // contain the brush to a specific area
-    public Vector2 drawArea = new Vector2(5f, 5f);
+    [SerializeField]
+    private Vector2 drawArea = new Vector2(5f, 5f);
 
     // The starting position of the brush (to reset between hitting play)
     public Vector3 startPositionMinimized;
@@ -42,6 +43,22 @@ public class Brush : MonoBehaviour
         lineRenderers.Clear();
     }
 
+    public Vector2[] getDrawArea()
+    {
+        Vector2[] output = new Vector2[2];
+        if(isMaximized)
+        {
+            output[0] = startPositionMaximized;
+            output[1] = drawArea + (Vector2)startPositionMaximized;
+        }
+        else
+        {
+            output[0] = startPositionMinimized;
+            output[1] = drawArea + (Vector2)startPositionMinimized;
+        }
+        return output;
+    }
+
     public void resetPosition()
     {
         if(isMaximized)
@@ -60,8 +77,15 @@ public class Brush : MonoBehaviour
         // Create an empty GameObject as a child of the brush
         LineRendererID++;
         //Debug.Log("start pos : " + startPosition);
-        GameObject newLineObject = Instantiate(LineRendererPrefab, new Vector3(0,0,0), Quaternion.identity);
+        GameObject newLineObject = Instantiate(LineRendererPrefab, Vector3.zero, Quaternion.identity);
         newLineObject.name = "Line Renderer" + LineRendererID;
+
+        Renderer rendererComponent = newLineObject.GetComponent<Renderer>();
+        if (rendererComponent != null)
+        {
+            rendererComponent.sortingLayerName = "ImageRendering";
+            rendererComponent.sortingOrder = 1;
+        }
 
         // Add LineRenderer to the new GameObject
         lineRenderers.Add(newLineObject);
@@ -76,6 +100,13 @@ public class Brush : MonoBehaviour
         //Debug.Log("start pos : " + startPosition);
         GameObject newMeshObject = Instantiate(MeshRendererPrefab, gameObject.transform.position, Quaternion.identity);
         newMeshObject.name = "Mesh Renderer" + MeshRendererID;
+
+        Renderer rendererComponent = newMeshObject.GetComponent<Renderer>();
+        if (rendererComponent != null)
+        {
+            rendererComponent.sortingLayerName = "ImageRendering";
+            rendererComponent.sortingOrder = 1;
+        }
 
         // Add LineRenderer to the new GameObject
         meshRenderers.Add(newMeshObject);

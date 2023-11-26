@@ -116,7 +116,7 @@ public class blockMover : MonoBehaviour
                     }
                     // Sets refrences of the block to null, also sets the refrences of blocks being broken away from
                     setRefrences();
-                    blockScript.setRenderLayersHigh();
+                    //blockScript.setRenderLayersHigh();
                 }
             }
             else if (hit.collider != null && hit.collider.CompareTag("CodeArea"))
@@ -153,7 +153,7 @@ public class blockMover : MonoBehaviour
             // Check for mouse button release, handles snapping with located partners
             if (Input.GetMouseButtonUp(0))
             {
-                blockScript.setRenderLayersLow();
+                //blockScript.setRenderLayersLow();
                 misplacedDestroy();
                 GameObject scrollArea = GameObject.FindGameObjectWithTag("CodeArea");
                 // Snaps to available blocks
@@ -211,7 +211,7 @@ public class blockMover : MonoBehaviour
 
             // The block beneath the block being removed gets bumped up in the list, filling the vacancy of the removed block
             Vector2 jump;
-            if (isStart)
+            if (prevBlock.snapPositions.Length == 1)
             {
                 jump = -nextBlock.snapPositions[0] + prevBlock.snapPositions[0];
             }

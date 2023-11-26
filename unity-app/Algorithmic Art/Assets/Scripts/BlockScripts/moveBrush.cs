@@ -122,55 +122,28 @@ public class moveBrush : Block
         float xTransform = X * scale + brush.transform.position.x;
         float yTransform = Y * scale + brush.transform.position.y;
 
-        // Create bounds for the lines
-        if (xTransform < brush.startPositionMinimized.x)
+
+        Vector2[] drawArea = brush.getDrawArea();
+        // Create bounds 
+        if (xTransform < drawArea[0].x)
         {
-            xTransform = brush.startPositionMinimized.x;
+            xTransform = drawArea[0].x;
         }
-        if (yTransform < brush.startPositionMinimized.y)
+        if (yTransform < drawArea[0].y)
         {
-            yTransform = brush.startPositionMinimized.y;
+            yTransform = drawArea[0].y;
         }
-        if (xTransform > brush.startPositionMinimized.x + brush.drawArea.x)
+        if (xTransform > drawArea[1].x)
         {
-            xTransform = brush.startPositionMinimized.x + brush.drawArea.x;
+            xTransform = drawArea[1].x;
         }
-        if (yTransform > brush.startPositionMinimized.y + brush.drawArea.y)
+        if (yTransform > drawArea[1].y)
         {
-            yTransform = brush.startPositionMinimized.y + brush.drawArea.y;
+            yTransform = drawArea[1].y;
         }
 
         // Transform the brush
-        brush.transform.position = new Vector3(xTransform, yTransform, 0f);
-
-        moveBrushMaximized(brush2);
-    }
-
-    private void moveBrushMaximized(Brush brush)
-    {
-        float xTransform = X * scaleMaximized + brush.transform.position.x;
-        float yTransform = Y * scaleMaximized + brush.transform.position.y;
-
-        // Create bounds for the lines
-        if (xTransform < brush.startPositionMinimized.x)
-        {
-            xTransform = brush.startPositionMinimized.x;
-        }
-        if (yTransform < brush.startPositionMinimized.y)
-        {
-            yTransform = brush.startPositionMinimized.y;
-        }
-        if (xTransform > brush.startPositionMinimized.x + brush.drawArea.x)
-        {
-            xTransform = brush.startPositionMinimized.x + brush.drawArea.x;
-        }
-        if (yTransform > brush.startPositionMinimized.y + brush.drawArea.y)
-        {
-            yTransform = brush.startPositionMinimized.y + brush.drawArea.y;
-        }
-
-        // Transform the brush
-        brush.transform.position = new Vector3(xTransform, yTransform, 0f);
+        brush.transform.Translate(new Vector3(xTransform, yTransform, 0f));
 
     }
 }

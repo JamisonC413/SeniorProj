@@ -65,6 +65,8 @@ public class duplicateBlock : NestedBlock
             int newLineLength = brush.lineRenderers.Count;
             int newMeshLength = brush.meshRenderers.Count;
 
+            // Remake to use the createLineRenderer functions from Brush?
+
             //If there are new renderers
             if (newLineLength > oldLineListLength)
             {
@@ -74,6 +76,13 @@ public class duplicateBlock : NestedBlock
                     //Make a copy of the linerenderer and rotate it around the starting brush position on the z axis
                     GameObject rotate = Instantiate(brush.lineRenderers[newLineLength - 1], new Vector3(0, 0, 0), Quaternion.identity);
                     rotate.GetComponent<LineRenderer>().transform.RotateAround(startPos, Vector3.forward, angleSize*(i+1));
+
+                    Renderer rendererComponent = rotate.GetComponent<Renderer>();
+                    if (rendererComponent != null)
+                    {
+                        rendererComponent.sortingLayerName = "ImageRendering";
+                        rendererComponent.sortingOrder = 1;
+                    }
 
                     //Add this new line renderer to the list and increase the list count
                     brush.lineRenderers.Add(rotate);
@@ -90,6 +99,12 @@ public class duplicateBlock : NestedBlock
                     GameObject rotate = Instantiate(brush.meshRenderers[newMeshLength - 1], brush.meshRenderers[newMeshLength - 1].transform.position, Quaternion.identity);
                     rotate.GetComponent<MeshRenderer>().transform.RotateAround(startPos, Vector3.forward, angleSize * (i + 1));
 
+                    Renderer rendererComponent = rotate.GetComponent<Renderer>();
+                    if (rendererComponent != null)
+                    {
+                        rendererComponent.sortingLayerName = "ImageRendering";
+                        rendererComponent.sortingOrder = 1;
+                    }
                     //Add this new mesh renderer to the list and increase the list count
                     brush.meshRenderers.Add(rotate);
                     oldMeshListLength = brush.meshRenderers.Count;

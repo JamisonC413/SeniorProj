@@ -20,10 +20,6 @@ public class drawBlock : Block
     [SerializeField]
     private GameObject snap2;
 
-    // Offset for snaps above and below
-    [SerializeField]
-    private Vector2 snapOffset = new Vector2(0f, 1f);
-
     // The brushes gameobject 
     public Brush brush;
 
@@ -32,6 +28,7 @@ public class drawBlock : Block
 
     public float scale = 0.3f;
 
+    private float brushZCoord = 0;
     // Determines the shape that will get drawn
     // 0 = line
     // 1 = rectangle
@@ -50,6 +47,7 @@ public class drawBlock : Block
         snapPositions[1] = snap2.transform.position;
 
         brush = GameObject.FindGameObjectWithTag("brush").GetComponent<Brush>();
+        brushZCoord = brush.transform.position.z;
     }
 
     // Used to update information on the draw block
@@ -117,37 +115,41 @@ public class drawBlock : Block
         lineRenderer.endColor = play.currentColor;
 
         // Add a origin point
-        positions.Add(brush.transform.position);
+        positions.Add(new Vector3(brush.transform.position.x, brush.transform.position.y, brushZCoord));
 
         float[] scaledData = scaleData(data);
+
         float xTransform = scaledData[0] + brush.transform.position.x;
         float yTransform = scaledData[1] + brush.transform.position.y;
+        Vector2[] drawArea = brush.getDrawArea();
+        Debug.Log(drawArea[0]);
+        Debug.Log(drawArea[1]);
 
         // Create bounds for the lines
-        if (xTransform < brush.startPositionMinimized.x)
+        if (xTransform < drawArea[0].x)
         {
-            xTransform = brush.startPositionMinimized.x;
+            xTransform = drawArea[0].x;
         }
-        if (yTransform < brush.startPositionMinimized.y)
+        if (yTransform < drawArea[0].y)
         {
-            yTransform = brush.startPositionMinimized.y;
+            yTransform = drawArea[0].y;
         }
-        if (xTransform > brush.startPositionMinimized.x + brush.drawArea.x)
+        if (xTransform > drawArea[1].x)
         {
-            xTransform = brush.startPositionMinimized.x + brush.drawArea.x;
+            xTransform = drawArea[1].x;
         }
-        if (yTransform > brush.startPositionMinimized.y + brush.drawArea.y)
+        if (yTransform > drawArea[1].y)
         {
-            yTransform = brush.startPositionMinimized.y + brush.drawArea.y;
+            yTransform = drawArea[1].y;
         }
 
         // Misc Debug
-        //Debug.Log(new Vector3(xTransform, yTransform, 0f));
+        Debug.Log(new Vector3(xTransform, yTransform, brushZCoord));
 
         // Add the point from the block to the line renderer
-        positions.Add(new Vector3(xTransform, yTransform, 0f));
+        positions.Add(new Vector3(xTransform, yTransform, brushZCoord));
 
-        brush.transform.position = new Vector3(xTransform, yTransform, 0f);
+        brush.transform.position = new Vector3(xTransform , yTransform , brush.transform.position.z);
 
         // Render lines
         lineRenderer.positionCount = positions.Count;
@@ -181,31 +183,32 @@ public class drawBlock : Block
         float xTransform = scaledData[0] + brush.transform.position.x;
         float yTransform = scaledData[1] + brush.transform.position.y;
 
+        Vector2[] drawArea = brush.getDrawArea();
         // Create bounds for the lines
-        if (xTransform < brush.startPositionMinimized.x)
+        if (xTransform < drawArea[0].x)
         {
-            xTransform = brush.startPositionMinimized.x;
+            xTransform = drawArea[0].x;
         }
-        if (yTransform < brush.startPositionMinimized.y)
+        if (yTransform < drawArea[0].y)
         {
-            yTransform = brush.startPositionMinimized.y;
+            yTransform = drawArea[0].y;
         }
-        if (xTransform > brush.startPositionMinimized.x + brush.drawArea.x)
+        if (xTransform > drawArea[1].x)
         {
-            xTransform = brush.startPositionMinimized.x + brush.drawArea.x;
+            xTransform = drawArea[1].x;
         }
-        if (yTransform > brush.startPositionMinimized.y + brush.drawArea.y)
+        if (yTransform > drawArea[1].y)
         {
-            yTransform = brush.startPositionMinimized.y + brush.drawArea.y;
+            yTransform = drawArea[1].y;
         }
 
 
         // Add the point from the block to the line renderer
-        positions.Add(new Vector3(brush.transform.position.x, yTransform, 0f));
-        positions.Add(new Vector3(xTransform, yTransform, 0f));
-        positions.Add(new Vector3(xTransform, brush.transform.position.y, 0f));
-        positions.Add(new Vector3(brush.transform.position.x, brush.transform.position.y, 0f));
-        positions.Add(new Vector3(brush.transform.position.x, yTransform, 0f));
+        positions.Add(new Vector3(brush.transform.position.x, yTransform, brushZCoord));
+        positions.Add(new Vector3(xTransform, yTransform, brushZCoord));
+        positions.Add(new Vector3(xTransform, brush.transform.position.y, brushZCoord));
+        positions.Add(new Vector3(brush.transform.position.x, brush.transform.position.y, brushZCoord));
+        positions.Add(new Vector3(brush.transform.position.x, yTransform, brushZCoord));
 
         //positions.Add(new Vector3(-xTransform, 0f, 0f));
 
@@ -247,7 +250,7 @@ public class drawBlock : Block
             meshRenderer.gameObject.GetComponent<MeshFilter>().mesh = filledMesh;
         }
 
-        brush.transform.position = new Vector3(xTransform, yTransform, 0f);
+        brush.transform.position = new Vector3(xTransform , yTransform , brush.transform.position.z);
     }
 
     private void executeTriangle()
@@ -276,25 +279,25 @@ public class drawBlock : Block
         float x2Transform = scaledData[1] + brush.transform.position.x;
         float yTransform = (float)(scaledData[1] * Math.Sqrt(3) / 2 + brush.transform.position.y);
 
-        if (yTransform > brush.startPositionMinimized.y + brush.drawArea.y)
-        {
-            yTransform = brush.startPositionMinimized.y + brush.drawArea.y;
-        }
+        Vector2[] drawArea = brush.getDrawArea();
+        // Create bounds for the lines
 
-        if (x1Transform > brush.startPositionMinimized.x + brush.drawArea.x)
+        if (x1Transform > drawArea[1].x)
         {
-            x1Transform = brush.startPositionMinimized.x + brush.drawArea.x;
+            x1Transform = drawArea[1].x;
         }
-
-        if (x2Transform > brush.startPositionMinimized.x + brush.drawArea.x)
+        if (x2Transform > drawArea[1].x)
         {
-            x2Transform = brush.startPositionMinimized.x + brush.drawArea.x;
+            x2Transform = drawArea[1].x;
         }
-
+        if (yTransform > drawArea[1].y)
+        {
+            yTransform = drawArea[1].y;
+        }
         // Add the point from the block to the line renderer
-        positions.Add(new Vector3(x1Transform, yTransform, 0f));
-        positions.Add(new Vector3(x2Transform, brush.transform.position.y, 0f));
-        positions.Add(new Vector3(brush.transform.position.x, brush.transform.position.y, 0f));
+        positions.Add(new Vector3(x1Transform, yTransform, brushZCoord));
+        positions.Add(new Vector3(x2Transform, brush.transform.position.y, brushZCoord));
+        positions.Add(new Vector3(brush.transform.position.x, brush.transform.position.y, brushZCoord));
 
         //positions.Add(new Vector3(-xTransform, 0f, 0f));
 
@@ -330,8 +333,7 @@ public class drawBlock : Block
             filledMesh.triangles = triangles;
             meshRenderer.gameObject.GetComponent<MeshFilter>().mesh = filledMesh;
         }
-
-        brush.transform.position = new Vector3(x2Transform, brush.transform.position.y, 0f);
+        brush.transform.position = new Vector3(x2Transform, brush.transform.position.y, brush.transform.position.z);
     }
 
     private void executeCircle()
@@ -366,27 +368,27 @@ public class drawBlock : Block
             float x = xScaled * scaledData[1] * 0.5f + brush.transform.position.x;
             float y = yScaled * scaledData[1] * 0.5f + brush.transform.position.y;
 
-            if (y < brush.startPositionMinimized.y)
-            {
-                y = brush.startPositionMinimized.y;
-            }
 
-            if (x < brush.startPositionMinimized.x)
-            {
-                x = brush.startPositionMinimized.x;
-            }
+            Vector2[] drawArea = brush.getDrawArea();
+            // Create bounds for the lines
+            //if (x < drawArea[0].x)
+            //{
+            //    x = drawArea[0].x;
+            //}
+            //if (y < drawArea[0].y)
+            //{
+            //    y = drawArea[0].y;
+            //}
+            //if (x > drawArea[1].x)
+            //{
+            //    x = drawArea[1].x;
+            //}
+            //if (y > drawArea[1].y)
+            //{
+            //    y = drawArea[1].y;
+            //}
 
-            if (y > brush.startPositionMinimized.y + brush.drawArea.y)
-            {
-                y = brush.startPositionMinimized.y + brush.drawArea.y;
-            }
-
-            if (x > brush.startPositionMinimized.x + brush.drawArea.x)
-            {
-                x = brush.startPositionMinimized.x + brush.drawArea.x;
-            }
-
-            positions.Add(new Vector3(x, y, 0f));
+            positions.Add(new Vector3(x, y, brushZCoord));
 
         }
 

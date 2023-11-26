@@ -156,7 +156,7 @@ MonoBehaviour:
   selected: {fileID: 21300000, guid: d26a52da35588d941851660aa2063aae, type: 3}
   snap1: {fileID: 4688453931078770021}
   snap2: {fileID: 5338188421783581530}
-  playScripts: []
+  playScript: {fileID: 0}
   width: 1
   scale: 0.03
   scaleMax: 0.055
@@ -565,8 +565,8 @@ Canvas:
   m_VertexColorAlwaysGammaSpace: 0
   m_AdditionalShaderChannelsFlag: 25
   m_UpdateRectTransformForStandalone: 0
-  m_SortingLayerID: 1243513093
-  m_SortingOrder: 2
+  m_SortingLayerID: -1884587689
+  m_SortingOrder: 1
   m_TargetDisplay: 0
 --- !u!114 &584430833457151415
 MonoBehaviour:

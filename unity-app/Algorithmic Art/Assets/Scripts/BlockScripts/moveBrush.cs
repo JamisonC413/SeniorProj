@@ -41,9 +41,6 @@ public class moveBrush : Block
     // The brushes gameobject 
     public Brush brush;
 
-    // Brush for maximized canvas
-    public Brush brush2;
-
 
     // Sets the starting information for the block, ID, refrences and snap positions
     void Awake()
@@ -56,7 +53,6 @@ public class moveBrush : Block
 
         //Note: Replaced GameObject.Find with GameObject.FindGameObjectWithTag because Find is very expensive - Tong
         brush = GameObject.FindGameObjectWithTag("brush").GetComponent<Brush>();
-        brush2 = GameObject.FindGameObjectWithTag("brush2").GetComponent<Brush>();
     }
 
     // Used to update information on the draw block

@@ -46,8 +46,6 @@ public class blockMover : MonoBehaviour
     // Flag for dragging the block individually or all children as well
     private bool dragChildren = false;
 
-    private bool isStart = false;
-
     // Update is called every frame and handles dragging and snapping
     void Update()
     {
@@ -93,10 +91,6 @@ public class blockMover : MonoBehaviour
 
                 if(blockScript is not nestedBottom)
                 {
-                    if (blockScript.snapPositions.Length == 1)
-                    {
-                        isStart = true;
-                    }
 
                     offset = block.transform.position - Camera.main.ScreenToWorldPoint(Input.mousePosition);
 
@@ -164,7 +158,6 @@ public class blockMover : MonoBehaviour
                 block = null;
                 blockScript = null;
 
-                isStart = false;
                 isDragging = false;
             }
         }

@@ -12,8 +12,8 @@ public class functionStart : Block
     [SerializeField]
     private GameObject snap1;
 
-
     public Play playScript;
+
     void Awake()
     {
         this.blockID = Block.nextID;
@@ -23,7 +23,7 @@ public class functionStart : Block
         Block.nextID++;
         startName = null;
 
-        snapPositions = new Vector2[2];
+        snapPositions = new Vector2[1];
         snapPositions[0] = snap1.transform.position;
 
         playScript = GameObject.FindGameObjectWithTag("playHandler").GetComponent<Play>();

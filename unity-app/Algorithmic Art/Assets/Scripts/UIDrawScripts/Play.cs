@@ -1,9 +1,6 @@
-using Codice.Client.Common.Locks;
-using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using static Unity.Collections.AllocatorManager;
 
 // Handles drawing the lines using the play button
 public class Play : MonoBehaviour

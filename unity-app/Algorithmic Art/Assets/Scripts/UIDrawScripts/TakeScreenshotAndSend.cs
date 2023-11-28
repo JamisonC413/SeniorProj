@@ -23,6 +23,7 @@ public class TakeScreenshotAndSend : MonoBehaviour
     {
         // Temporarily hide the UI so it doesn't show up in the screenshot.
         GameObject.Find("UI Canvas").GetComponent<Canvas>().enabled = false;
+        GameObject.Find("Brush").GetComponent<SpriteRenderer>().enabled = false;
 
         // Wait for end of frame before taking a screenshot.
         yield return new WaitForEndOfFrame();
@@ -32,9 +33,10 @@ public class TakeScreenshotAndSend : MonoBehaviour
 
         // Show the UI again.
         GameObject.Find("UI Canvas").GetComponent<Canvas>().enabled = true;
+        GameObject.Find("Brush").GetComponent<SpriteRenderer>().enabled = true;
 
-        Texture2D croppedTexture = new Texture2D((int)(Screen.width - Camera.main.WorldToScreenPoint(GameObject.Find("Display").GetComponent<SpriteRenderer>().bounds.min).x), Screen.height);
-        croppedTexture.SetPixels(texture.GetPixels((int)Camera.main.WorldToScreenPoint(GameObject.Find("Display").GetComponent<SpriteRenderer>().bounds.min).x, 0, (int)(Screen.width - Camera.main.WorldToScreenPoint(GameObject.Find("Display").GetComponent<SpriteRenderer>().bounds.min).x), Screen.height));
+        Texture2D croppedTexture = new Texture2D(350, 350);
+        croppedTexture.SetPixels(texture.GetPixels((int)Camera.main.WorldToScreenPoint(GameObject.Find("Display").GetComponent<SpriteRenderer>().bounds.min).x, (int)Camera.main.WorldToScreenPoint(GameObject.Find("Display").GetComponent<SpriteRenderer>().bounds.min).y, 350, 350));
         croppedTexture.Apply();
 
         // Convert this texture to a PNG in a byte representation.

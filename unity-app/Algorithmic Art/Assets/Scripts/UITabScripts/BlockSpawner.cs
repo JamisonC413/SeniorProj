@@ -13,8 +13,7 @@ public class BlockSpawner : MonoBehaviour
 
     private void Start()
     {
-        string prefabPath = AssetDatabase.GetAssetPath(prefabToSpawn);
-        Debug.Log("Path: " + prefabPath);
+
     }
 
     private void OnMouseDown()
@@ -26,8 +25,14 @@ public class BlockSpawner : MonoBehaviour
 
     void SpawnPrefab(Vector3 spawnPosition)
     {
+        GameObject rootObject = transform.root.gameObject;
+
+        // Get the Canvas component on the GameObject
+        Canvas canvas = rootObject.GetComponent<Canvas>();
+
         // Create the prefab within the same Canvas
         spawnedObject = Instantiate(prefabToSpawn, spawnPosition, Quaternion.identity);
+        //Vector3 scale = new Vector3(33, 28f, 0);
         spawnedObject.transform.localScale = ScaleObject;
 
         // Sorts out the proper layer and positioning of the new object

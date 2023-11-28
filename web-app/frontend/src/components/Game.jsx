@@ -12,7 +12,8 @@ function Game() {
     const [base64Image, setBase64Image] = useState();
 
     // URL of the web app backend.
-    const backendURL = "http://127.0.0.1:8000";
+    // update backend URL for each run
+    const backendURL = "http://localhost:8000";
 
     // Set up the state of the Unity application by specifying the location of the build files.
     //
@@ -34,7 +35,8 @@ function Game() {
             mode: "cors",
             body: JSON.stringify(body),
             headers: {
-                "Content-Type": "application/json"
+                "Content-Type": "application/json",
+                "Bypass-Tunnel-Reminder": '',
             }
         })
     }

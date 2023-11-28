@@ -3,7 +3,9 @@ import React, { useEffect } from 'react'
 // Component containing all saved images
 
 function SavedImages() {
-    const backendURL = "http://127.0.0.1:8000";
+
+    // update backend URL for each run
+    const backendURL = "http://localhost:8000";
 
     // Get and render all images
     useEffect(() => {
@@ -11,7 +13,10 @@ function SavedImages() {
         // Get saved images from DB
         fetch(`${backendURL}/api/images`, {
             method: "GET",
-            mode: "cors"
+            mode: "cors",
+            headers: {
+                "Bypass-Tunnel-Reminder": '',
+            }
         }).then(savedImages => {
             return savedImages.json();
         }).then(savedImages => {

@@ -22,13 +22,13 @@ public class WidthBlockDropDown : MonoBehaviour
         switch (index)
         {
             case 1:
-                widthBlock.width = .2f;
+                widthBlock.width = 2f;
                 break;
             case 2:
-                widthBlock.width = .3f;
+                widthBlock.width = 3f;
                 break;
             default:
-                widthBlock.width = .1f;
+                widthBlock.width = 1f;
                 break;
         }
     }

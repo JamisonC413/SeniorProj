@@ -4,32 +4,31 @@ using UnityEngine;
 
 public class startBlock : Block
 {
-    // Offset from center for the snap point
+    // Gameobject for the snap point
     [SerializeField]
-    private Vector2 snapOffset = new Vector2(0f, 1f);
+    public GameObject snapPosition;
 
-    // Called once when the code starts 
+    // Called once when the code starts, simple setting of variables
     void Awake()
     {
-        // Sets ID, refrences and boolean for snapped
+        // Sets ID and refrences for initial setup
         this.blockID = Block.nextID;
-        this.topSnapped = false;
-        this.botSnapped = false;
         this.prevBlock = null;
         this.nextBlock = null;
 
         // Increments nextID for next block
         Block.nextID++;
 
-        // Creates snapPositions
-        // Note: Should probably paramaterize the offset but it shouldn't change so I see it as a prefrence thing
+        // Creates snapPosition, startBlock only has one which complicates some code in the blockmover. All other blocks
+        // are garunteed to have 2 snapPositions
         snapPositions = new Vector2[1];
-        snapPositions[0] = new Vector2(transform.position.x, transform.position.y) + snapOffset;
+        snapPositions[0] = snapPosition.transform.position;
     }
 
-    // Update just set up to update the snapPositions of startBlock
+    // Update just set up to update the snapPositions of startBlock, potentially change so it only updates when moved? 
+    // Currently have no idea how to do that so this'll do for now.
     private void Update()
     {
-        snapPositions[0] = new Vector2(transform.position.x, transform.position.y) + snapOffset;
+        snapPositions[0] = snapPosition.transform.position;
     }
 }

@@ -74,10 +74,13 @@ public class drawBlock : Block
     // Will be used to draw shape using a child linerenderer component. Not yet implemented
     public override void execute()
     {
-        if(brush.isMaximized)
+        float oldScale = scale;
+
+        if (brush.isMaximized)
         {
             scale *= brush.maximizedScale;
         }
+
         // Modes for different shapes
         switch (mode)
         {
@@ -94,6 +97,8 @@ public class drawBlock : Block
                 executeCircle();
                 break;
         };
+        scale = oldScale;
+
     }
 
     // Responible for drawing a line

@@ -60,22 +60,12 @@ public class mirrorBlock : NestedBlock
                 {
 
                     GameObject flip = Instantiate(brush.lineRenderers[i], Vector3.zero, Quaternion.identity);
-                    Vector3 newDistance;
 
                     Vector2[] drawArea = brush.getDrawArea();
                     switch (axis)
                     {
                         case 0:
-                            //flip.transform.localScale = new Vector3(brush.lineRenderers[i].transform.localScale.x, -brush.lineRenderers[i].transform.localScale.y, brush.lineRenderers[i].transform.localScale.z);
-                            ////newDistance = new Vector3(0, 5f / 2, 0) - flip.transform.position;
-                            ////flip.transform.position = newDistance * 2 + new Vector3(0, -1.92F, 0);
                             float yAxis = (Mathf.Abs((drawArea[0].y - drawArea[1].y)) / 2) + drawArea[0].y;
-                            ////flip.transform.Translate(0f, 2.5f - (drawArea[0].y - drawArea[1].y / 2), 0f);
-                            //flip.transform.Translate(0f, 2f * yAxis - flip.transform.position.y, 0f);
-
-
-                            Debug.Log(drawArea[0].y + " " + drawArea[1].y + "   " + yAxis);
-
 
                             // Multiply every Vector3 in positions by newScale
                             LineRenderer lineRenderer = flip.GetComponent<LineRenderer>();
@@ -92,11 +82,7 @@ public class mirrorBlock : NestedBlock
 
                             break;
                         case 1:
-                            //flip.transform.localScale = new Vector3(-brush.lineRenderers[i].transform.localScale.x, brush.lineRenderers[i].transform.localScale.y, brush.lineRenderers[i].transform.localScale.z);
-                            ////newDistance = new Vector3(5f / 2, 0, 0) - flip.transform.position;
-                            ////flip.transform.position = newDistance * 2 + new Vector3(7.63F, 0, 0);
-                            //Debug.Log(drawArea[0].y + " " + drawArea[1].y);
-                            //flip.transform.Translate((drawArea[0].y + drawArea[1].y), 0f, 0f);
+
                             float xAxis = (Mathf.Abs((drawArea[0].x - drawArea[1].x)) / 2) + drawArea[0].x;
 
                             lineRenderer = flip.GetComponent<LineRenderer>();
@@ -133,34 +119,49 @@ public class mirrorBlock : NestedBlock
 
             if (newMeshLength > oldMeshListLength)
             {
-                GameObject flip = Instantiate(brush.meshRenderers[newMeshLength - 1], brush.meshRenderers[newMeshLength - 1].transform.position, Quaternion.identity);
-                float newDistance;
-                switch (axis)
+                for (int i = oldMeshListLength; i < newMeshLength; i++)
                 {
-                    case 0:
-                        flip.transform.localScale = new Vector3(1, -1, 1);
-                        newDistance = 5F - flip.transform.position.y;
-                        flip.transform.position = new Vector3(flip.transform.position.x, newDistance - 1.92F, flip.transform.position.z);
-                        break;
-                    case 1:
-                        flip.transform.localScale = new Vector3(-1, 1, 1);
-                        newDistance = 5f - flip.transform.position.x;
-                        flip.transform.position = new Vector3(newDistance + 7.63F, flip.transform.position.y, flip.transform.position.z);
-                        break;
+                    GameObject flip = Instantiate(brush.meshRenderers[i], brush.meshRenderers[i].transform.position, Quaternion.identity);
 
-                    default: break;
+                    Vector2[] drawArea = brush.getDrawArea();
+
+                    switch (axis)
+                    {
+                        case 0:
+                            float yAxis = (Mathf.Abs((drawArea[0].y - drawArea[1].y)) / 2) + drawArea[0].y;
+
+                            flip.transform.localScale = new Vector3(flip.transform.localScale.x, -flip.transform.localScale.y, flip.transform.localScale.z);
+
+                            flip.transform.Translate(0f, (yAxis - flip.transform.position.y) * 2, 0f);
+                            //float newDistance = 5F - flip.transform.position.y;
+                            //flip.transform.position = new Vector3(flip.transform.position.x, newDistance - 1.92F, flip.transform.position.z);
+                            break;
+                        case 1:
+
+                            float xAxis = (Mathf.Abs((drawArea[0].x - drawArea[1].x)) / 2) + drawArea[0].x;
+
+                            flip.transform.localScale = new Vector3(-flip.transform.localScale.x, flip.transform.localScale.y, flip.transform.localScale.z);
+
+                            flip.transform.Translate((xAxis - flip.transform.position.x) * 2, 0f, 0f);
+
+                            //newDistance = 5f - flip.transform.position.x;
+                            //flip.transform.position = new Vector3(newDistance + 7.63F, flip.transform.position.y, flip.transform.position.z);
+                            break;
+
+                        default: break;
+
+                    }
+
+                    Renderer rendererComponent = flip.GetComponent<Renderer>();
+                    if (rendererComponent != null)
+                    {
+                        rendererComponent.sortingLayerName = "ImageRendering";
+                        rendererComponent.sortingOrder = 1;
+                    }
+                    brush.meshRenderers.Add(flip);
 
                 }
-
-                Renderer rendererComponent = flip.GetComponent<Renderer>();
-                if (rendererComponent != null)
-                {
-                    rendererComponent.sortingLayerName = "ImageRendering";
-                    rendererComponent.sortingOrder = 1;
-                }
-
-                brush.meshRenderers.Add(flip);
-                oldMeshListLength = brush.meshRenderers.Count;
+                oldMeshListLength = brush.meshRenderers.Count + (int)Mathf.Pow(2, brush.mirrorsDone - brush.numMirrors);
             }
         }
     }

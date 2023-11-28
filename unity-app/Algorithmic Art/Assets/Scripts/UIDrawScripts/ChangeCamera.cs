@@ -30,7 +30,9 @@ public class ChangeCamera : MonoBehaviour
     public void maximize()
     {
         mainCamera.SetActive(false);
-        canvasMinView.SetActive(false);
+
+        //Scroll syncing does not work if the minimized view canvas is disabled
+        //canvasMinView.SetActive(false);
         canvasMaxView.SetActive(true);
         camera2.SetActive(true);
 
@@ -48,7 +50,8 @@ public class ChangeCamera : MonoBehaviour
     {
         canvasMaxView.SetActive(false);
         camera2.SetActive(false);
-        canvasMinView.SetActive(true);
+
+        //canvasMinView.SetActive(true);
         mainCamera.SetActive(true);
         
 

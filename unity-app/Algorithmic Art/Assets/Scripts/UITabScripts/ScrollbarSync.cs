@@ -8,7 +8,6 @@ public class ScrollbarSync : MonoBehaviour
     public ScrollRect scrollRect1;
     public ScrollRect scrollRect2;
 
-
     private void Awake()
     {
         // Ensure both scroll rects are initialized

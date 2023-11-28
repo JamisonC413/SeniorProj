@@ -33,11 +33,13 @@ public class mirrorBlock : NestedBlock
         flag = true;
         oldLineListLength = brush.lineRenderers.Count;
         oldMeshListLength = brush.meshRenderers.Count;
+        brush.numMirrors++;
     }
 
     // Update is called once per frame
     public override void updateExecute()
     {
+
         //When the block is running
         if (flag)
         {
@@ -49,38 +51,85 @@ public class mirrorBlock : NestedBlock
             // Remake to use the createLineRenderer functions from Brush?
 
             //If there are new renderers
-            if (newLineLength > oldLineListLength)
+            if (newLineLength > oldLineListLength && brush.mirrorsDone != brush.numMirrors && brush.mirror)
             {
-                GameObject flip = Instantiate(brush.lineRenderers[newLineLength - 1], new Vector3 (0,0,0), Quaternion.identity);
-                Vector3 newDistance;
-                switch (axis)
+                //Debug.Log(brush.lRLen + " " + blockID);
+                //Debug.Log(brush.lineRenderers.Count + " " + blockID);
+                //brush.LRLen++;
+                for(int i = oldLineListLength; i < newLineLength; i++)
                 {
-                    case 0:
-                        flip.transform.localScale = new Vector3(1, -1, 1);
-                        newDistance = new Vector3(0, 5f / 2, 0) - flip.transform.position;
-                        flip.transform.position = newDistance * 2 + new Vector3(0, -1.92F, 0);
-                        break;
-                    case 1:
-                        flip.transform.localScale = new Vector3(-1, 1, 1);
-                        newDistance = new Vector3(5f / 2, 0, 0) - flip.transform.position;
-                        flip.transform.position = newDistance * 2 + new Vector3(7.63F, 0, 0);
-                        break;
 
-                    default: break;
+                    GameObject flip = Instantiate(brush.lineRenderers[i], Vector3.zero, Quaternion.identity);
+                    Vector3 newDistance;
 
+                    Vector2[] drawArea = brush.getDrawArea();
+                    switch (axis)
+                    {
+                        case 0:
+                            //flip.transform.localScale = new Vector3(brush.lineRenderers[i].transform.localScale.x, -brush.lineRenderers[i].transform.localScale.y, brush.lineRenderers[i].transform.localScale.z);
+                            ////newDistance = new Vector3(0, 5f / 2, 0) - flip.transform.position;
+                            ////flip.transform.position = newDistance * 2 + new Vector3(0, -1.92F, 0);
+                            float yAxis = (Mathf.Abs((drawArea[0].y - drawArea[1].y)) / 2) + drawArea[0].y;
+                            ////flip.transform.Translate(0f, 2.5f - (drawArea[0].y - drawArea[1].y / 2), 0f);
+                            //flip.transform.Translate(0f, 2f * yAxis - flip.transform.position.y, 0f);
+
+
+                            Debug.Log(drawArea[0].y + " " + drawArea[1].y + "   " + yAxis);
+
+
+                            // Multiply every Vector3 in positions by newScale
+                            LineRenderer lineRenderer = flip.GetComponent<LineRenderer>();
+                            Vector3[] positions = new Vector3[lineRenderer.positionCount];
+                            lineRenderer.GetPositions(positions);
+
+                            for (int j = 0; j < positions.Length; j++)
+                            {
+                                positions[j] = new Vector3(positions[j].x, positions[j].y + 2f * (yAxis - positions[j].y), positions[j].z);
+                            }
+
+                            // Set the modified positions back to the LineRenderer
+                            lineRenderer.SetPositions(positions);
+
+                            break;
+                        case 1:
+                            //flip.transform.localScale = new Vector3(-brush.lineRenderers[i].transform.localScale.x, brush.lineRenderers[i].transform.localScale.y, brush.lineRenderers[i].transform.localScale.z);
+                            ////newDistance = new Vector3(5f / 2, 0, 0) - flip.transform.position;
+                            ////flip.transform.position = newDistance * 2 + new Vector3(7.63F, 0, 0);
+                            //Debug.Log(drawArea[0].y + " " + drawArea[1].y);
+                            //flip.transform.Translate((drawArea[0].y + drawArea[1].y), 0f, 0f);
+                            float xAxis = (Mathf.Abs((drawArea[0].x - drawArea[1].x)) / 2) + drawArea[0].x;
+
+                            lineRenderer = flip.GetComponent<LineRenderer>();
+                            positions = new Vector3[lineRenderer.positionCount];
+                            lineRenderer.GetPositions(positions);
+
+                            for (int j = 0; j < positions.Length; j++)
+                            {
+                                positions[j] = new Vector3(positions[j].x + 2f * (xAxis - positions[j].x), positions[j].y, positions[j].z);
+                            }
+
+                            // Set the modified positions back to the LineRenderer
+                            lineRenderer.SetPositions(positions);
+                            break;
+
+                        default: break;
+
+                    }
+
+                    Renderer rendererComponent = flip.GetComponent<Renderer>();
+                    if (rendererComponent != null)
+                    {
+                        rendererComponent.sortingLayerName = "ImageRendering";
+                        rendererComponent.sortingOrder = 1;
+                    }
+
+                    brush.lineRenderers.Add(flip);
                 }
-
-                Renderer rendererComponent = flip.GetComponent<Renderer>();
-                if (rendererComponent != null)
-                {
-                    rendererComponent.sortingLayerName = "ImageRendering";
-                    rendererComponent.sortingOrder = 1;
-                }
-
-                brush.lineRenderers.Add(flip);
                 oldLineListLength = brush.lineRenderers.Count;
+                brush.mirrorsDone++;
 
             }
+
 
             if (newMeshLength > oldMeshListLength)
             {

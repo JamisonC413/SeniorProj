@@ -4127,7 +4127,11 @@ MonoBehaviour:
   meshRenderers: []
   LineRendererPrefab: {fileID: 7193110556999826880, guid: b9555aef8b6f84c49b3b23a94d44d579, type: 3}
   MeshRendererPrefab: {fileID: 4732343664163756651, guid: 600afef661b051244b58fc69f9ce08f7, type: 3}
-  maximizedScale: 1.55
+  isMaximized: 0
+  maximizedScale: 1.7
+  numMirrors: 0
+  mirrorsDone: 0
+  mirror: 0
 --- !u!212 &774330119
 SpriteRenderer:
   m_ObjectHideFlags: 0

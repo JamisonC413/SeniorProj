@@ -28,10 +28,15 @@ public class Brush : MonoBehaviour
 
     public GameObject MeshRendererPrefab;
 
-    private bool isMaximized;
+    public bool isMaximized;
 
-    [SerializeField]
-    private float maximizedScale;
+    public float maximizedScale;
+
+    public int numMirrors;
+
+    public int mirrorsDone;
+
+    public bool mirror;
 
     // Start is called before the first frame update
     void Start()
@@ -41,6 +46,18 @@ public class Brush : MonoBehaviour
         startPositionMinimized = gameObject.transform.position;
         startPositionMaximized = startPos2.transform.position;
         lineRenderers.Clear();
+        numMirrors = 0;
+        mirrorsDone = 0;
+        mirror = false;
+    }
+
+    private void Update()
+    {
+        if (numMirrors == mirrorsDone)
+        {
+            mirrorsDone = 0;
+            mirror = false;
+        }
     }
 
     public Vector2[] getDrawArea()
@@ -49,7 +66,7 @@ public class Brush : MonoBehaviour
         if(isMaximized)
         {
             output[0] = startPositionMaximized;
-            output[1] = drawArea + (Vector2)startPositionMaximized;
+            output[1] = new Vector2(drawArea.x * maximizedScale, drawArea.y * maximizedScale) + (Vector2)startPositionMaximized;
         }
         else
         {
@@ -89,7 +106,7 @@ public class Brush : MonoBehaviour
 
         // Add LineRenderer to the new GameObject
         lineRenderers.Add(newLineObject);
-
+        mirror = true;
         return newLineObject.GetComponent<LineRenderer>();
     }
 

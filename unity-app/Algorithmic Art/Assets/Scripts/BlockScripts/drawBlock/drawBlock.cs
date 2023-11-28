@@ -34,7 +34,7 @@ public class drawBlock : Block
     // 1 = rectangle
     public int mode = 0;
     
-    // Two main play scripts, the color and linewidth are dictated by these scripts
+    // Play script, the color and linewidth are dictated by these scripts
     public Play play;
 
     // Sets the starting information for the block, ID, refrences and snap positions

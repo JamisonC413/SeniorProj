@@ -81,7 +81,7 @@ public class duplicateBlock : NestedBlock
                     if (rendererComponent != null)
                     {
                         rendererComponent.sortingLayerName = "ImageRendering";
-                        rendererComponent.sortingOrder = 1;
+                        rendererComponent.sortingOrder = brush.lineRenderers[newLineLength - 1].GetComponent<Renderer>().sortingOrder;
                     }
 
                     //Add this new line renderer to the list and increase the list count
@@ -99,12 +99,6 @@ public class duplicateBlock : NestedBlock
                     GameObject rotate = Instantiate(brush.meshRenderers[newMeshLength - 1], brush.meshRenderers[newMeshLength - 1].transform.position, Quaternion.identity);
                     rotate.GetComponent<MeshRenderer>().transform.RotateAround(startPos, Vector3.forward, angleSize * (i + 1));
 
-                    Renderer rendererComponent = rotate.GetComponent<Renderer>();
-                    if (rendererComponent != null)
-                    {
-                        rendererComponent.sortingLayerName = "ImageRendering";
-                        rendererComponent.sortingOrder = 1;
-                    }
                     //Add this new mesh renderer to the list and increase the list count
                     brush.meshRenderers.Add(rotate);
                     oldMeshListLength = brush.meshRenderers.Count;

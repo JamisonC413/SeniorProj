@@ -173,7 +173,7 @@ public class drawBlockDropDown : MonoBehaviour
 
                 drawBlock.mode = 0;
                 drawBlock.defaultSprite = sprites[0];
-                drawBlock.selected = sprites[2];
+                drawBlock.selected = sprites[3];
                 break;
             case 1:
                 inputs[0].SetActive(false);
@@ -182,7 +182,7 @@ public class drawBlockDropDown : MonoBehaviour
                 inputs[3].SetActive(false);
                 spriteRenderer.sprite = sprites[1];
                 drawBlock.defaultSprite = sprites[1];
-                drawBlock.selected = sprites[3];
+                drawBlock.selected = sprites[4];
 
                 // Resize the collider
                 boxCollider.size = new Vector2(5.37f, 2.4f);
@@ -197,9 +197,9 @@ public class drawBlockDropDown : MonoBehaviour
                 inputs[1].SetActive(false);
                 inputs[2].SetActive(true);
                 inputs[3].SetActive(false);
-                spriteRenderer.sprite = sprites[0];
-                drawBlock.defaultSprite = sprites[0];
-                drawBlock.selected = sprites[2];
+                spriteRenderer.sprite = sprites[2];
+                drawBlock.defaultSprite = sprites[2];
+                drawBlock.selected = sprites[5];
 
                 // Resize the collider
                 boxCollider.size = new Vector2(3.9f, 2.5f);
@@ -214,9 +214,9 @@ public class drawBlockDropDown : MonoBehaviour
                 inputs[1].SetActive(false);
                 inputs[2].SetActive(false);
                 inputs[3].SetActive(true);
-                spriteRenderer.sprite = sprites[0];
-                drawBlock.defaultSprite = sprites[0];
-                drawBlock.selected = sprites[2];
+                spriteRenderer.sprite = sprites[2];
+                drawBlock.defaultSprite = sprites[2];
+                drawBlock.selected = sprites[5];
 
                 // Resize the collider
                 boxCollider.size = new Vector2(3.9f, 2.5f);

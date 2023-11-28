@@ -72,10 +72,10 @@ public class blockMover : MonoBehaviour
             RaycastHit2D hit = Physics2D.Raycast(ray.origin, ray.direction);
 
             // Helpful debug code, tells you what object gets hit by raycast
-            //if (hit.collider != null)
-            //{
-            //    Debug.Log(hit.collider.gameObject);
-            //}
+            if (hit.collider != null)
+            {
+                Debug.Log(hit.collider.gameObject);
+            }
 
             // If the raycast collides with object than check the tag for block
             if (hit.collider != null && hit.collider.CompareTag("text"))
@@ -89,7 +89,7 @@ public class blockMover : MonoBehaviour
 
                 blockScript = block.GetComponent<Block>();
 
-                if(blockScript is not nestedBottom)
+                if (blockScript is not nestedBottom)
                 {
 
                     offset = block.transform.position - Camera.main.ScreenToWorldPoint(Input.mousePosition);
@@ -111,6 +111,11 @@ public class blockMover : MonoBehaviour
                     // Sets refrences of the block to null, also sets the refrences of blocks being broken away from
                     setRefrences();
                     //blockScript.setRenderLayersHigh();
+                }
+                else
+                {
+                    block = null;
+                    blockScript = null;
                 }
             }
             else if (hit.collider != null )
@@ -299,16 +304,17 @@ public class blockMover : MonoBehaviour
         RaycastHit2D hit = Physics2D.Raycast(ray.origin, ray.direction);
 
         // If the object that is hit is not the code area or just doesn't exist than it destoys the block
-        if (hit.collider == null || !hit.collider.CompareTag("CodeArea"))
-        {
+
+        //if (hit.collider == null && (!hit.collider.CompareTag("CodeArea") || !hit.collider.CompareTag("Block")))
+        //{
             //Debug.Log(hit.collider);
             //Block current = blockScript.getLastBlock();
-            //while(current != null)
+            //while (current != null)
             //{
             //    current = current.prevBlock;
             //    Destroy(current.gameObject);
             //}
-        }
+        //}
     }
 
     // Snaps to the blocks selected to be the newPrevious and newNext

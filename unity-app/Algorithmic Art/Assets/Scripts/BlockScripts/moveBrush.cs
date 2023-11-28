@@ -26,7 +26,6 @@ public class moveBrush : Block
     [SerializeField]
     private int defaultCoords = 0;
 
-
     // The x coordinite input 
     public int X;
     // The Y coordinite input 
@@ -34,13 +33,11 @@ public class moveBrush : Block
 
     // Scale for canvas
     public float scale = 0.3f;
-    
-    // Scale for maximized canvas
-    public float scaleMaximized = 0.55f;
 
     // The brushes gameobject 
     public Brush brush;
 
+    public Play play;
 
     // Sets the starting information for the block, ID, refrences and snap positions
     void Awake()
@@ -114,10 +111,19 @@ public class moveBrush : Block
     // Will be used to draw line using a child linerenderer component. Not yet implemented
     public override void execute()
     {
+        float oldScale = scale;
+
+        if (brush.isMaximized)
+        {
+            scale *= brush.maximizedScale;
+        }
+
         // Multiplies scale by the tranlation for the brush
         float xTransform = X * scale + brush.transform.position.x;
         float yTransform = Y * scale + brush.transform.position.y;
 
+        Debug.Log(scale);
+        Debug.Log(scale);
 
         Vector2[] drawArea = brush.getDrawArea();
         // Create bounds 
@@ -139,7 +145,9 @@ public class moveBrush : Block
         }
 
         // Transform the brush
-        brush.transform.Translate(new Vector3(xTransform, yTransform, 0f));
+        brush.transform.position = new Vector3(xTransform, yTransform, brush.transform.position.z);
+
+        scale = oldScale;
 
     }
 }

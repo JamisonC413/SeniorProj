@@ -125,8 +125,8 @@ public class mirrorBlock : NestedBlock
 
                     brush.lineRenderers.Add(flip);
                 }
-                oldLineListLength = brush.lineRenderers.Count;
                 brush.mirrorsDone++;
+                oldLineListLength = brush.lineRenderers.Count + (int)Mathf.Pow(2, brush.mirrorsDone - brush.numMirrors);
 
             }
 

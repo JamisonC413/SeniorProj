@@ -113,7 +113,7 @@ public class blockMover : MonoBehaviour
                     //blockScript.setRenderLayersHigh();
                 }
             }
-            else if (hit.collider != null && hit.collider.CompareTag("CodeArea"))
+            else if (hit.collider != null )
             {
                 // If a collider is hit but it is the CodeArea than move all blocks, the flag is simply not setting block but setting isDragging true
                 offset = currentCamera.ScreenToWorldPoint(Input.mousePosition);
@@ -174,23 +174,40 @@ public class blockMover : MonoBehaviour
         {
             // If the block is in the middle of a list and there is not a flag for dragging children than completely disconnect 
             // from the middle of the list
-            Block nextBlock = ((NestedBlock)blockScript).bottomBlock.nextBlock;
+            Block bottomBlock = ((NestedBlock)blockScript).bottomBlock;
+            Block nextBlock = bottomBlock.nextBlock;
             Block prevBlock = blockScript.prevBlock;
-            nextBlock.prevBlock.nextBlock = null;
-            prevBlock.nextBlock = nextBlock;
-            nextBlock.prevBlock = prevBlock;
-           
-            // The block beneath the block being removed gets bumped up in the list, filling the vacancy of the removed block
-            Vector2 jump;
-            if (prevBlock.snapPositions.Length == 1)
+
+            if (nextBlock)
             {
-                jump = -nextBlock.snapPositions[0] + prevBlock.snapPositions[0];
+                bottomBlock.nextBlock = null;
+                nextBlock.prevBlock = null;
             }
-            else
+            if (prevBlock)
             {
-                jump = -nextBlock.snapPositions[0] + prevBlock.snapPositions[1];
+                blockScript.prevBlock = null;
+                prevBlock.nextBlock = null;
             }
-            nextBlock.moveChildren(jump);
+
+
+            if (prevBlock && nextBlock)
+            {
+                prevBlock.nextBlock = nextBlock;
+                nextBlock.prevBlock = prevBlock;
+
+                // The block beneath the block being removed gets bumped up in the list, filling the vacancy of the removed block
+                Vector2 jump;
+                if (prevBlock.snapPositions.Length == 1)
+                {
+                    jump = -nextBlock.snapPositions[0] + prevBlock.snapPositions[0];
+                }
+                else
+                {
+                    jump = -nextBlock.snapPositions[0] + prevBlock.snapPositions[1];
+                }
+                nextBlock.moveChildren(jump);
+            }
+
         }
         // Sets the refrences of the block and any blocks attached to it to be null. Depends on a few factors
         else if (blockScript.prevBlock && blockScript.nextBlock && !dragChildren)
@@ -285,7 +302,12 @@ public class blockMover : MonoBehaviour
         if (hit.collider == null || !hit.collider.CompareTag("CodeArea"))
         {
             //Debug.Log(hit.collider);
-            //Destroy(block);
+            //Block current = blockScript.getLastBlock();
+            //while(current != null)
+            //{
+            //    current = current.prevBlock;
+            //    Destroy(current.gameObject);
+            //}
         }
     }
 

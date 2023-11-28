@@ -37,12 +37,12 @@ public class mirrorBlock : NestedBlock
     }
 
     // Update is called once per frame
-    public override void updateExecute()
+    public void mirror()
     {
 
         //When the block is running
-        if (flag)
-        {
+        //if (flag)
+        //{
       
             //Track any new line/mesh renderers
             int newLineLength = brush.lineRenderers.Count;
@@ -51,8 +51,8 @@ public class mirrorBlock : NestedBlock
             // Remake to use the createLineRenderer functions from Brush?
 
             //If there are new renderers
-            if (newLineLength > oldLineListLength && brush.mirrorsDone != brush.numMirrors && brush.mirror)
-            {
+            //if (newLineLength > oldLineListLength && brush.mirrorsDone != brush.numMirrors && brush.mirror)
+            //{
                 //Debug.Log(brush.lRLen + " " + blockID);
                 //Debug.Log(brush.lineRenderers.Count + " " + blockID);
                 //brush.LRLen++;
@@ -111,58 +111,61 @@ public class mirrorBlock : NestedBlock
 
                     brush.lineRenderers.Add(flip);
                 }
-                brush.mirrorsDone++;
-                oldLineListLength = brush.lineRenderers.Count + (int)Mathf.Pow(2, brush.mirrorsDone - brush.numMirrors);
 
-            }
-
-
-            if (newMeshLength > oldMeshListLength)
-            {
-                for (int i = oldMeshListLength; i < newMeshLength; i++)
-                {
-                    GameObject flip = Instantiate(brush.meshRenderers[i], brush.meshRenderers[i].transform.position, Quaternion.identity);
-
-                    Vector2[] drawArea = brush.getDrawArea();
-
-                    switch (axis)
+                //if (newMeshLength > oldMeshListLength)
+                //{
+                    for (int i = oldMeshListLength; i < newMeshLength; i++)
                     {
-                        case 0:
-                            float yAxis = (Mathf.Abs((drawArea[0].y - drawArea[1].y)) / 2) + drawArea[0].y;
+                        GameObject flip = Instantiate(brush.meshRenderers[i], brush.meshRenderers[i].transform.position, Quaternion.identity);
 
-                            flip.transform.localScale = new Vector3(flip.transform.localScale.x, -flip.transform.localScale.y, flip.transform.localScale.z);
+                        Vector2[] drawArea = brush.getDrawArea();
 
-                            flip.transform.Translate(0f, (yAxis - flip.transform.position.y) * 2, 0f);
-                            //float newDistance = 5F - flip.transform.position.y;
-                            //flip.transform.position = new Vector3(flip.transform.position.x, newDistance - 1.92F, flip.transform.position.z);
-                            break;
-                        case 1:
+                        switch (axis)
+                        {
+                            case 0:
+                                float yAxis = (Mathf.Abs((drawArea[0].y - drawArea[1].y)) / 2) + drawArea[0].y;
 
-                            float xAxis = (Mathf.Abs((drawArea[0].x - drawArea[1].x)) / 2) + drawArea[0].x;
+                                flip.transform.localScale = new Vector3(flip.transform.localScale.x, -flip.transform.localScale.y, flip.transform.localScale.z);
 
-                            flip.transform.localScale = new Vector3(-flip.transform.localScale.x, flip.transform.localScale.y, flip.transform.localScale.z);
+                                flip.transform.Translate(0f, (yAxis - flip.transform.position.y) * 2, 0f);
+                                //float newDistance = 5F - flip.transform.position.y;
+                                //flip.transform.position = new Vector3(flip.transform.position.x, newDistance - 1.92F, flip.transform.position.z);
+                                break;
+                            case 1:
 
-                            flip.transform.Translate((xAxis - flip.transform.position.x) * 2, 0f, 0f);
+                                float xAxis = (Mathf.Abs((drawArea[0].x - drawArea[1].x)) / 2) + drawArea[0].x;
 
-                            //newDistance = 5f - flip.transform.position.x;
-                            //flip.transform.position = new Vector3(newDistance + 7.63F, flip.transform.position.y, flip.transform.position.z);
-                            break;
+                                flip.transform.localScale = new Vector3(-flip.transform.localScale.x, flip.transform.localScale.y, flip.transform.localScale.z);
 
-                        default: break;
+                                flip.transform.Translate((xAxis - flip.transform.position.x) * 2, 0f, 0f);
+
+                                //newDistance = 5f - flip.transform.position.x;
+                                //flip.transform.position = new Vector3(newDistance + 7.63F, flip.transform.position.y, flip.transform.position.z);
+                                break;
+
+                            default: break;
+
+                        }
+
+                        Renderer rendererComponent = flip.GetComponent<Renderer>();
+                        if (rendererComponent != null)
+                        {
+                            rendererComponent.sortingLayerName = "ImageRendering";
+                            rendererComponent.sortingOrder = 1;
+                        }
+                        brush.meshRenderers.Add(flip);
 
                     }
+                //    oldMeshListLength = brush.meshRenderers.Count + (int)Mathf.Pow(2, brush.mirrorsDone - brush.numMirrors);
+                //}
 
-                    Renderer rendererComponent = flip.GetComponent<Renderer>();
-                    if (rendererComponent != null)
-                    {
-                        rendererComponent.sortingLayerName = "ImageRendering";
-                        rendererComponent.sortingOrder = 1;
-                    }
-                    brush.meshRenderers.Add(flip);
+                //brush.mirrorsDone++;
+                //oldLineListLength = brush.lineRenderers.Count + (int)Mathf.Pow(2, brush.mirrorsDone - brush.numMirrors);
 
-                }
-                oldMeshListLength = brush.meshRenderers.Count + (int)Mathf.Pow(2, brush.mirrorsDone - brush.numMirrors);
-            }
-        }
+            //}
+
+
+
+        //}
     }
 }

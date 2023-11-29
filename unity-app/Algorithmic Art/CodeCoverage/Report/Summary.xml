@@ -1,34 +1,70 @@
 <?xml version="1.0" encoding="utf-8"?>
 <CoverageReport scope="Summary">
   <Summary>
-    <Generatedon>10/23/2023 - 1:36:26 PM</Generatedon>
-    <Parser>MultiReportParser (2x OpenCoverParser)</Parser>
-    <Assemblies>3</Assemblies>
-    <Classes>6</Classes>
-    <Files>6</Files>
-    <Coveredlines>117</Coveredlines>
-    <Uncoveredlines>13</Uncoveredlines>
-    <Coverablelines>130</Coverablelines>
-    <Totallines>389</Totallines>
-    <Linecoverage>90</Linecoverage>
+    <Generatedon>11/28/2023 - 9:54:27 PM</Generatedon>
+    <Parser>MultiReportParser (4x OpenCoverParser)</Parser>
+    <Assemblies>2</Assemblies>
+    <Classes>44</Classes>
+    <Files>44</Files>
+    <Coveredlines>551</Coveredlines>
+    <Uncoveredlines>1161</Uncoveredlines>
+    <Coverablelines>1712</Coverablelines>
+    <Totallines>3770</Totallines>
+    <Linecoverage>32.1</Linecoverage>
     <Coveredbranches>0</Coveredbranches>
     <Totalbranches>0</Totalbranches>
-    <Coveredmethods>14</Coveredmethods>
-    <Totalmethods>20</Totalmethods>
-    <Methodcoverage>70</Methodcoverage>
+    <Coveredmethods>66</Coveredmethods>
+    <Totalmethods>155</Totalmethods>
+    <Methodcoverage>42.5</Methodcoverage>
   </Summary>
   <Coverage>
-    <Assembly name="Assembly-CSharp" classes="1" coverage="100" coveredlines="21" coverablelines="21" totallines="44" branchcoverage="" coveredbranches="0" totalbranches="0" coveredmethods="2" totalmethods="2" methodcoverage="100">
-      <Class name="SimpleSquare" coverage="100" coveredlines="21" coverablelines="21" totallines="44" branchcoverage="" coveredbranches="0" totalbranches="0" coveredmethods="2" totalmethods="2" methodcoverage="100" />
-    </Assembly>
-    <Assembly name="PlaymodeTests" classes="4" coverage="92.3" coveredlines="96" coverablelines="104" totallines="320" branchcoverage="" coveredbranches="0" totalbranches="0" coveredmethods="12" totalmethods="16" methodcoverage="75">
-      <Class name="BlockIDTest" coverage="100" coveredlines="47" coverablelines="47" totallines="139" branchcoverage="" coveredbranches="0" totalbranches="0" coveredmethods="6" totalmethods="6" methodcoverage="100" />
-      <Class name="BrushTest" coverage="91.6" coveredlines="44" coverablelines="48" totallines="138" branchcoverage="" coveredbranches="0" totalbranches="0" coveredmethods="4" totalmethods="6" methodcoverage="66.6" />
+    <Assembly name="PlaymodeTests" classes="6" coverage="84.9" coveredlines="124" coverablelines="146" totallines="425" branchcoverage="" coveredbranches="0" totalbranches="0" coveredmethods="16" totalmethods="20" methodcoverage="80">
+      <Class name="BlockIDTest" coverage="100" coveredlines="25" coverablelines="25" totallines="88" branchcoverage="" coveredbranches="0" totalbranches="0" coveredmethods="4" totalmethods="4" methodcoverage="100" />
+      <Class name="BrushTest" coverage="70.8" coveredlines="34" coverablelines="48" totallines="138" branchcoverage="" coveredbranches="0" totalbranches="0" coveredmethods="4" totalmethods="6" methodcoverage="66.6" />
+      <Class name="CanvasTest" coverage="100" coveredlines="9" coverablelines="9" totallines="41" branchcoverage="" coveredbranches="0" totalbranches="0" coveredmethods="2" totalmethods="2" methodcoverage="100" />
+      <Class name="DrawBlockTest" coverage="92.7" coveredlines="51" coverablelines="55" totallines="115" branchcoverage="" coveredbranches="0" totalbranches="0" coveredmethods="4" totalmethods="4" methodcoverage="100" />
       <Class name="DrawTest" coverage="0" coveredlines="0" coverablelines="4" totallines="18" branchcoverage="" coveredbranches="0" totalbranches="0" coveredmethods="0" totalmethods="2" methodcoverage="0" />
       <Class name="NewTestScript" coverage="100" coveredlines="5" coverablelines="5" totallines="25" branchcoverage="" coveredbranches="0" totalbranches="0" coveredmethods="2" totalmethods="2" methodcoverage="100" />
     </Assembly>
-    <Assembly name="Tests" classes="1" coverage="0" coveredlines="0" coverablelines="5" totallines="25" branchcoverage="" coveredbranches="0" totalbranches="0" coveredmethods="0" totalmethods="2" methodcoverage="0">
-      <Class name="NewTestScript" coverage="0" coveredlines="0" coverablelines="5" totallines="25" branchcoverage="" coveredbranches="0" totalbranches="0" coveredmethods="0" totalmethods="2" methodcoverage="0" />
+    <Assembly name="ProjectScripts" classes="38" coverage="27.2" coveredlines="427" coverablelines="1566" totallines="3345" branchcoverage="" coveredbranches="0" totalbranches="0" coveredmethods="50" totalmethods="135" methodcoverage="37">
+      <Class name="Block" coverage="0" coveredlines="0" coverablelines="23" totallines="150" branchcoverage="" coveredbranches="0" totalbranches="0" coveredmethods="0" totalmethods="4" methodcoverage="0" />
+      <Class name="blockMover" coverage="4.6" coveredlines="14" coverablelines="298" totallines="506" branchcoverage="" coveredbranches="0" totalbranches="0" coveredmethods="2" totalmethods="7" methodcoverage="28.5" />
+      <Class name="BlockSpawner" coverage="15.7" coveredlines="3" coverablelines="19" totallines="49" branchcoverage="" coveredbranches="0" totalbranches="0" coveredmethods="2" totalmethods="4" methodcoverage="50" />
+      <Class name="Brush" coverage="44.8" coveredlines="57" coverablelines="127" totallines="222" branchcoverage="" coveredbranches="0" totalbranches="0" coveredmethods="6" totalmethods="10" methodcoverage="60" />
+      <Class name="CanvasSorting" coverage="78.5" coveredlines="11" coverablelines="14" totallines="27" branchcoverage="" coveredbranches="0" totalbranches="0" coveredmethods="2" totalmethods="2" methodcoverage="100" />
+      <Class name="ChangeCamera" coverage="9" coveredlines="2" coverablelines="22" totallines="67" branchcoverage="" coveredbranches="0" totalbranches="0" coveredmethods="1" totalmethods="3" methodcoverage="33.3" />
+      <Class name="colorBlock" coverage="3.5" coveredlines="1" coverablelines="28" totallines="71" branchcoverage="" coveredbranches="0" totalbranches="0" coveredmethods="1" totalmethods="4" methodcoverage="25" />
+      <Class name="colorBlockDropDown" coverage="0" coveredlines="0" coverablelines="6" totallines="25" branchcoverage="" coveredbranches="0" totalbranches="0" coveredmethods="0" totalmethods="2" methodcoverage="0" />
+      <Class name="DeleteAll" coverage="36.3" coveredlines="4" coverablelines="11" totallines="29" branchcoverage="" coveredbranches="0" totalbranches="0" coveredmethods="2" totalmethods="3" methodcoverage="66.6" />
+      <Class name="drawBlock" coverage="85.3" coveredlines="210" coverablelines="246" totallines="453" branchcoverage="" coveredbranches="0" totalbranches="0" coveredmethods="10" totalmethods="10" methodcoverage="100" />
+      <Class name="drawBlockDropDown" coverage="24.1" coveredlines="34" coverablelines="141" totallines="236" branchcoverage="" coveredbranches="0" totalbranches="0" coveredmethods="3" totalmethods="4" methodcoverage="75" />
+      <Class name="duplicateBlock" coverage="3.7" coveredlines="2" coverablelines="54" totallines="109" branchcoverage="" coveredbranches="0" totalbranches="0" coveredmethods="1" totalmethods="4" methodcoverage="25" />
+      <Class name="duplicateBlockBottom" coverage="0" coveredlines="0" coverablelines="3" totallines="11" branchcoverage="" coveredbranches="0" totalbranches="0" coveredmethods="0" totalmethods="1" methodcoverage="0" />
+      <Class name="function" coverage="0" coveredlines="0" coverablelines="42" totallines="88" branchcoverage="" coveredbranches="0" totalbranches="0" coveredmethods="0" totalmethods="4" methodcoverage="0" />
+      <Class name="functionStart" coverage="0" coveredlines="0" coverablelines="23" totallines="49" branchcoverage="" coveredbranches="0" totalbranches="0" coveredmethods="0" totalmethods="3" methodcoverage="0" />
+      <Class name="GetImageSize" coverage="0" coveredlines="0" coverablelines="12" totallines="33" branchcoverage="" coveredbranches="0" totalbranches="0" coveredmethods="0" totalmethods="3" methodcoverage="0" />
+      <Class name="GridHandler" coverage="30.7" coveredlines="4" coverablelines="13" totallines="33" branchcoverage="" coveredbranches="0" totalbranches="0" coveredmethods="2" totalmethods="3" methodcoverage="66.6" />
+      <Class name="loopBlock" coverage="0" coveredlines="0" coverablelines="17" totallines="38" branchcoverage="" coveredbranches="0" totalbranches="0" coveredmethods="0" totalmethods="2" methodcoverage="0" />
+      <Class name="loopBlockBottom" coverage="10" coveredlines="2" coverablelines="20" totallines="34" branchcoverage="" coveredbranches="0" totalbranches="0" coveredmethods="1" totalmethods="3" methodcoverage="33.3" />
+      <Class name="mirrorBlock" coverage="2.7" coveredlines="2" coverablelines="72" totallines="171" branchcoverage="" coveredbranches="0" totalbranches="0" coveredmethods="1" totalmethods="4" methodcoverage="25" />
+      <Class name="mirrorBlockBottom" coverage="0" coveredlines="0" coverablelines="5" totallines="13" branchcoverage="" coveredbranches="0" totalbranches="0" coveredmethods="0" totalmethods="1" methodcoverage="0" />
+      <Class name="mirrorBlockDropDown" coverage="0" coveredlines="0" coverablelines="6" totallines="25" branchcoverage="" coveredbranches="0" totalbranches="0" coveredmethods="0" totalmethods="2" methodcoverage="0" />
+      <Class name="MoveAllBlocks" coverage="0" coveredlines="0" coverablelines="20" totallines="46" branchcoverage="" coveredbranches="0" totalbranches="0" coveredmethods="0" totalmethods="1" methodcoverage="0" />
+      <Class name="moveBrush" coverage="29.8" coveredlines="23" coverablelines="77" totallines="153" branchcoverage="" coveredbranches="0" totalbranches="0" coveredmethods="3" totalmethods="5" methodcoverage="60" />
+      <Class name="MyVirtualCursor" coverage="0" coveredlines="0" coverablelines="7" totallines="37" branchcoverage="" coveredbranches="0" totalbranches="0" coveredmethods="0" totalmethods="1" methodcoverage="0" />
+      <Class name="NestedBlock" coverage="0" coveredlines="0" coverablelines="44" totallines="102" branchcoverage="" coveredbranches="0" totalbranches="0" coveredmethods="0" totalmethods="4" methodcoverage="0" />
+      <Class name="nestedBottom" coverage="0" coveredlines="0" coverablelines="19" totallines="48" branchcoverage="" coveredbranches="0" totalbranches="0" coveredmethods="0" totalmethods="4" methodcoverage="0" />
+      <Class name="Play" coverage="17.6" coveredlines="6" coverablelines="34" totallines="78" branchcoverage="" coveredbranches="0" totalbranches="0" coveredmethods="1" totalmethods="3" methodcoverage="33.3" />
+      <Class name="Scroll" coverage="80" coveredlines="16" coverablelines="20" totallines="49" branchcoverage="" coveredbranches="0" totalbranches="0" coveredmethods="2" totalmethods="3" methodcoverage="66.6" />
+      <Class name="ScrollbarSync" coverage="29.4" coveredlines="5" coverablelines="17" totallines="44" branchcoverage="" coveredbranches="0" totalbranches="0" coveredmethods="2" totalmethods="4" methodcoverage="50" />
+      <Class name="scrollScript" coverage="40" coveredlines="2" coverablelines="5" totallines="20" branchcoverage="" coveredbranches="0" totalbranches="0" coveredmethods="1" totalmethods="4" methodcoverage="25" />
+      <Class name="ScrollSync" coverage="33.3" coveredlines="8" coverablelines="24" totallines="60" branchcoverage="" coveredbranches="0" totalbranches="0" coveredmethods="2" totalmethods="4" methodcoverage="50" />
+      <Class name="startBlock" coverage="100" coveredlines="11" coverablelines="11" totallines="34" branchcoverage="" coveredbranches="0" totalbranches="0" coveredmethods="2" totalmethods="2" methodcoverage="100" />
+      <Class name="Tab" coverage="25" coveredlines="3" coverablelines="12" totallines="31" branchcoverage="" coveredbranches="0" totalbranches="0" coveredmethods="1" totalmethods="4" methodcoverage="25" />
+      <Class name="TabGroup" coverage="16.6" coveredlines="4" coverablelines="24" totallines="47" branchcoverage="" coveredbranches="0" totalbranches="0" coveredmethods="1" totalmethods="5" methodcoverage="20" />
+      <Class name="TakeScreenshotAndSend" coverage="0" coveredlines="0" coverablelines="17" totallines="62" branchcoverage="" coveredbranches="0" totalbranches="0" coveredmethods="0" totalmethods="2" methodcoverage="0" />
+      <Class name="widthBlock" coverage="14.2" coveredlines="3" coverablelines="21" totallines="59" branchcoverage="" coveredbranches="0" totalbranches="0" coveredmethods="1" totalmethods="4" methodcoverage="25" />
+      <Class name="WidthBlockDropDown" coverage="0" coveredlines="0" coverablelines="12" totallines="36" branchcoverage="" coveredbranches="0" totalbranches="0" coveredmethods="0" totalmethods="2" methodcoverage="0" />
     </Assembly>
   </Coverage>
 </CoverageReport>

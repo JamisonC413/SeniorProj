@@ -16,6 +16,7 @@ TagManager:
   - fastforward
   - start
   - playHandler
+  - MaxCanvas
   layers:
   - Default
   - TransparentFX

@@ -10,20 +10,26 @@ public class BlockSpawner : MonoBehaviour
     private GameObject spawnedObject; // Reference to the spawned object
     public Vector3 ScaleObject = new Vector3(1f,1f, 1f);
 
+    //Play Script for locking movement
+    public Play playScript;
 
     private void Start()
     {
-
+        playScript = GameObject.FindGameObjectWithTag("playHandler").GetComponent<Play>();
     }
 
-    private void OnMouseDown()
+    public virtual void OnMouseDown()
     {
+        //Make sure play isn't running
+        if (!playScript.locked)
+        {
         // Spawns prefrab when clicked
         SpawnPrefab(transform.position);
+        }
     }
 
 
-    void SpawnPrefab(Vector3 spawnPosition)
+    public void SpawnPrefab(Vector3 spawnPosition)
     {
         GameObject rootObject = transform.root.gameObject;
 

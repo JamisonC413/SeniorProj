@@ -17,6 +17,7 @@ TagManager:
   - start
   - playHandler
   - MaxCanvas
+  - functionSpawn
   layers:
   - Default
   - TransparentFX

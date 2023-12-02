@@ -9,6 +9,9 @@ public class functionStart : Block
     [SerializeField]
     private GameObject snap1;
 
+    [SerializeField]
+    private Sprite greySprite;
+   
     public Play playScript;
 
     void Awake()
@@ -24,6 +27,11 @@ public class functionStart : Block
         snapPositions[0] = snap1.transform.position;
 
         playScript = GameObject.FindGameObjectWithTag("playHandler").GetComponent<Play>();
+
+        //Once you spawn a function, make sure you can't spawn another one
+        GameObject functionSpawn = GameObject.FindGameObjectWithTag("functionSpawn");
+        functionSpawn.GetComponent<FunctionSpawner>().isLocked = true;
+        functionSpawn.GetComponent<SpriteRenderer>().sprite = greySprite;
 
         // Ask about this?!
         if (startName == null)
@@ -44,6 +52,14 @@ public class functionStart : Block
         if (playScript.functions.ContainsKey(startName))
         {
             playScript.functions.Remove(startName);
+        }
+
+        //If that was the last function destroyed, allow other functions to be made again
+        if (playScript.functions.Count == 0)
+        {
+            GameObject functionSpawn = GameObject.FindGameObjectWithTag("functionSpawn");
+            functionSpawn.GetComponent<SpriteRenderer>().sprite = defaultSprite;
+            functionSpawn.GetComponent<FunctionSpawner>().isLocked = false;
         }
     }
 }

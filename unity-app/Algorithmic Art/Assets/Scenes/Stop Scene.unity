@@ -5842,10 +5842,10 @@ GameObject:
   - component: {fileID: 1210643086}
   - component: {fileID: 1210643089}
   - component: {fileID: 1210643088}
-  - component: {fileID: 1210643087}
+  - component: {fileID: 1210643090}
   m_Layer: 0
   m_Name: FunctionStartSpawner
-  m_TagString: Untagged
+  m_TagString: functionSpawn
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -5865,20 +5865,6 @@ Transform:
   m_Children: []
   m_Father: {fileID: 192090626}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &1210643087
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1210643085}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 07b7a8a5e2b4bdc4dbb1d067c4dd437c, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  prefabToSpawn: {fileID: 801895102098321813, guid: 4ea013d642cd3f648b4dfa5590165c7a, type: 3}
-  ScaleObject: {x: 0.411, y: 0.411, z: 1}
 --- !u!61 &1210643088
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -5976,6 +5962,20 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
+--- !u!114 &1210643090
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1210643085}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 680e7f14b9fe3414793b450d01996ed5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  prefabToSpawn: {fileID: 801895102098321813, guid: 4ea013d642cd3f648b4dfa5590165c7a, type: 3}
+  ScaleObject: {x: 0.411, y: 0.411, z: 1}
 --- !u!1 &1212789007
 GameObject:
   m_ObjectHideFlags: 0

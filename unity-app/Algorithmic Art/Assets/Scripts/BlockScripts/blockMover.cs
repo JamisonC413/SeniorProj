@@ -43,127 +43,140 @@ public class blockMover : MonoBehaviour
     // Current Camera that is active
     public Camera currentCamera = null;
 
+    //Play Script for locking movement
+    public Play playScript;
+
     // Flag for dragging the block individually or all children as well
     private bool dragChildren = false;
 
+    private void Start()
+    {
+        playScript = GameObject.FindGameObjectWithTag("playHandler").GetComponent<Play>();
+
+    }
+
     // Update is called every frame and handles dragging and snapping
+
     void Update()
     {
         // Split into two main sections, button down to initiate dragging and a isDragging section
 
-        // When button is pressed checks if there is a block underneath and then grabs it
-        if (Input.GetMouseButtonDown(0))
+        if (!playScript.locked)
         {
-            // Cast a ray from the mouse position and grab the first object hit
-            Ray ray = new Ray();
-
-            if (Camera.main != null && Camera.main.isActiveAndEnabled)
+            // When button is pressed checks if there is a block underneath and then grabs it
+            if (Input.GetMouseButtonDown(0))
             {
-                currentCamera = Camera.main;
-                ray = Camera.main.ScreenPointToRay(Input.mousePosition);
-                
-            }
-            else if (cameraMax != null && cameraMax.isActiveAndEnabled)
-            {
-                currentCamera = cameraMax;
-                ray = cameraMax.ScreenPointToRay(Input.mousePosition);
-            }
+                // Cast a ray from the mouse position and grab the first object hit
+                Ray ray = new Ray();
 
-            RaycastHit2D hit = Physics2D.Raycast(ray.origin, ray.direction);
+                if (Camera.main != null && Camera.main.isActiveAndEnabled)
+                {
+                    currentCamera = Camera.main;
+                    ray = Camera.main.ScreenPointToRay(Input.mousePosition);
 
-            // Helpful debug code, tells you what object gets hit by raycast
-            if (hit.collider != null)
-            {
-                Debug.Log(hit.collider.gameObject);
-            }
+                }
+                else if (cameraMax != null && cameraMax.isActiveAndEnabled)
+                {
+                    currentCamera = cameraMax;
+                    ray = cameraMax.ScreenPointToRay(Input.mousePosition);
+                }
 
-            // If the raycast collides with object than check the tag for block
-            if (hit.collider != null && hit.collider.CompareTag("text"))
-            {
+                RaycastHit2D hit = Physics2D.Raycast(ray.origin, ray.direction);
 
-            }
-            else if (hit.collider != null && hit.collider.CompareTag("block"))
-            {
-                // Store the block reference as the block we are dragging and calculate the offset
-                block = hit.collider.gameObject;
+                // Helpful debug code, tells you what object gets hit by raycast
+                if (hit.collider != null)
+                {
+                    Debug.Log(hit.collider.gameObject);
+                }
 
-                blockScript = block.GetComponent<Block>();
-
-                if (blockScript is not nestedBottom)
+                // If the raycast collides with object than check the tag for block
+                if (hit.collider != null && hit.collider.CompareTag("text"))
                 {
 
-                    offset = block.transform.position - Camera.main.ScreenToWorldPoint(Input.mousePosition);
+                }
+                else if (hit.collider != null && hit.collider.CompareTag("block"))
+                {
+                    // Store the block reference as the block we are dragging and calculate the offset
+                    block = hit.collider.gameObject;
 
+                    blockScript = block.GetComponent<Block>();
 
-                    // Set isDragging to true
-                    isDragging = true;
-
-                    // If a block is nested - drag Children
-                    // If a block has
-                    if (((Block)block.GetComponent("Block")).prevBlock && (NestedBlock)block.GetComponent("NestedBlock") == null)
+                    if (blockScript is not nestedBottom)
                     {
-                        dragChildren = false;
+
+                        offset = block.transform.position - Camera.main.ScreenToWorldPoint(Input.mousePosition);
+
+
+                        // Set isDragging to true
+                        isDragging = true;
+
+                        // If a block is nested - drag Children
+                        // If a block has
+                        if (((Block)block.GetComponent("Block")).prevBlock && (NestedBlock)block.GetComponent("NestedBlock") == null)
+                        {
+                            dragChildren = false;
+                        }
+                        else
+                        {
+                            dragChildren = true;
+                        }
+                        // Sets refrences of the block to null, also sets the refrences of blocks being broken away from
+                        setRefrences();
+                        //blockScript.setRenderLayersHigh();
                     }
                     else
                     {
-                        dragChildren = true;
+                        block = null;
+                        blockScript = null;
                     }
-                    // Sets refrences of the block to null, also sets the refrences of blocks being broken away from
-                    setRefrences();
-                    //blockScript.setRenderLayersHigh();
+                }
+                else if (hit.collider != null)
+                {
+                    // If a collider is hit but it is the CodeArea than move all blocks, the flag is simply not setting block but setting isDragging true
+                    offset = currentCamera.ScreenToWorldPoint(Input.mousePosition);
+                    isDragging = true;
+                }
+            }
+
+            // For dragging and releasing and snapping
+            if (isDragging && block != null)
+            {
+                // Update the object's position based on the mouse position
+                Vector3 newPosition = currentCamera.ScreenToWorldPoint(Input.mousePosition) + offset;
+                if (dragChildren)
+                {
+                    ((Block)block.GetComponent("Block")).moveChildren(new Vector2(newPosition.x - block.transform.position.x, newPosition.y - block.transform.position.y));
                 }
                 else
                 {
+                    block.transform.position = new Vector3(newPosition.x, newPosition.y, block.transform.position.z);
+                }
+
+                // Everything beyond has to do with finding snap partners
+
+
+                // Gets all colliders that overlap with a circle of radius of searchRadius
+                List<GameObject> blockList = findCloseBlocks(); ;
+
+                // Updates the options for nearby blocks to snap to
+                updateCurrentOptions(blockList);
+
+                // Check for mouse button release, handles snapping with located partners
+                if (Input.GetMouseButtonUp(0))
+                {
+                    //blockScript.setRenderLayersLow();
+                    misplacedDestroy();
+                    GameObject scrollArea = GameObject.FindGameObjectWithTag("CodeArea");
+                    // Snaps to available blocks
+                    snapToBlocks();
+
+                    // Sets the block for next object to be picked up
+                    block.layer = 0;
                     block = null;
                     blockScript = null;
+
+                    isDragging = false;
                 }
-            }
-            else if (hit.collider != null )
-            {
-                // If a collider is hit but it is the CodeArea than move all blocks, the flag is simply not setting block but setting isDragging true
-                offset = currentCamera.ScreenToWorldPoint(Input.mousePosition);
-                isDragging = true;
-            }
-        }
-
-        // For dragging and releasing and snapping
-        if (isDragging && block != null)
-        {
-            // Update the object's position based on the mouse position
-            Vector3 newPosition = currentCamera.ScreenToWorldPoint(Input.mousePosition) + offset;
-            if (dragChildren)
-            {
-                ((Block)block.GetComponent("Block")).moveChildren(new Vector2(newPosition.x - block.transform.position.x, newPosition.y - block.transform.position.y));
-            }
-            else
-            {
-                block.transform.position = new Vector3(newPosition.x, newPosition.y, block.transform.position.z);
-            }
-
-            // Everything beyond has to do with finding snap partners
-
-
-            // Gets all colliders that overlap with a circle of radius of searchRadius
-            List<GameObject> blockList = findCloseBlocks(); ;
-
-            // Updates the options for nearby blocks to snap to
-            updateCurrentOptions(blockList);
-
-            // Check for mouse button release, handles snapping with located partners
-            if (Input.GetMouseButtonUp(0))
-            {
-                //blockScript.setRenderLayersLow();
-                misplacedDestroy();
-                GameObject scrollArea = GameObject.FindGameObjectWithTag("CodeArea");
-                // Snaps to available blocks
-                snapToBlocks();
-
-                // Sets the block for next object to be picked up
-                block.layer = 0;
-                block = null;
-                blockScript = null;
-
-                isDragging = false;
             }
         }
 

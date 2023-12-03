@@ -72,7 +72,21 @@ public class Play : MonoBehaviour
         if (!locked)
         {
             locked = true;
-            StartCoroutine(Render());
+            StartCoroutine("Render");
+        }
+    }
+
+    public void StopRendering()
+    {
+        if (locked)
+        {
+            StopCoroutine("Render");
+            if (currentBlock != null)
+            {
+                currentBlock.gameObject.GetComponent<SpriteRenderer>().sprite = currentBlock.defaultSprite;
+            }
+
+            locked = false;
         }
     }
 }

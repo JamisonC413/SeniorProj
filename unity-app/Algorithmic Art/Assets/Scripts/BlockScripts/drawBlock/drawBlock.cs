@@ -255,6 +255,10 @@ public class drawBlock : Block
 
             filledMesh.vertices = vertices;
             filledMesh.triangles = triangles;
+            if (scaledData[0] * scaledData[1] < 0)
+            {
+                filledMesh.triangles = filledMesh.triangles.Reverse().ToArray();
+            }
             meshRenderer.gameObject.GetComponent<MeshFilter>().mesh = filledMesh;
         }
 
@@ -378,23 +382,23 @@ public class drawBlock : Block
 
 
             Vector2[] drawArea = brush.getDrawArea();
-            // Create bounds for the lines
-            //if (x < drawArea[0].x)
-            //{
-            //    x = drawArea[0].x;
-            //}
-            //if (y < drawArea[0].y)
-            //{
-            //    y = drawArea[0].y;
-            //}
-            //if (x > drawArea[1].x)
-            //{
-            //    x = drawArea[1].x;
-            //}
-            //if (y > drawArea[1].y)
-            //{
-            //    y = drawArea[1].y;
-            //}
+            //Create bounds for the lines
+            if (x < drawArea[0].x)
+                {
+                    x = drawArea[0].x;
+                }
+            if (y < drawArea[0].y)
+            {
+                y = drawArea[0].y;
+            }
+            if (x > drawArea[1].x)
+            {
+                x = drawArea[1].x;
+            }
+            if (y > drawArea[1].y)
+            {
+                y = drawArea[1].y;
+            }
 
             positions.Add(new Vector3(x, y, brushZCoord));
 
